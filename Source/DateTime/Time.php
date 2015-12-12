@@ -13,8 +13,6 @@ class Time extends DateOrTimeObject
 {
     use TimeOperations;
 
-    private static $debugFormat = 'H:i:s';
-
     /**
      * @param int $hour
      * @param int $minute
@@ -79,6 +77,14 @@ class Time extends DateOrTimeObject
     }
 
     /**
+     * @inheritDoc
+     */
+    public function debugFormat()
+    {
+        return $this->dateTime->format('H:i:s');
+    }
+
+    /**
      * Returns whether the time is greater than the supplied date.
      *
      * @param Time $other
@@ -124,35 +130,6 @@ class Time extends DateOrTimeObject
     public function isEarlierThanOrEqual(Time $other)
     {
         return $this->dateTime <= $other->dateTime;
-    }
-
-    /**
-     * Returns whether the time is between the start and end time.
-     *
-     * @param Time $start
-     * @param Time $end
-     *
-     * @return bool
-     */
-    public function isBetween(Time $start, Time $end)
-    {
-        $this->verifyStartLessThenEnd(__METHOD__, $start, $end, self::$debugFormat);
-        return $this->isLaterThan($start) && $this->isEarlierThan($end);
-    }
-
-    /**
-     * Returns whether the time is between the start and end time
-     * or if it is equal to the start or end time.
-     *
-     * @param Time $start
-     * @param Time $end
-     *
-     * @return bool
-     */
-    public function isBetweenInclusive(Time $start, Time $end)
-    {
-        $this->verifyStartLessThenEnd(__METHOD__, $start, $end, self::$debugFormat);
-        return $this->isLaterThanOrEqual($start) && $this->isEarlierThanOrEqual($end);
     }
 
     /**

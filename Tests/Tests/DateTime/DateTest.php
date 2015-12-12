@@ -73,29 +73,4 @@ class DateTest extends DateOrTimeObjectTest
         $this->assertFalse($date->comesAfterOrEqual($date->addDays(1)));
         $this->assertTrue($date->comesAfterOrEqual($date->subDays(1)));
     }
-
-    public function testBetween()
-    {
-        $date = new Date(2000, 1, 1);
-
-        $this->assertTrue($date->isBetween($date->subDays(1), $date->addDays(1)));
-        $this->assertFalse($date->isBetween($date, $date->addDays(1)));
-        $this->assertFalse($date->isBetween($date->subDays(1), $date));
-        $this->assertFalse($date->isBetween($date, $date));
-        $this->assertFalse($date->isBetween($date->addDays(1), $date->addDays(2)));
-
-        $this->assertTrue($date->isBetweenInclusive($date->subDays(1), $date->addDays(1)));
-        $this->assertTrue($date->isBetweenInclusive($date, $date->addDays(1)));
-        $this->assertTrue($date->isBetweenInclusive($date->subDays(1), $date));
-        $this->assertTrue($date->isBetweenInclusive($date, $date));
-        $this->assertFalse($date->isBetweenInclusive($date->addDays(1), $date->addDays(2)));
-
-        $this->assertThrows(function () use ($date) {
-            $date->isBetween($date->addDays(1), $date);
-        }, InvalidArgumentException::class);
-
-        $this->assertThrows(function () use ($date) {
-            $date->isBetweenInclusive($date->addDays(1), $date);
-        }, InvalidArgumentException::class);
-    }
 }

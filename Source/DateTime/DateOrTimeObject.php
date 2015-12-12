@@ -14,6 +14,8 @@ use Iddigital\Cms\Core\Model\Object\ValueObject;
  */
 abstract class DateOrTimeObject extends ValueObject implements IComparable
 {
+    const DATE_TIME = 'dateTime';
+
     /**
      * @var \DateTimeImmutable
      */
@@ -29,6 +31,13 @@ abstract class DateOrTimeObject extends ValueObject implements IComparable
         parent::__construct();
         $this->dateTime = $dateTime;
     }
+
+    /**
+     * Gets the date/time formatted as a string for debugging purposes.
+     *
+     * @return string
+     */
+    abstract public function debugFormat();
 
     /**
      * {@inheritDoc}
@@ -82,24 +91,6 @@ abstract class DateOrTimeObject extends ValueObject implements IComparable
     public function sub(\DateInterval $interval)
     {
         return $this->createFromNativeObject($this->dateTime->sub($interval));
-    }
-
-    /**
-     * @param string           $method
-     * @param DateOrTimeObject $start
-     * @param DateOrTimeObject $end
-     * @param string           $format
-     *
-     * @throws InvalidArgumentException
-     */
-    final protected function verifyStartLessThenEnd($method, DateOrTimeObject $start, DateOrTimeObject $end, $format)
-    {
-        if ($start->dateTime > $end->dateTime) {
-            throw InvalidArgumentException::format(
-                    'Invalid start and end arguments passed to %s: start cannot be greater than end, start %s and end %s given',
-                    $method, $start->format($format), $end->format($format)
-            );
-        }
     }
 
     /**

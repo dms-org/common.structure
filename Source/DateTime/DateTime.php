@@ -9,8 +9,6 @@ namespace Iddigital\Cms\Common\Structure\DateTime;
  */
 class DateTime extends DateTimeBase
 {
-    private static $debugFormat = 'Y-m-d H:i:s';
-
     /**
      * @param \DateTimeInterface $dateTime
      */
@@ -64,6 +62,14 @@ class DateTime extends DateTimeBase
     }
 
     /**
+     * @inheritDoc
+     */
+    public function debugFormat()
+    {
+        return $this->dateTime->format('Y-m-d H:i:s');
+    }
+
+    /**
      * Returns whether the datetime is greater than the supplied datetime.
      *
      * @param DateTime $other
@@ -109,35 +115,6 @@ class DateTime extends DateTimeBase
     public function comesBeforeOrEqual(DateTime $other)
     {
         return $this->dateTime <= $other->dateTime;
-    }
-
-    /**
-     * Returns whether the datetime is between the start and end datetime.
-     *
-     * @param DateTime $start
-     * @param DateTime $end
-     *
-     * @return bool
-     */
-    public function isBetween(DateTime $start, DateTime $end)
-    {
-        $this->verifyStartLessThenEnd(__METHOD__, $start, $end, self::$debugFormat);
-        return $this->comesAfter($start) && $this->comesBefore($end);
-    }
-
-    /**
-     * Returns whether the datetime is between the start and end datetime
-     * or if it is equal to the start or end datetime.
-     *
-     * @param DateTime $start
-     * @param DateTime $end
-     *
-     * @return bool
-     */
-    public function isBetweenInclusive(DateTime $start, DateTime $end)
-    {
-        $this->verifyStartLessThenEnd(__METHOD__, $start, $end, self::$debugFormat);
-        return $this->comesAfterOrEqual($start) && $this->comesBeforeOrEqual($end);
     }
 
     /**

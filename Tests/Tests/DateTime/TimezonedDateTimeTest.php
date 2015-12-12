@@ -84,32 +84,6 @@ class TimezonedDateTimeTest extends DateOrTimeObjectTest
         $this->assertTrue($dateTime->comesAfterOrEqual($dateTime->subSeconds(1)));
     }
 
-    public function testBetween()
-    {
-        $dateTime = TimeZonedDateTime::fromFormat('Y-m-d H:i:s', '2001-01-01 12:00:00', 'Australia/Melbourne');
-
-        $this->assertTrue($dateTime->isBetween($dateTime->subSeconds(1), $dateTime->addSeconds(1)));
-        $this->assertFalse($dateTime->isBetween($dateTime, $dateTime->addSeconds(1)));
-        $this->assertFalse($dateTime->isBetween($dateTime->subSeconds(1), $dateTime));
-        $this->assertFalse($dateTime->isBetween($dateTime, $dateTime));
-        $this->assertFalse($dateTime->isBetween($dateTime->addSeconds(1), $dateTime->addSeconds(2)));
-        $this->assertFalse($dateTime->isBetween($dateTime->subSeconds(2), $dateTime->subSeconds(1)));
-
-        $this->assertTrue($dateTime->isBetweenInclusive($dateTime->subSeconds(1), $dateTime->addSeconds(1)));
-        $this->assertTrue($dateTime->isBetweenInclusive($dateTime, $dateTime->addSeconds(1)));
-        $this->assertTrue($dateTime->isBetweenInclusive($dateTime->subSeconds(1), $dateTime));
-        $this->assertTrue($dateTime->isBetweenInclusive($dateTime, $dateTime));
-        $this->assertFalse($dateTime->isBetweenInclusive($dateTime->addSeconds(1), $dateTime->addSeconds(2)));
-
-        $this->assertThrows(function () use ($dateTime) {
-            $dateTime->isBetween($dateTime->addSeconds(1), $dateTime);
-        }, InvalidArgumentException::class);
-
-        $this->assertThrows(function () use ($dateTime) {
-            $dateTime->isBetweenInclusive($dateTime->addSeconds(1), $dateTime);
-        }, InvalidArgumentException::class);
-    }
-
     public function testGetDateParts()
     {
         $dateTime = TimeZonedDateTime::fromFormat('Y-m-d H:i:s', '2001-01-01 12:00:00', 'Australia/Melbourne');

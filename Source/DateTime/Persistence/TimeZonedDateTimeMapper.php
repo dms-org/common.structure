@@ -2,16 +2,16 @@
 
 namespace Iddigital\Cms\Common\Structure\DateTime\Persistence;
 
-use Iddigital\Cms\Core\Model\Object\Type\TimeZonedDateTime;
-use Iddigital\Cms\Core\Persistence\Db\Mapper\SimpleValueObjectMapper;
+use Iddigital\Cms\Common\Structure\DateTime\TimeZonedDateTime;
 use Iddigital\Cms\Core\Persistence\Db\Mapping\Definition\MapperDefinition;
+use Iddigital\Cms\Core\Persistence\Db\Mapping\IndependentValueObjectMapper;
 
 /**
  * The timezoned date time value object mapper
  *
  * @author Elliot Levin <elliotlevin@hotmail.com>
  */
-class TimeZonedDateTimeMapper extends SimpleValueObjectMapper
+class TimeZonedDateTimeMapper extends IndependentValueObjectMapper
 {
     /**
      * @var string
@@ -41,7 +41,7 @@ class TimeZonedDateTimeMapper extends SimpleValueObjectMapper
     {
         $map->type(TimeZonedDateTime::class);
 
-        $map->property('dateTime')
+        $map->property(TimeZonedDateTime::DATE_TIME)
                 ->mappedVia(function (\DateTimeImmutable $phpDateTime) {
                     // Remove timezone information as this is lost when persisted anyway
                     // The timezone will be stored in a separate column
@@ -55,10 +55,11 @@ class TimeZonedDateTimeMapper extends SimpleValueObjectMapper
                     // so it is loaded as if it is UTC but the actual timezone is stored in a
                     // separate column. So we can create a new date time in the correct timezone
                     // from the string representation of it in that timezone.
+                    // TODO: handle prefixes for $row
                     return \DateTimeImmutable::createFromFormat(
                             'Y-m-d H:i:s',
                             $dbDateTime->format('Y-m-d H:i:s'),
-                            new \DateTimeZone($row['timezone'])
+                            new \DateTimeZone($row[$this->timezoneColumnName])
                     );
                 })
                 ->to($this->dateTimeColumnName)

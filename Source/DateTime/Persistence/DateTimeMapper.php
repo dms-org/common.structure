@@ -2,16 +2,16 @@
 
 namespace Iddigital\Cms\Common\Structure\DateTime\Persistence;
 
-use Iddigital\Cms\Core\Model\Object\Type\DateTime;
-use Iddigital\Cms\Core\Persistence\Db\Mapper\SimpleValueObjectMapper;
+use Iddigital\Cms\Common\Structure\DateTime\DateTime;
 use Iddigital\Cms\Core\Persistence\Db\Mapping\Definition\MapperDefinition;
+use Iddigital\Cms\Core\Persistence\Db\Mapping\IndependentValueObjectMapper;
 
 /**
  * The date time value object mapper
  *
  * @author Elliot Levin <elliotlevin@hotmail.com>
  */
-class DateTimeMapper extends SimpleValueObjectMapper
+class DateTimeMapper extends IndependentValueObjectMapper
 {
     /**
      * @var string
@@ -36,6 +36,6 @@ class DateTimeMapper extends SimpleValueObjectMapper
     {
         $map->type(DateTime::class);
 
-        $map->property('dateTime')->to($this->columnName)->asDateTime();
+        $map->property(DateTime::DATE_TIME)->to($this->columnName)->asDateTime();
     }
 }

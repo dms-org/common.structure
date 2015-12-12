@@ -9,8 +9,6 @@ namespace Iddigital\Cms\Common\Structure\DateTime;
  */
 class TimeZonedDateTime extends DateTimeBase
 {
-    private static $debugFormat = 'Y-m-d H:i:s (e)';
-
     /**
      * @param \DateTimeInterface $dateTime
      */
@@ -48,6 +46,14 @@ class TimeZonedDateTime extends DateTimeBase
     public static function fromFormat($format, $dateString, $timeZoneId)
     {
         return new self(\DateTimeImmutable::createFromFormat('!' . $format, $dateString, new \DateTimeZone($timeZoneId)));
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function debugFormat()
+    {
+        return $this->dateTime->format('Y-m-d H:i:s (e)');
     }
 
     /**
@@ -106,35 +112,6 @@ class TimeZonedDateTime extends DateTimeBase
     public function comesBeforeOrEqual(TimeZonedDateTime $other)
     {
         return $this->dateTime <= $other->dateTime;
-    }
-
-    /**
-     * Returns whether the datetime is between the start and end datetime.
-     *
-     * @param TimeZonedDateTime $start
-     * @param TimeZonedDateTime $end
-     *
-     * @return bool
-     */
-    public function isBetween(TimeZonedDateTime $start, TimeZonedDateTime $end)
-    {
-        $this->verifyStartLessThenEnd(__METHOD__, $start, $end, self::$debugFormat);
-        return $this->comesAfter($start) && $this->comesBefore($end);
-    }
-
-    /**
-     * Returns whether the datetime is between the start and end datetime
-     * or if it is equal to the start or end datetime.
-     *
-     * @param TimeZonedDateTime $start
-     * @param TimeZonedDateTime $end
-     *
-     * @return bool
-     */
-    public function isBetweenInclusive(TimeZonedDateTime $start, TimeZonedDateTime $end)
-    {
-        $this->verifyStartLessThenEnd(__METHOD__, $start, $end, self::$debugFormat);
-        return $this->comesAfterOrEqual($start) && $this->comesBeforeOrEqual($end);
     }
 
     /**

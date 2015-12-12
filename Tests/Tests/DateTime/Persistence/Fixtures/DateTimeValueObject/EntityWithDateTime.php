@@ -2,9 +2,9 @@
 
 namespace Iddigital\Cms\Common\Structure\Tests\DateTime\Persistence\Fixtures\DateTimeValueObject;
 
+use Iddigital\Cms\Common\Structure\DateTime\DateTime;
 use Iddigital\Cms\Core\Model\Object\ClassDefinition;
 use Iddigital\Cms\Core\Model\Object\Entity;
-use Iddigital\Cms\Core\Model\Object\Type\DateTime;
 
 /**
  * @author Elliot Levin <elliotlevin@hotmail.com>

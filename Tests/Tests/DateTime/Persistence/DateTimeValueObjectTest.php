@@ -2,9 +2,9 @@
 
 namespace Iddigital\Cms\Common\Structure\Tests\DateTime\Persistence;
 
+use Iddigital\Cms\Common\Structure\DateTime\DateTime;
 use Iddigital\Cms\Common\Structure\Tests\DateTime\Persistence\Fixtures\DateTimeValueObject\EntityWithDateTime;
 use Iddigital\Cms\Common\Structure\Tests\DateTime\Persistence\Fixtures\DateTimeValueObject\EntityWithDateTimeMapper;
-use Iddigital\Cms\Core\Model\Object\Type\DateTime;
 use Iddigital\Cms\Core\Persistence\Db\Mapping\CustomOrm;
 use Iddigital\Cms\Core\Persistence\Db\Mapping\IOrm;
 use Iddigital\Cms\Core\Tests\Persistence\Db\Integration\Mapping\DbIntegrationTest;

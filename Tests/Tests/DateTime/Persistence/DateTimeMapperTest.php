@@ -2,7 +2,7 @@
 
 namespace Iddigital\Cms\Common\Structure\Tests\DateTime\Persistence;
 
-use Iddigital\Cms\Core\Model\Object\Type\DateTime;
+use Iddigital\Cms\Common\Structure\DateTime\DateTime;
 use Iddigital\Cms\Common\Structure\DateTime\Persistence\DateTimeMapper;
 use Iddigital\Cms\Core\Persistence\Db\Mapping\IEmbeddedObjectMapper;
 use Iddigital\Cms\Core\Tests\Persistence\Db\Mapper\ValueObjectMapperTest;

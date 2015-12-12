@@ -82,31 +82,6 @@ class TimeTest extends DateOrTimeObjectTest
         $this->assertTrue($time->isLaterThanOrEqual($time->subSeconds(1)));
     }
 
-    public function testBetween()
-    {
-        $time = new Time(12, 0, 0);
-
-        $this->assertTrue($time->isBetween($time->subSeconds(1), $time->addSeconds(1)));
-        $this->assertFalse($time->isBetween($time, $time->addSeconds(1)));
-        $this->assertFalse($time->isBetween($time->subSeconds(1), $time));
-        $this->assertFalse($time->isBetween($time, $time));
-        $this->assertFalse($time->isBetween($time->addSeconds(1), $time->addSeconds(2)));
-
-        $this->assertTrue($time->isBetweenInclusive($time->subSeconds(1), $time->addSeconds(1)));
-        $this->assertTrue($time->isBetweenInclusive($time, $time->addSeconds(1)));
-        $this->assertTrue($time->isBetweenInclusive($time->subSeconds(1), $time));
-        $this->assertTrue($time->isBetweenInclusive($time, $time));
-        $this->assertFalse($time->isBetweenInclusive($time->addSeconds(1), $time->addSeconds(2)));
-
-        $this->assertThrows(function () use ($time) {
-            $time->isBetween($time->addSeconds(1), $time);
-        }, InvalidArgumentException::class);
-
-        $this->assertThrows(function () use ($time) {
-            $time->isBetweenInclusive($time->addSeconds(1), $time);
-        }, InvalidArgumentException::class);
-    }
-
     public function testNoonComparisons()
     {
         $time = new Time(12, 0, 0);
