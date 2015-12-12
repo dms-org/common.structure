@@ -6,7 +6,7 @@ use Iddigital\Cms\Core\Exception\InvalidArgumentException;
 use Iddigital\Cms\Common\Structure\DateTime\Date;
 use Iddigital\Cms\Common\Structure\DateTime\DateTime;
 use Iddigital\Cms\Common\Structure\DateTime\Time;
-use Iddigital\Cms\Common\Structure\DateTime\TimeZonedDateTime;
+use Iddigital\Cms\Common\Structure\DateTime\TimezonedDateTime;
 
 /**
  * @author Elliot Levin <elliotlevin@hotmail.com>
@@ -109,7 +109,7 @@ class DateTimeTest extends DateOrTimeObjectTest
         $dateTime = DateTime::fomFormat('Y-m-d H:i:s', '2001-01-01 12:00:00');
 
         $timezoned = $dateTime->inTimezone('Australia/Melbourne');
-        $this->assertInstanceOf(TimeZonedDateTime::class, $timezoned);
+        $this->assertInstanceOf(TimezonedDateTime::class, $timezoned);
         $this->assertSame('Australia/Melbourne', $timezoned->getTimezone()->getName());
         $this->assertFalse($dateTime->equals($timezoned));
         $this->assertSame('2001-01-01 12:00:00', $timezoned->format('Y-m-d H:i:s'));

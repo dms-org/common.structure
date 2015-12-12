@@ -2,7 +2,7 @@
 
 namespace Iddigital\Cms\Common\Structure\DateTime\Persistence;
 
-use Iddigital\Cms\Common\Structure\DateTime\TimeZonedDateTime;
+use Iddigital\Cms\Common\Structure\DateTime\TimezonedDateTime;
 use Iddigital\Cms\Core\Persistence\Db\Mapping\Definition\MapperDefinition;
 use Iddigital\Cms\Core\Persistence\Db\Mapping\IndependentValueObjectMapper;
 
@@ -39,9 +39,9 @@ class TimeZonedDateTimeMapper extends IndependentValueObjectMapper
      */
     protected function define(MapperDefinition $map)
     {
-        $map->type(TimeZonedDateTime::class);
+        $map->type(TimezonedDateTime::class);
 
-        $map->property(TimeZonedDateTime::DATE_TIME)
+        $map->property(TimezonedDateTime::DATE_TIME)
                 ->mappedVia(function (\DateTimeImmutable $phpDateTime) {
                     // Remove timezone information as this is lost when persisted anyway
                     // The timezone will be stored in a separate column
@@ -66,7 +66,7 @@ class TimeZonedDateTimeMapper extends IndependentValueObjectMapper
                 ->asDateTime();
 
         $map->computed(
-                function (TimeZonedDateTime $dateTime) {
+                function (TimezonedDateTime $dateTime) {
                     return $dateTime->getTimezone()->getName();
                 })
                 ->to($this->timezoneColumnName)

@@ -7,7 +7,7 @@ use Iddigital\Cms\Common\Structure\DateTime\DateTime;
 use Iddigital\Cms\Common\Structure\DateTime\DateTimeRange;
 use Iddigital\Cms\Common\Structure\DateTime\Time;
 use Iddigital\Cms\Common\Structure\DateTime\TimeRange;
-use Iddigital\Cms\Common\Structure\DateTime\TimeZonedDateTime;
+use Iddigital\Cms\Common\Structure\DateTime\TimezonedDateTime;
 use Iddigital\Cms\Common\Structure\DateTime\TimezonedDateTimeRange;
 use Iddigital\Cms\Core\Persistence\Db\Mapping\Definition\Orm\OrmDefinition;
 use Iddigital\Cms\Core\Persistence\Db\Mapping\Orm;
@@ -32,7 +32,7 @@ class DateTimeOrm extends Orm
                 Time::class                   => TimeMapper::class,
                 Date::class                   => DateMapper::class,
                 DateTime::class               => DateTimeMapper::class,
-                TimeZonedDateTime::class      => TimeZonedDateTimeMapper::class,
+                TimezonedDateTime::class      => TimeZonedDateTimeMapper::class,
                 //
                 TimeRange::class              => TimeRangeMapper::class,
                 DateRangeMapper::class        => DateRangeMapper::class,

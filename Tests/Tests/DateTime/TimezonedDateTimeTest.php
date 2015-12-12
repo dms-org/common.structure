@@ -5,7 +5,7 @@ namespace Iddigital\Cms\Common\Structure\Tests\DateTime;
 use Iddigital\Cms\Core\Exception\InvalidArgumentException;
 use Iddigital\Cms\Common\Structure\DateTime\Date;
 use Iddigital\Cms\Common\Structure\DateTime\DateTime;
-use Iddigital\Cms\Common\Structure\DateTime\TimeZonedDateTime;
+use Iddigital\Cms\Common\Structure\DateTime\TimezonedDateTime;
 use Iddigital\Cms\Common\Structure\DateTime\Time;
 
 /**
@@ -15,7 +15,7 @@ class TimezonedDateTimeTest extends DateOrTimeObjectTest
 {
     public function testNew()
     {
-        $dateTime = new TimeZonedDateTime(new \DateTime('2015-03-05 12:00:01', new \DateTimeZone('Australia/Melbourne')));
+        $dateTime = new TimezonedDateTime(new \DateTime('2015-03-05 12:00:01', new \DateTimeZone('Australia/Melbourne')));
 
         $this->assertInstanceOf(\DateTimeImmutable::class, $dateTime->getNativeDateTime());
         $this->assertSame('2015-03-05 12:00:01', $dateTime->getNativeDateTime()->format('Y-m-d H:i:s'));
@@ -35,7 +35,7 @@ class TimezonedDateTimeTest extends DateOrTimeObjectTest
 
     public function testFromFormat()
     {
-        $dateTime = TimeZonedDateTime::fromFormat('d/m/Y', '21/8/2001', 'Australia/Melbourne');
+        $dateTime = TimezonedDateTime::fromFormat('d/m/Y', '21/8/2001', 'Australia/Melbourne');
 
         $this->assertSame('Australia/Melbourne', $dateTime->getTimezone()->getName());
         $this->assertSame(2001, $dateTime->getYear());
@@ -48,7 +48,7 @@ class TimezonedDateTimeTest extends DateOrTimeObjectTest
 
     public function testAddingAndSubtracting()
     {
-        $dateTime = TimeZonedDateTime::fromFormat('Y-m-d H:i:s', '2001-01-01 12:00:00', 'UTC');
+        $dateTime = TimezonedDateTime::fromFormat('Y-m-d H:i:s', '2001-01-01 12:00:00', 'UTC');
 
         $otherTime = $dateTime
                 ->addYears(10)
@@ -65,7 +65,7 @@ class TimezonedDateTimeTest extends DateOrTimeObjectTest
 
     public function testComparisons()
     {
-        $dateTime = TimeZonedDateTime::fromFormat('Y-m-d H:i:s', '2001-01-01 12:00:00', 'Australia/Melbourne');
+        $dateTime = TimezonedDateTime::fromFormat('Y-m-d H:i:s', '2001-01-01 12:00:00', 'Australia/Melbourne');
 
         $this->assertFalse($dateTime->comesBefore($dateTime));
         $this->assertFalse($dateTime->comesBefore($dateTime->subSeconds(1)));
@@ -86,7 +86,7 @@ class TimezonedDateTimeTest extends DateOrTimeObjectTest
 
     public function testGetDateParts()
     {
-        $dateTime = TimeZonedDateTime::fromFormat('Y-m-d H:i:s', '2001-01-01 12:00:00', 'Australia/Melbourne');
+        $dateTime = TimezonedDateTime::fromFormat('Y-m-d H:i:s', '2001-01-01 12:00:00', 'Australia/Melbourne');
 
         $date = $dateTime->getDate();
         $this->assertInstanceOf(Date::class, $date);
@@ -97,7 +97,7 @@ class TimezonedDateTimeTest extends DateOrTimeObjectTest
 
     public function testGetTimeParts()
     {
-        $dateTime = TimeZonedDateTime::fromFormat('Y-m-d H:i:s', '2001-01-01 12:00:00', 'Australia/Melbourne');
+        $dateTime = TimezonedDateTime::fromFormat('Y-m-d H:i:s', '2001-01-01 12:00:00', 'Australia/Melbourne');
 
         $time = $dateTime->getTime();
         $this->assertInstanceOf(Time::class, $time);
@@ -108,10 +108,10 @@ class TimezonedDateTimeTest extends DateOrTimeObjectTest
 
     public function testConvertTimezone()
     {
-        $dateTime = TimeZonedDateTime::fromFormat('Y-m-d H:i:s', '2001-01-01 12:00:00', 'Australia/Melbourne');
+        $dateTime = TimezonedDateTime::fromFormat('Y-m-d H:i:s', '2001-01-01 12:00:00', 'Australia/Melbourne');
 
         $timezoned = $dateTime->convertTimezone('UTC');
-        $this->assertInstanceOf(TimeZonedDateTime::class, $timezoned);
+        $this->assertInstanceOf(TimezonedDateTime::class, $timezoned);
         $this->assertSame('UTC', $timezoned->getTimezone()->getName());
         $this->assertFalse($dateTime->equals($timezoned));
         $this->assertSame('2001-01-01 12:00:00', $dateTime->format('Y-m-d H:i:s'));
@@ -120,7 +120,7 @@ class TimezonedDateTimeTest extends DateOrTimeObjectTest
 
     public function testRegardlessOfTimezone()
     {
-        $dateTime = TimeZonedDateTime::fromFormat('Y-m-d H:i:s', '2001-01-01 12:00:00', 'Australia/Melbourne')
+        $dateTime = TimezonedDateTime::fromFormat('Y-m-d H:i:s', '2001-01-01 12:00:00', 'Australia/Melbourne')
                 ->regardlessOfTimezone();
 
         $this->assertInstanceOf(DateTime::class, $dateTime);

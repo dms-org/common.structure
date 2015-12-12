@@ -122,11 +122,11 @@ class DateTime extends DateTimeBase
      *
      * @param string $timeZoneId
      *
-     * @return TimeZonedDateTime
+     * @return TimezonedDateTime
      */
     public function inTimezone($timeZoneId)
     {
-        return new TimeZonedDateTime(
+        return new TimezonedDateTime(
                 \DateTimeImmutable::createFromFormat(
                         'Y-m-d H:i:s',
                         $this->format('Y-m-d H:i:s'),

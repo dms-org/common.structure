@@ -7,7 +7,7 @@ namespace Iddigital\Cms\Common\Structure\DateTime;
  *
  * @author Elliot Levin <elliotlevin@hotmail.com>
  */
-class TimeZonedDateTime extends DateTimeBase
+class TimezonedDateTime extends DateTimeBase
 {
     /**
      * @param \DateTimeInterface $dateTime
@@ -27,7 +27,7 @@ class TimeZonedDateTime extends DateTimeBase
      * @param string $dateTimeString
      * @param string $timeZoneId
      *
-     * @return TimeZonedDateTime
+     * @return TimezonedDateTime
      */
     public static function fromString($dateTimeString, $timeZoneId)
     {
@@ -41,7 +41,7 @@ class TimeZonedDateTime extends DateTimeBase
      * @param string $dateString
      * @param string $timeZoneId
      *
-     * @return TimeZonedDateTime
+     * @return TimezonedDateTime
      */
     public static function fromFormat($format, $dateString, $timeZoneId)
     {
@@ -69,11 +69,11 @@ class TimeZonedDateTime extends DateTimeBase
     /**
      * Returns whether the datetime is greater than the supplied datetime.
      *
-     * @param TimeZonedDateTime $other
+     * @param TimezonedDateTime $other
      *
      * @return bool
      */
-    public function comesAfter(TimeZonedDateTime $other)
+    public function comesAfter(TimezonedDateTime $other)
     {
         return $this->dateTime > $other->dateTime;
     }
@@ -81,11 +81,11 @@ class TimeZonedDateTime extends DateTimeBase
     /**
      * Returns whether the datetime is greater or equal to the supplied datetime.
      *
-     * @param TimeZonedDateTime $other
+     * @param TimezonedDateTime $other
      *
      * @return bool
      */
-    public function comesAfterOrEqual(TimeZonedDateTime $other)
+    public function comesAfterOrEqual(TimezonedDateTime $other)
     {
         return $this->dateTime >= $other->dateTime;
     }
@@ -93,11 +93,11 @@ class TimeZonedDateTime extends DateTimeBase
     /**
      * Returns whether the datetime is less than the supplied datetime.
      *
-     * @param TimeZonedDateTime $other
+     * @param TimezonedDateTime $other
      *
      * @return bool
      */
-    public function comesBefore(TimeZonedDateTime $other)
+    public function comesBefore(TimezonedDateTime $other)
     {
         return $this->dateTime < $other->dateTime;
     }
@@ -105,11 +105,11 @@ class TimeZonedDateTime extends DateTimeBase
     /**
      * Returns whether the datetime is less or equal to the supplied datetime.
      *
-     * @param TimeZonedDateTime $other
+     * @param TimezonedDateTime $other
      *
      * @return bool
      */
-    public function comesBeforeOrEqual(TimeZonedDateTime $other)
+    public function comesBeforeOrEqual(TimezonedDateTime $other)
     {
         return $this->dateTime <= $other->dateTime;
     }
@@ -140,11 +140,11 @@ class TimeZonedDateTime extends DateTimeBase
      *
      * @param string $timezoneId
      *
-     * @return TimeZonedDateTime
+     * @return TimezonedDateTime
      */
     public function convertTimezone($timezoneId)
     {
-        return new TimeZonedDateTime(
+        return new TimezonedDateTime(
                 (new \DateTimeImmutable('now', new \DateTimeZone($timezoneId)))
                         ->setTimestamp($this->dateTime->getTimestamp())
         );
