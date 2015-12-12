@@ -1,0 +1,27 @@
+{
+    "name": "iddigital/cms.common.structures",
+    "description": "Implementation of common data structures for use in domain models",
+    "authors": [
+        {
+            "name": "Elliot Levin",
+            "email": "elliotlevin@hotmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "repositories": [
+        { "type": "composer", "url": "http://satis.dev:4321/" }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Iddigital\\Cms\\Common\\Structure\\": "./Source/",
+            "Iddigital\\Cms\\Common\\Structure\\Tests\\": "./Tests/Tests"
+        }
+    },
+    "require": {
+        "php": ">=5.5.0",
+        "iddigital/cms.core": "dev-master"
+    },
+    "require-dev": {
+        "iddigital/cms.common.testing": "dev-master"
+    }
+}
