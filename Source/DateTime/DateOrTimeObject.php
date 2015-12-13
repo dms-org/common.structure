@@ -2,7 +2,6 @@
 
 namespace Iddigital\Cms\Common\Structure\DateTime;
 
-use Iddigital\Cms\Core\Exception\InvalidArgumentException;
 use Iddigital\Cms\Core\Model\IComparable;
 use Iddigital\Cms\Core\Model\Object\ClassDefinition;
 use Iddigital\Cms\Core\Model\Object\ValueObject;
