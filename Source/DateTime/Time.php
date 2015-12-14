@@ -85,7 +85,15 @@ class Time extends DateOrTimeObject
     }
 
     /**
-     * Returns whether the time is greater than the supplied date.
+     * @inheritDoc
+     */
+    protected function getValidDateFormatChars()
+    {
+        return ['a', 'A', 'B', 'g', 'G', 'h', 'H', 'i', 's'];
+    }
+
+    /**
+     * Returns whether the time is greater than the supplied time.
      *
      * @param Time $other
      *
@@ -97,7 +105,7 @@ class Time extends DateOrTimeObject
     }
 
     /**
-     * Returns whether the time is greater than the supplied date.
+     * Returns whether the time is greater than the supplied time.
      *
      * @param Time $other
      *
@@ -109,7 +117,7 @@ class Time extends DateOrTimeObject
     }
 
     /**
-     * Returns whether the time is less than the supplied date.
+     * Returns whether the time is less than the supplied time.
      *
      * @param Time $other
      *
@@ -121,7 +129,7 @@ class Time extends DateOrTimeObject
     }
 
     /**
-     * Returns whether the time is less than the supplied date.
+     * Returns whether the time is less than the supplied time.
      *
      * @param Time $other
      *
@@ -153,7 +161,7 @@ class Time extends DateOrTimeObject
     }
 
     /**
-     * Returns the amount of days between the supplied dates.
+     * Returns the amount of seconds between the supplied times.
      *
      * @param Time $other
      *

@@ -57,6 +57,20 @@ class TimezonedDateTime extends DateTimeBase
     }
 
     /**
+     * @inheritDoc
+     */
+    protected function getValidDateFormatChars()
+    {
+        return [
+            // @formatter:off
+            'd', 'D', 'j', 'l', 'N', 'S', 'w', 'z', 'W', 'F', 'm', 'M', 'n', 't',
+            'L', 'o', 'Y', 'y', 'a', 'A', 'B', 'g', 'G', 'h', 'H', 'i', 's',  'c',
+            'r', 'U', 'e', 'I', 'O', 'P', 'T', 'Z'
+            // @formatter:on
+        ];
+    }
+
+    /**
      * Gets the timezone of the date time.
      *
      * @return \DateTimeZone

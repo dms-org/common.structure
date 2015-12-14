@@ -22,11 +22,20 @@ class TimeTest extends DateOrTimeObjectTest
         $this->assertSame(37, $time->getSecond());
         $this->assertSame(true, $time->isPM());
         $this->assertSame(false, $time->isAM());
-        $this->assertSame('15:03:37', $time->format('H:i:s'));
         $this->assertSame(false, $time->beforeNoon());
         $this->assertSame(true, $time->afterNoon());
         $this->assertSame(true, $time->equals($time));
         $this->assertSame(true, $time->equals(clone $time));
+    }
+
+    public function testFormatting()
+    {
+        $time = new Time(15, 3, 37);
+
+        $this->assertSame('15:03:37', $time->format('H:i:s'));
+        $this->assertSame('Y-m-d', $time->format('Y-m-d'));
+        $this->assertSame('Y-m-d 15:03:37', $time->format('Y-m-d H:i:s'));
+        $this->assertSame('Y-m-d 03:i:37 PM', $time->format('Y-m-d h:\\i:s A'));
     }
 
     public function testFromNativeObject()
@@ -59,6 +68,16 @@ class TimeTest extends DateOrTimeObjectTest
         $this->assertNotSame($time, $otherTime);
         $this->assertSame('12:00:00', $time->format('H:i:s'));
         $this->assertSame('13:55:30', $otherTime->format('H:i:s'));
+    }
+
+    public function testAddingAndSubtractingWithOverflows()
+    {
+        $time = new Time(23, 59, 59);
+
+        $this->assertSame('00:00:00', $time->addSeconds(1)->format('H:i:s'));
+        $this->assertSame('00:59:59', $time->addHours(1)->format('H:i:s'));
+        $this->assertSame('23:59:59', $time->addHours(24)->format('H:i:s'));
+        $this->assertSame('23:59:59', $time->subHours(24)->format('H:i:s'));
     }
 
     public function testComparisons()

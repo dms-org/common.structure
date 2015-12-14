@@ -39,6 +39,17 @@ abstract class DateOrTimeObject extends ValueObject implements IComparable
     abstract public function debugFormat();
 
     /**
+     * Gets a valid date/time formatting characters.
+     *
+     * This should return a subset of those accepted by \DateTimeInterface::format()
+     * or return '*' meaning all characters are valid.
+     *
+     * @see http://php.net/manual/en/function.date.php
+     * @return string[]|string
+     */
+    abstract protected function getValidDateFormatChars();
+
+    /**
      * {@inheritDoc}
      */
     protected function define(ClassDefinition $class)
@@ -65,7 +76,45 @@ abstract class DateOrTimeObject extends ValueObject implements IComparable
      */
     public function format($format)
     {
+        $format = $this->escapeUnapplicableFormatChars($format);
+
         return $this->dateTime->format($format);
+    }
+
+    /**
+     * Escapes any format characters that are not valid for this date/time object.
+     *
+     * @param string $format
+     *
+     * @return string
+     */
+    protected function escapeUnapplicableFormatChars($format)
+    {
+        $validChars      = $this->getValidDateFormatChars();
+
+        if ($validChars === '*') {
+            return $format;
+        }
+
+        $validCharLookup = array_fill_keys($validChars, true);
+
+        $escapedFormat = '';
+        $isEscaped     = false;
+
+        foreach (str_split($format) as $char) {
+            if ($isEscaped) {
+                $escapedFormat .= '\\' . $char;
+                $isEscaped = false;
+            } elseif ($char === '\\') {
+                $isEscaped = true;
+            } elseif (isset($validCharLookup[$char])) {
+                $escapedFormat .= $char;
+            } else {
+                $escapedFormat .= '\\' . $char;
+            }
+        }
+
+        return $escapedFormat;
     }
 
     /**

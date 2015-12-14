@@ -70,6 +70,20 @@ class DateTime extends DateTimeBase
     }
 
     /**
+     * @inheritDoc
+     */
+    protected function getValidDateFormatChars()
+    {
+        return [
+            // @formatter:off
+            'd', 'D', 'j', 'l', 'N', 'S', 'w', 'z', 'W', 'F', 'm', 'M', 'n', 't',
+            'L', 'o', 'Y', 'y', 'a', 'A', 'B', 'g', 'G', 'h', 'H', 'i', 's', 'c',
+            'r', 'U'
+            // @formatter:on
+        ];
+    }
+
+    /**
      * Returns whether the datetime is greater than the supplied datetime.
      *
      * @param DateTime $other

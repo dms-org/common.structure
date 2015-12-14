@@ -20,9 +20,22 @@ class DateTest extends DateOrTimeObjectTest
         $this->assertSame(2015, $date->getYear());
         $this->assertSame(3, $date->getMonth());
         $this->assertSame(5, $date->getDay());
-        $this->assertSame('2015-03-05', $date->format('Y-m-d'));
         $this->assertSame(true, $date->equals($date));
         $this->assertSame(true, $date->equals(clone $date));
+    }
+
+    public function testFormatting()
+    {
+        $date = new Date(2015, 03, 05);
+
+        $this->assertSame('2015-03-05', $date->format('Y-m-d'));
+        $this->assertSame('His', $date->format('His'));
+        $this->assertSame('Y-m-05', $date->format('\Y-\m-d'));
+        $this->assertSame('2015-03-05 H:i:s', $date->format('Y-m-d H:i:s'));
+        $this->assertSame('2015-m-05 H:i:s', $date->format('Y-\m-d \H\:i:s'));
+        $this->assertSame('2015\\2015', $date->format('Y\\\\Y'));
+        $this->assertSame('Thursday', $date->format('l'));
+        $this->assertSame((string)$dateTime->getTimestamp(), $dateTime->format('U'));
     }
 
     public function testFromNativeObject()

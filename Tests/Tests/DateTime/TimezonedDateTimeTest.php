@@ -28,9 +28,17 @@ class TimezonedDateTimeTest extends DateOrTimeObjectTest
         $this->assertSame(0, $dateTime->getMinute());
         $this->assertSame(1, $dateTime->getSecond());
         $this->assertSame($dateTime->getNativeDateTime()->getTimestamp(), $dateTime->getTimestamp());
-        $this->assertSame('2015-03-05 12:00:01', $dateTime->format('Y-m-d H:i:s'));
         $this->assertSame(true, $dateTime->equals($dateTime));
         $this->assertSame(true, $dateTime->equals(clone $dateTime));
+    }
+
+    public function testFormatting()
+    {
+        $dateTime = new TimezonedDateTime(new \DateTime('2015-03-05 12:00:01', new \DateTimeZone('Australia/Melbourne')));
+
+        $this->assertSame('2015-03-05 12:00:01 (Australia/Melbourne)', $dateTime->format('Y-m-d H:i:s (e)'));
+        $this->assertSame((string)$dateTime->getTimestamp(), $dateTime->format('U'));
+        $this->assertSame('2015-m-d H:00:01 \\ (e)', $dateTime->format('Y-\m-\d \H:i:s \\\\ \(\e)'));
     }
 
     public function testFromFormat()

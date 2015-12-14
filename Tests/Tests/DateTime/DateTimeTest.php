@@ -32,6 +32,16 @@ class DateTimeTest extends DateOrTimeObjectTest
         $this->assertSame(true, $dateTime->equals(clone $dateTime));
     }
 
+    public function testFormatting()
+    {
+        $dateTime = new DateTime(new \DateTime('2015-03-05 12:00:01'));
+
+        $this->assertSame('2015-03-05 12:00:01', $dateTime->format('Y-m-d H:i:s'));
+        $this->assertSame((string)$dateTime->getTimestamp(), $dateTime->format('U'));
+        $this->assertSame('2015-03-05 12:00:01 (e)', $dateTime->format('Y-m-d H:i:s (e)'));
+        $this->assertSame('2015-m-d H:00:01 \\', $dateTime->format('Y-\m-\d \H:i:s \\\\'));
+    }
+
     public function testFromFormat()
     {
         $dateTime = DateTime::fomFormat('d/m/Y', '21/8/2001');
