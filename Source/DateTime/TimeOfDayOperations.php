@@ -8,7 +8,7 @@ namespace Iddigital\Cms\Common\Structure\DateTime;
  * @property \DateTimeImmutable dateTime
  * @author Elliot Levin <elliotlevin@hotmail.com>
  */
-trait TimeOperations
+trait TimeOfDayOperations
 {
     /**
      * Gets the hour

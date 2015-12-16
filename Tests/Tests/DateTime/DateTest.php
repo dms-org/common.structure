@@ -36,7 +36,7 @@ class DateTest extends DateOrTimeObjectTest
         $this->assertSame('2015-m-05 H:i:s', $date->format('Y-\m-d \H\:i:s'));
         $this->assertSame('2015\\2015', $date->format('Y\\\\Y'));
         $this->assertSame('Thursday', $date->format('l'));
-        $this->assertSame((string)$dateTime->getTimestamp(), $dateTime->format('U'));
+        $this->assertSame((string)$date->getTimestamp(), $date->format('U'));
     }
 
     public function testFromNativeObject()

@@ -23,7 +23,7 @@ class TimeRangeMapper extends DateOrTimeRangeMapper
     {
         $map->type(TimeRange::class);
 
-        $map->embedded(TimeRange::START)->using(new TimeMapper($this->startColumnName));
-        $map->embedded(TimeRange::END)->using(new TimeMapper($this->endColumnName));
+        $map->embedded(TimeRange::START)->using(new TimeOfDayMapper($this->startColumnName));
+        $map->embedded(TimeRange::END)->using(new TimeOfDayMapper($this->endColumnName));
     }
 }

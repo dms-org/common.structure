@@ -9,9 +9,9 @@ use Iddigital\Cms\Core\Exception\InvalidArgumentException;
  *
  * @author Elliot Levin <elliotlevin@hotmail.com>
  */
-class Time extends DateOrTimeObject
+class TimeOfDay extends DateOrTimeObject
 {
-    use TimeOperations;
+    use TimeOfDayOperations;
 
     /**
      * @param int $hour
@@ -41,7 +41,7 @@ class Time extends DateOrTimeObject
      *
      * @param \DateTimeInterface $dateTime
      *
-     * @return Time
+     * @return TimeOfDay
      */
     public static function fromNative(\DateTimeInterface $dateTime)
     {
@@ -54,7 +54,7 @@ class Time extends DateOrTimeObject
      * @param string $format
      * @param string $timeString
      *
-     * @return Time
+     * @return TimeOfDay
      */
     public static function fromFormat($format, $timeString)
     {
@@ -68,7 +68,7 @@ class Time extends DateOrTimeObject
      *
      * @param string $timeString
      *
-     * @return Time
+     * @return TimeOfDay
      */
     public static function fromString($timeString)
     {
@@ -95,11 +95,11 @@ class Time extends DateOrTimeObject
     /**
      * Returns whether the time is greater than the supplied time.
      *
-     * @param Time $other
+     * @param TimeOfDay $other
      *
      * @return bool
      */
-    public function isLaterThan(Time $other)
+    public function isLaterThan(TimeOfDay $other)
     {
         return $this->dateTime > $other->dateTime;
     }
@@ -107,11 +107,11 @@ class Time extends DateOrTimeObject
     /**
      * Returns whether the time is greater than the supplied time.
      *
-     * @param Time $other
+     * @param TimeOfDay $other
      *
      * @return bool
      */
-    public function isLaterThanOrEqual(Time $other)
+    public function isLaterThanOrEqual(TimeOfDay $other)
     {
         return $this->dateTime >= $other->dateTime;
     }
@@ -119,11 +119,11 @@ class Time extends DateOrTimeObject
     /**
      * Returns whether the time is less than the supplied time.
      *
-     * @param Time $other
+     * @param TimeOfDay $other
      *
      * @return bool
      */
-    public function isEarlierThan(Time $other)
+    public function isEarlierThan(TimeOfDay $other)
     {
         return $this->dateTime < $other->dateTime;
     }
@@ -131,11 +131,11 @@ class Time extends DateOrTimeObject
     /**
      * Returns whether the time is less than the supplied time.
      *
-     * @param Time $other
+     * @param TimeOfDay $other
      *
      * @return bool
      */
-    public function isEarlierThanOrEqual(Time $other)
+    public function isEarlierThanOrEqual(TimeOfDay $other)
     {
         return $this->dateTime <= $other->dateTime;
     }
@@ -163,11 +163,11 @@ class Time extends DateOrTimeObject
     /**
      * Returns the amount of seconds between the supplied times.
      *
-     * @param Time $other
+     * @param TimeOfDay $other
      *
      * @return int
      */
-    public function secondsBetween(Time $other)
+    public function secondsBetween(TimeOfDay $other)
     {
         return abs($this->dateTime->getTimestamp() - $other->dateTime->getTimestamp());
     }
@@ -175,11 +175,11 @@ class Time extends DateOrTimeObject
     /**
      * Returns whether the time is equal to the supplied time.
      *
-     * @param Time $other
+     * @param TimeOfDay $other
      *
      * @return bool
      */
-    public function equals(Time $other)
+    public function equals(TimeOfDay $other)
     {
         return $this->dateTime == $other->dateTime;
     }

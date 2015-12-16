@@ -2,7 +2,7 @@
 
 namespace Iddigital\Cms\Common\Structure\DateTime\Persistence;
 
-use Iddigital\Cms\Common\Structure\DateTime\Time;
+use Iddigital\Cms\Common\Structure\DateTime\TimeOfDay;
 use Iddigital\Cms\Core\Persistence\Db\Mapping\Definition\MapperDefinition;
 use Iddigital\Cms\Core\Persistence\Db\Mapping\IndependentValueObjectMapper;
 
@@ -11,7 +11,7 @@ use Iddigital\Cms\Core\Persistence\Db\Mapping\IndependentValueObjectMapper;
  *
  * @author Elliot Levin <elliotlevin@hotmail.com>
  */
-class TimeMapper extends IndependentValueObjectMapper
+class TimeOfDayMapper extends IndependentValueObjectMapper
 {
     /**
      * @var string
@@ -33,8 +33,8 @@ class TimeMapper extends IndependentValueObjectMapper
      */
     protected function define(MapperDefinition $map)
     {
-        $map->type(Time::class);
+        $map->type(TimeOfDay::class);
 
-        $map->property(Time::DATE_TIME)->to($this->columnName)->asTime();
+        $map->property(TimeOfDay::DATE_TIME)->to($this->columnName)->asTime();
     }
 }

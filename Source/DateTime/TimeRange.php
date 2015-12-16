@@ -10,22 +10,22 @@ namespace Iddigital\Cms\Common\Structure\DateTime;
 class TimeRange extends DateOrTimeRangeObject
 {
     /**
-     * @var Time
+     * @var TimeOfDay
      */
     protected $start;
 
     /**
-     * @var Time
+     * @var TimeOfDay
      */
     protected $end;
 
     /**
      * TimeRange constructor.
      *
-     * @param Time $start
-     * @param Time $end
+     * @param TimeOfDay $start
+     * @param TimeOfDay $end
      */
-    public function __construct(Time $start, Time $end)
+    public function __construct(TimeOfDay $start, TimeOfDay $end)
     {
         parent::__construct($start, $end);
     }
@@ -35,13 +35,13 @@ class TimeRange extends DateOrTimeRangeObject
      */
     protected function rangeOfClass()
     {
-        return Time::class;
+        return TimeOfDay::class;
     }
 
     /**
      * Gets the start time of the range.
      *
-     * @return Time
+     * @return TimeOfDay
      */
     public function getStart()
     {
@@ -51,7 +51,7 @@ class TimeRange extends DateOrTimeRangeObject
     /**
      * Gets the end time of the range.
      *
-     * @return Time
+     * @return TimeOfDay
      */
     public function getEnd()
     {
@@ -61,11 +61,11 @@ class TimeRange extends DateOrTimeRangeObject
     /**
      * Returns whether the supplied time is within (inclusive) the time range.
      *
-     * @param Time $time
+     * @param TimeOfDay $time
      *
      * @return bool
      */
-    public function contains(Time $time)
+    public function contains(TimeOfDay $time)
     {
         return $this->start->isEarlierThanOrEqual($time) && $this->end->isLaterThanOrEqual($time);
     }
@@ -73,11 +73,11 @@ class TimeRange extends DateOrTimeRangeObject
     /**
      * Returns whether the supplied time is within (exclusive) the time range.
      *
-     * @param Time $time
+     * @param TimeOfDay $time
      *
      * @return bool
      */
-    public function containsExclusive(Time $time)
+    public function containsExclusive(TimeOfDay $time)
     {
         return $this->start->isEarlierThan($time) && $this->end->isLaterThan($time);
     }

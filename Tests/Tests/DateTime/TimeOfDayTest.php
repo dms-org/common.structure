@@ -3,16 +3,16 @@
 namespace Iddigital\Cms\Common\Structure\Tests\DateTime;
 
 use Iddigital\Cms\Core\Exception\InvalidArgumentException;
-use Iddigital\Cms\Common\Structure\DateTime\Time;
+use Iddigital\Cms\Common\Structure\DateTime\TimeOfDay;
 
 /**
  * @author Elliot Levin <elliotlevin@hotmail.com>
  */
-class TimeTest extends DateOrTimeObjectTest
+class TimeOfDayTest extends DateOrTimeObjectTest
 {
     public function testNew()
     {
-        $time = new Time(15, 3, 37);
+        $time = new TimeOfDay(15, 3, 37);
 
         $this->assertInstanceOf(\DateTimeImmutable::class, $time->getNativeDateTime());
         $this->assertSame('1970-01-01 15:03:37', $time->getNativeDateTime()->format('Y-m-d H:i:s'));
@@ -30,7 +30,7 @@ class TimeTest extends DateOrTimeObjectTest
 
     public function testFormatting()
     {
-        $time = new Time(15, 3, 37);
+        $time = new TimeOfDay(15, 3, 37);
 
         $this->assertSame('15:03:37', $time->format('H:i:s'));
         $this->assertSame('Y-m-d', $time->format('Y-m-d'));
@@ -40,7 +40,7 @@ class TimeTest extends DateOrTimeObjectTest
 
     public function testFromNativeObject()
     {
-        $time = Time::fromNative(new \DateTime('01:05 AM'));
+        $time = TimeOfDay::fromNative(new \DateTime('01:05 AM'));
         $this->assertSame(1, $time->getHour());
         $this->assertSame(5, $time->getMinute());
         $this->assertSame(0, $time->getSecond());
@@ -50,7 +50,7 @@ class TimeTest extends DateOrTimeObjectTest
 
     public function testFromFormat()
     {
-        $time = Time::fromFormat('g:i A', '01:05 PM');
+        $time = TimeOfDay::fromFormat('g:i A', '01:05 PM');
 
         $this->assertSame(13, $time->getHour());
         $this->assertSame(5, $time->getMinute());
@@ -61,7 +61,7 @@ class TimeTest extends DateOrTimeObjectTest
 
     public function testAddingAndSubtracting()
     {
-        $time = new Time(12, 0, 0);
+        $time = new TimeOfDay(12, 0, 0);
 
         $otherTime = $time->addHours(2)->subMinutes(5)->addSeconds(30);
 
@@ -72,7 +72,7 @@ class TimeTest extends DateOrTimeObjectTest
 
     public function testAddingAndSubtractingWithOverflows()
     {
-        $time = new Time(23, 59, 59);
+        $time = new TimeOfDay(23, 59, 59);
 
         $this->assertSame('00:00:00', $time->addSeconds(1)->format('H:i:s'));
         $this->assertSame('00:59:59', $time->addHours(1)->format('H:i:s'));
@@ -82,7 +82,7 @@ class TimeTest extends DateOrTimeObjectTest
 
     public function testComparisons()
     {
-        $time = new Time(12, 0, 0);
+        $time = new TimeOfDay(12, 0, 0);
 
         $this->assertFalse($time->isEarlierThan($time));
         $this->assertFalse($time->isEarlierThan($time->subSeconds(1)));
@@ -103,7 +103,7 @@ class TimeTest extends DateOrTimeObjectTest
 
     public function testNoonComparisons()
     {
-        $time = new Time(12, 0, 0);
+        $time = new TimeOfDay(12, 0, 0);
 
         $this->assertTrue($time->isNoon());
         $this->assertFalse($time->subSeconds(1)->isNoon());
@@ -117,19 +117,19 @@ class TimeTest extends DateOrTimeObjectTest
     }
     public function testFromString()
     {
-        $time = Time::fromString('13:05:43');
+        $time = TimeOfDay::fromString('13:05:43');
 
         $this->assertSame(13, $time->getHour());
         $this->assertSame(5, $time->getMinute());
         $this->assertSame(43, $time->getSecond());
 
-        $time = Time::fromString('13:05');
+        $time = TimeOfDay::fromString('13:05');
 
         $this->assertSame(13, $time->getHour());
         $this->assertSame(5, $time->getMinute());
         $this->assertSame(0, $time->getSecond());
 
-        $time = Time::fromString('13');
+        $time = TimeOfDay::fromString('13');
 
         $this->assertSame(13, $time->getHour());
         $this->assertSame(0, $time->getMinute());
@@ -137,9 +137,9 @@ class TimeTest extends DateOrTimeObjectTest
     }
     public function testFrtomString()
     {
-        $this->assertTrue(Time::fromString('13:05:43') > Time::fromString('13:05:42'));
-        $this->assertTrue(Time::fromString('13:05:43') >= Time::fromString('13:05:42'));
-        $this->assertTrue(Time::fromString('03:05:43') < Time::fromString('13:05:42'));
-        $this->assertTrue(Time::fromString('03:05:43') <= Time::fromString('13:05:42'));
+        $this->assertTrue(TimeOfDay::fromString('13:05:43') > TimeOfDay::fromString('13:05:42'));
+        $this->assertTrue(TimeOfDay::fromString('13:05:43') >= TimeOfDay::fromString('13:05:42'));
+        $this->assertTrue(TimeOfDay::fromString('03:05:43') < TimeOfDay::fromString('13:05:42'));
+        $this->assertTrue(TimeOfDay::fromString('03:05:43') <= TimeOfDay::fromString('13:05:42'));
     }
 }

@@ -10,7 +10,7 @@ namespace Iddigital\Cms\Common\Structure\DateTime;
 abstract class DateTimeBase extends DateOrTimeObject
 {
     use DateOperations;
-    use TimeOperations;
+    use TimeOfDayOperations;
 
     /**
      * @param \DateTimeImmutable $dateTime
@@ -72,10 +72,10 @@ abstract class DateTimeBase extends DateOrTimeObject
     /**
      * Gets the time part of the date time.
      *
-     * @return Time
+     * @return TimeOfDay
      */
-    public function getTime()
+    public function getTimeOfDay()
     {
-        return Time::fromNative($this->dateTime);
+        return TimeOfDay::fromNative($this->dateTime);
     }
 }

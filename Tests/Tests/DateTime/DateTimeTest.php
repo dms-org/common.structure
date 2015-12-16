@@ -5,7 +5,7 @@ namespace Iddigital\Cms\Common\Structure\Tests\DateTime;
 use Iddigital\Cms\Core\Exception\InvalidArgumentException;
 use Iddigital\Cms\Common\Structure\DateTime\Date;
 use Iddigital\Cms\Common\Structure\DateTime\DateTime;
-use Iddigital\Cms\Common\Structure\DateTime\Time;
+use Iddigital\Cms\Common\Structure\DateTime\TimeOfDay;
 use Iddigital\Cms\Common\Structure\DateTime\TimezonedDateTime;
 
 /**
@@ -107,8 +107,8 @@ class DateTimeTest extends DateOrTimeObjectTest
     {
         $dateTime = DateTime::fomFormat('Y-m-d H:i:s', '2001-01-01 12:00:00');
 
-        $time = $dateTime->getTime();
-        $this->assertInstanceOf(Time::class, $time);
+        $time = $dateTime->getTimeOfDay();
+        $this->assertInstanceOf(TimeOfDay::class, $time);
         $this->assertSame(12, $time->getHour());
         $this->assertSame(0, $time->getMinute());
         $this->assertSame(0, $time->getSecond());
