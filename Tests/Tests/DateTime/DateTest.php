@@ -2,8 +2,8 @@
 
 namespace Iddigital\Cms\Common\Structure\Tests\DateTime;
 
-use Iddigital\Cms\Core\Exception\InvalidArgumentException;
 use Iddigital\Cms\Common\Structure\DateTime\Date;
+use Iddigital\Cms\Common\Structure\DateTime\DayOfWeek;
 
 /**
  * @author Elliot Levin <elliotlevin@hotmail.com>
@@ -20,6 +20,7 @@ class DateTest extends DateOrTimeObjectTest
         $this->assertSame(2015, $date->getYear());
         $this->assertSame(3, $date->getMonth());
         $this->assertSame(5, $date->getDay());
+        $this->assertEquals(DayOfWeek::thursday(), $date->getDayOfTheWeek());
         $this->assertSame(true, $date->equals($date));
         $this->assertSame(true, $date->equals(clone $date));
     }

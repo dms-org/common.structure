@@ -41,6 +41,16 @@ trait DateOperations
     }
 
     /**
+     * Gets the day of the week
+     *
+     * @return DayOfWeek
+     */
+    public function getDayOfTheWeek()
+    {
+        return new DayOfWeek((int)$this->dateTime->format('N'));
+    }
+
+    /**
      * Returns a new date with the supplied amount of days added.
      *
      * @param int $days
