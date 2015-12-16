@@ -87,6 +87,14 @@ class TimeOfDay extends DateOrTimeObject
     /**
      * @inheritDoc
      */
+    protected function serializationFormat()
+    {
+        return 'H:i:s';
+    }
+
+    /**
+     * @inheritDoc
+     */
     protected function getValidDateFormatChars()
     {
         return ['a', 'A', 'B', 'g', 'G', 'h', 'H', 'i', 's'];

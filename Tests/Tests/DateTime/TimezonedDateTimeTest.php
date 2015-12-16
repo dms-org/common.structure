@@ -41,6 +41,13 @@ class TimezonedDateTimeTest extends DateOrTimeObjectTest
         $this->assertSame('2015-m-d H:00:01 \\ (e)', $dateTime->format('Y-\m-\d \H:i:s \\\\ \(\e)'));
     }
 
+    public function testSerialization()
+    {
+        $dateTime = new TimezonedDateTime(new \DateTime('2015-03-05 12:00:01', new \DateTimeZone('Australia/Melbourne')));
+
+        $this->assertEquals($dateTime, unserialize(serialize($dateTime)));
+    }
+
     public function testFromFormat()
     {
         $dateTime = TimezonedDateTime::fromFormat('d/m/Y', '21/8/2001', 'Australia/Melbourne');

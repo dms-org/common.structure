@@ -116,6 +116,44 @@ class DayOfWeek extends Enum
     }
 
     /**
+     * Gets the weekdays.
+     *
+     * @return DayOfWeek[]
+     */
+    public static function weekdays()
+    {
+        $days     = self::getAll();
+        $weekDays = [];
+
+        foreach ($days as $key => $day) {
+            if ($day->isWeekDay()) {
+                $weekDays[] = $day;
+            }
+        }
+
+        return $weekDays;
+    }
+
+    /**
+     * Gets the weekend days.
+     *
+     * @return DayOfWeek[]
+     */
+    public static function weekends()
+    {
+        $days        = self::getAll();
+        $weekEndDays = [];
+
+        foreach ($days as $key => $day) {
+            if ($day->isWeekEnd()) {
+                $weekEndDays[] = $day;
+            }
+        }
+
+        return $weekEndDays;
+    }
+
+    /**
      * Gets the day of the week from the supplied name string.
      *
      * NOTE: casing is ignored.
@@ -225,5 +263,23 @@ class DayOfWeek extends Enum
     public function getName()
     {
         return self::$fullNames[$this->getValue()];
+    }
+
+    /**
+     * Returns whether the day is a week day.
+     *
+     * @return bool
+     */
+    public function isWeekDay()
+    {
+        return $this->getOrdinal() <= 5;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isWeekEnd()
+    {
+        return $this->getOrdinal() >= 6;
     }
 }

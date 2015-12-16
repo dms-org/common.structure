@@ -39,6 +39,13 @@ class DateTest extends DateOrTimeObjectTest
         $this->assertSame((string)$date->getTimestamp(), $date->format('U'));
     }
 
+    public function testSerialization()
+    {
+        $date = new Date(2015, 03, 05);
+
+        $this->assertEquals($date, unserialize(serialize($date)));
+    }
+
     public function testFromNativeObject()
     {
         $date = Date::fromNative(new \DateTime('2001-05-1'));

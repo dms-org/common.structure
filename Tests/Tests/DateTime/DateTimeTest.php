@@ -42,6 +42,13 @@ class DateTimeTest extends DateOrTimeObjectTest
         $this->assertSame('2015-m-d H:00:01 \\', $dateTime->format('Y-\m-\d \H:i:s \\\\'));
     }
 
+    public function testSerialization()
+    {
+        $dateTime = new DateTime(new \DateTime('2015-03-05 12:00:01'));
+
+        $this->assertEquals($dateTime, unserialize(serialize($dateTime)));
+    }
+
     public function testFromFormat()
     {
         $dateTime = DateTime::fomFormat('d/m/Y', '21/8/2001');

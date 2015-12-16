@@ -59,6 +59,23 @@ class TimezonedDateTime extends DateTimeBase
     /**
      * @inheritDoc
      */
+    protected function serializationFormat()
+    {
+        return 'Y-m-d H:i:s e';
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function deserializationTimeZone()
+    {
+        return null;
+    }
+
+
+    /**
+     * @inheritDoc
+     */
     protected function getValidDateFormatChars()
     {
         return [

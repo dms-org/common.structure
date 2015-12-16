@@ -39,13 +39,22 @@ abstract class DateOrTimeObject extends ValueObject implements IComparable
     abstract public function debugFormat();
 
     /**
-     * Gets a valid date/time formatting characters.
+     * Gets the date/time format string for use during serialization.
      *
-     * This should return a subset of those accepted by \DateTimeInterface::format()
-     * or return '*' meaning all characters are valid.
+     * This should contain ALL the date/time fields used by this date/time instance.
      *
      * @see http://php.net/manual/en/function.date.php
-     * @return string[]|string
+     *
+     * @return string
+     */
+    abstract protected function serializationFormat();
+
+    /**
+     * Gets a valid date/time formatting characters.
+     *
+     * @see http://php.net/manual/en/function.date.php
+     *
+     * @return string[]
      */
     abstract protected function getValidDateFormatChars();
 
@@ -55,6 +64,37 @@ abstract class DateOrTimeObject extends ValueObject implements IComparable
     protected function define(ClassDefinition $class)
     {
         $class->property($this->dateTime)->asObject(\DateTimeImmutable::class);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function dataToSerialize()
+    {
+        return $this->dateTime->format($this->serializationFormat());
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function hydrateFromSerializedData($deserializedData)
+    {
+        $timezone = $this->deserializationTimeZone();
+        $format   = '!' . $this->serializationFormat();
+
+        if ($timezone) {
+            $this->dateTime = \DateTimeImmutable::createFromFormat($format, $deserializedData, $timezone);
+        } else {
+            $this->dateTime = \DateTimeImmutable::createFromFormat($format, $deserializedData);
+        }
+    }
+
+    /**
+     * @return \DateTimeZone|null
+     */
+    protected function deserializationTimeZone()
+    {
+        return new \DateTimeZone('UTC');
     }
 
     /**
@@ -91,11 +131,6 @@ abstract class DateOrTimeObject extends ValueObject implements IComparable
     protected function escapeUnapplicableFormatChars($format)
     {
         $validChars      = $this->getValidDateFormatChars();
-
-        if ($validChars === '*') {
-            return $format;
-        }
-
         $validCharLookup = array_fill_keys($validChars, true);
 
         $escapedFormat = '';

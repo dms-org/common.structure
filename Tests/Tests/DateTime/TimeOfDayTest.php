@@ -38,6 +38,13 @@ class TimeOfDayTest extends DateOrTimeObjectTest
         $this->assertSame('Y-m-d 03:i:37 PM', $time->format('Y-m-d h:\\i:s A'));
     }
 
+    public function testSerialization()
+    {
+        $time = new TimeOfDay(15, 3, 37);
+
+        $this->assertEquals($time, unserialize(serialize($time)));
+    }
+
     public function testFromNativeObject()
     {
         $time = TimeOfDay::fromNative(new \DateTime('01:05 AM'));

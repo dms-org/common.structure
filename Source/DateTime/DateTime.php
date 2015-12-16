@@ -72,6 +72,14 @@ class DateTime extends DateTimeBase
     /**
      * @inheritDoc
      */
+    protected function serializationFormat()
+    {
+        return 'Y-m-d H:i:s';
+    }
+
+    /**
+     * @inheritDoc
+     */
     protected function getValidDateFormatChars()
     {
         return [

@@ -22,12 +22,28 @@ class DayOfWeekTest extends CmsTestCase
         }
     }
 
+    public function testGetWeekdays()
+    {
+        $this->assertEquals([
+                DayOfWeek::monday(), DayOfWeek::tuesday(), DayOfWeek::wednesday(), DayOfWeek::thursday(), DayOfWeek::friday()
+        ], DayOfWeek::weekdays());
+    }
+
+    public function testGetWeekends()
+    {
+        $this->assertEquals([
+                DayOfWeek::saturday(), DayOfWeek::sunday()
+        ], DayOfWeek::weekends());
+    }
+
     public function testMonday()
     {
         $day = DayOfWeek::monday();
 
         $this->assertSame(1, $day->getValue());
         $this->assertSame(1, $day->getOrdinal());
+        $this->assertSame(true, $day->isWeekDay());
+        $this->assertSame(false, $day->isWeekEnd());
         $this->assertSame('Monday', $day->getName());
         $this->assertSame('Mon', $day->getShortName());
         $this->assertEquals($day, DayOfWeek::fromName('Monday'));
@@ -42,6 +58,8 @@ class DayOfWeekTest extends CmsTestCase
 
         $this->assertSame(2, $day->getValue());
         $this->assertSame(2, $day->getOrdinal());
+        $this->assertSame(true, $day->isWeekDay());
+        $this->assertSame(false, $day->isWeekEnd());
         $this->assertSame('Tuesday', $day->getName());
         $this->assertSame('Tue', $day->getShortName());
         $this->assertEquals($day, DayOfWeek::fromName('Tuesday'));
@@ -54,6 +72,8 @@ class DayOfWeekTest extends CmsTestCase
 
         $this->assertSame(3, $day->getValue());
         $this->assertSame(3, $day->getOrdinal());
+        $this->assertSame(true, $day->isWeekDay());
+        $this->assertSame(false, $day->isWeekEnd());
         $this->assertSame('Wednesday', $day->getName());
         $this->assertSame('Wed', $day->getShortName());
         $this->assertEquals($day, DayOfWeek::fromName('Wednesday'));
@@ -66,6 +86,8 @@ class DayOfWeekTest extends CmsTestCase
 
         $this->assertSame(4, $day->getValue());
         $this->assertSame(4, $day->getOrdinal());
+        $this->assertSame(true, $day->isWeekDay());
+        $this->assertSame(false, $day->isWeekEnd());
         $this->assertSame('Thursday', $day->getName());
         $this->assertSame('Thu', $day->getShortName());
         $this->assertEquals($day, DayOfWeek::fromName('Thursday'));
@@ -78,6 +100,8 @@ class DayOfWeekTest extends CmsTestCase
 
         $this->assertSame(5, $day->getValue());
         $this->assertSame(5, $day->getOrdinal());
+        $this->assertSame(true, $day->isWeekDay());
+        $this->assertSame(false, $day->isWeekEnd());
         $this->assertSame('Friday', $day->getName());
         $this->assertSame('Fri', $day->getShortName());
         $this->assertEquals($day, DayOfWeek::fromName('Friday'));
@@ -90,6 +114,8 @@ class DayOfWeekTest extends CmsTestCase
 
         $this->assertSame(6, $day->getValue());
         $this->assertSame(6, $day->getOrdinal());
+        $this->assertSame(false, $day->isWeekDay());
+        $this->assertSame(true, $day->isWeekEnd());
         $this->assertSame('Saturday', $day->getName());
         $this->assertSame('Sat', $day->getShortName());
         $this->assertEquals($day, DayOfWeek::fromName('Saturday'));
@@ -102,6 +128,8 @@ class DayOfWeekTest extends CmsTestCase
 
         $this->assertSame(7, $day->getValue());
         $this->assertSame(7, $day->getOrdinal());
+        $this->assertSame(false, $day->isWeekDay());
+        $this->assertSame(true, $day->isWeekEnd());
         $this->assertSame('Sunday', $day->getName());
         $this->assertSame('Sun', $day->getShortName());
         $this->assertEquals($day, DayOfWeek::fromName('Sunday'));
@@ -121,7 +149,6 @@ class DayOfWeekTest extends CmsTestCase
 
     public function testInvalidType()
     {
-
         $this->assertThrows(function () {
             new DayOfWeek('Monday'); // should be: new DateOfWeek(DateOfWeek::MONDAY)
         }, InvalidEnumValueException::class);

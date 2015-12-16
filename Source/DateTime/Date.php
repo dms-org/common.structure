@@ -61,6 +61,14 @@ class Date extends DateOrTimeObject
     /**
      * @inheritDoc
      */
+    protected function serializationFormat()
+    {
+        return 'Y-m-d';
+    }
+
+    /**
+     * @inheritDoc
+     */
     protected function getValidDateFormatChars()
     {
         return ['d', 'D', 'j', 'l', 'N', 'S', 'w', 'z', 'W', 'F', 'm', 'M', 'n', 't', 'L', 'o', 'Y', 'y', 'U'];
