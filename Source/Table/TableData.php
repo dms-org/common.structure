@@ -10,6 +10,7 @@ use Iddigital\Cms\Core\Model\Type\Builder\Type;
 use Iddigital\Cms\Core\Model\Type\IType;
 use Iddigital\Cms\Core\Model\ValueObjectCollection;
 use Iddigital\Cms\Core\Util\Debug;
+use Iddigital\Cms\Core\Util\Hashing\ObjectHasher;
 
 /**
  * The table data value object base class.
@@ -313,9 +314,8 @@ abstract class TableData extends ValueObject
         $rowData    = [];
 
         foreach ($cells as $cell) {
-            // TODO: improve column/row hashing mechanism
-            $columnHash = serialize($cell->columnKey);
-            $rowHash    = serialize($cell->rowKey);
+            $columnHash = ObjectHasher::hash($cell->columnKey);
+            $rowHash    = ObjectHasher::hash($cell->rowKey);
 
             $columnKeys[$columnHash]        = $cell->columnKey;
             $rowKeys[$rowHash]              = $cell->rowKey;
