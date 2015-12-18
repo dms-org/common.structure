@@ -2,7 +2,7 @@
 
 namespace Iddigital\Cms\Common\Structure\Tests\Table\Persistence\Fixtures\BusinessHours;
 
-use Iddigital\Cms\Common\Structure\Tests\Table\Fixtures\TestBusinessHoursTimetableData;
+use Iddigital\Cms\Common\Structure\Tests\Table\Fixtures\TestBusinessHoursTimetableCell;
 use Iddigital\Cms\Core\Persistence\Db\Mapping\Definition\Orm\OrmDefinition;
 use Iddigital\Cms\Core\Persistence\Db\Mapping\Orm;
 
@@ -22,8 +22,5 @@ class TestBusinessHoursOrm extends Orm
     {
         $orm->entity(TestBusinessHoursEntity::class)
                 ->from(TestBusinessHoursEntityMapper::class);
-
-        $orm->valueObject(TestBusinessHoursTimetableData::class)
-                ->from(TestBusinessHoursTimetableDataMapper::class);
     }
 }

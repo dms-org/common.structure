@@ -2,7 +2,8 @@
 
 namespace Iddigital\Cms\Common\Structure\Tests\Table\Persistence\Fixtures\BusinessHours;
 
-use Iddigital\Cms\Common\Structure\Tests\Table\Fixtures\TestBusinessHoursTimetableData;
+use Iddigital\Cms\Common\Structure\DateTime\Persistence\TimeOfDayMapper;
+use Iddigital\Cms\Common\Structure\Tests\Table\Fixtures\TestBusinessHoursTimetableCell;
 use Iddigital\Cms\Core\Persistence\Db\Mapping\Definition\MapperDefinition;
 use Iddigital\Cms\Core\Persistence\Db\Mapping\EntityMapper;
 
@@ -25,6 +26,23 @@ class TestBusinessHoursEntityMapper extends EntityMapper
 
         $map->idToPrimaryKey('id');
 
-        $map->embedded('timetable')->to(TestBusinessHoursTimetableData::class);
+        $map->embeddedCollection('timetable')
+                ->toTable('business_hours_data')
+                ->withPrimaryKey('id')
+                ->withForeignKeyToParentAs('business_hours_id')
+                ->usingCustom(function (MapperDefinition $map) {
+                    $map->type(TestBusinessHoursTimetableCell::class);
+
+                    $map->enum(TestBusinessHoursTimetableCell::COLUMN_KEY)
+                            ->to('day')
+                            ->usingValuesFromConstants();
+
+                    $map->embedded(TestBusinessHoursTimetableCell::ROW_KEY)
+                            ->using(new TimeOfDayMapper('time'));
+
+                    $map->enum(TestBusinessHoursTimetableCell::CELL_VALUE)
+                            ->to('status')
+                            ->usingValuesFromConstants();
+                });
     }
 }

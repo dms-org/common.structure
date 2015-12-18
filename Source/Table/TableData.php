@@ -4,50 +4,39 @@ namespace Iddigital\Cms\Common\Structure\Table;
 
 use Iddigital\Cms\Core\Exception\InvalidArgumentException;
 use Iddigital\Cms\Core\Exception\TypeMismatchException;
-use Iddigital\Cms\Core\Model\Object\ClassDefinition;
-use Iddigital\Cms\Core\Model\Object\ValueObject;
-use Iddigital\Cms\Core\Model\Type\Builder\Type;
+use Iddigital\Cms\Core\Model\Collection;
 use Iddigital\Cms\Core\Model\Type\IType;
 use Iddigital\Cms\Core\Model\ValueObjectCollection;
 use Iddigital\Cms\Core\Util\Debug;
-use Iddigital\Cms\Core\Util\Hashing\ObjectHasher;
+use Iddigital\Cms\Core\Util\Hashing\ValueHasher;
+use Pinq\Iterators\IIteratorScheme;
 
 /**
- * The table data value object base class.
+ * The table cell data collection class.
  *
  * @author Elliot Levin <elliotlevin@hotmail.com>
  */
-abstract class TableData extends ValueObject
+class TableData extends ValueObjectCollection
 {
+    /**
+     * @var string
+     */
+    protected $cellClass;
+
     /**
      * @var IType
      */
     protected $columnKeyType;
 
     /**
-     * @var IType|null
-     */
-    protected $rowKeyType;
-
-    /**
      * @var IType
      */
-    protected $cellType;
+    protected $rowKeyType;
 
     /**
      * @var TableDataColumn[]
      */
     protected $columns;
-
-    /**
-     * @var \SplObjectStorage
-     */
-    protected $columnCellIndexMap;
-
-    /**
-     * @var mixed[]
-     */
-    protected $columnIndexKeyMap;
 
     /**
      * @var TableDataRow[]
@@ -57,286 +46,333 @@ abstract class TableData extends ValueObject
     /**
      * TableData constructor.
      *
-     * @param array $columnKeys
-     * @param Row[] $rows
+     * @param string               $cellType
+     * @param TableDataCell[]      $cells
+     * @param IIteratorScheme|null $scheme
+     * @param Collection|null      $source
      *
      * @throws InvalidArgumentException
-     * @throws TypeMismatchException
      */
-    public function __construct(array $columnKeys, array $rows = [])
-    {
-        InvalidArgumentException::verifyAllInstanceOf(__METHOD__, 'rows', $rows, Row::class);
-
-        parent::__construct();
-
-        $this->loadTableData($columnKeys, $rows);
-    }
-
-    /**
-     * Defines the structure of this class.
-     *
-     * @param ClassDefinition $class
-     */
-    protected function define(ClassDefinition $class)
-    {
-        $class->property($this->columnKeyType)->asObject(IType::class);
-
-        $class->property($this->rowKeyType)->nullable()->asObject(IType::class);
-
-        $class->property($this->cellType)->asObject(IType::class);
-
-        $class->property($this->columns)->asArrayOf(Type::object(TableDataColumn::class));
-
-        $class->property($this->columnCellIndexMap)->ignore();
-
-        $class->property($this->columnIndexKeyMap)->asArrayOf(Type::mixed());
-
-        $class->property($this->rows)->asArrayOf(Type::object(TableDataRow::class));
-    }
-
-    /**
-     * @param array $columnKeys
-     * @param Row[] $rows
-     *
-     * @return void
-     * @throws InvalidArgumentException
-     * @throws TypeMismatchException
-     */
-    protected function loadTableData(array $columnKeys, array $rows)
-    {
-        $this->columnKeyType = $this->columnKeyType();
-        $this->rowKeyType    = $this->rowKeyType();
-        $this->cellType      = $this->cellType();
-
-        $columnCellIndexMap = new \SplObjectStorage();
-        $index              = 0;
-
-        $tableDataColumns  = [];
-        $columnIndexKeyMap = [];
-
-        foreach ($columnKeys as $columnKey) {
-            if (!$this->columnKeyType->isOfType($columnKey)) {
-                throw TypeMismatchException::format(
-                        'Invalid column key passed to %s: expecting type of %s, %s found',
-                        __METHOD__, $this->columnKeyType->asTypeString(), Debug::getType($columnKey)
-                );
-            }
-
-            $column                      = new TableDataColumn($columnKey, $this->getColumnLabel($columnKey));
-            $tableDataColumns[$index]    = $column;
-            $columnIndexKeyMap[$index]   = $columnKey;
-            $columnCellIndexMap[$column] = $index;
-            $index++;
-        }
-
-        $this->columns            = $tableDataColumns;
-        $this->columnCellIndexMap = $columnCellIndexMap;
-        $this->columnIndexKeyMap  = $columnIndexKeyMap;
-        $this->rows               = $this->loadRows($rows);
-    }
-
-    /**
-     * @param Row[] $rows
-     *
-     * @return TableDataRow[]
-     * @throws InvalidArgumentException
-     * @throws TypeMismatchException
-     */
-    protected function loadRows(array $rows)
-    {
-        $amountOfColumns = count($this->columns);
-        $tableDataRows   = [];
-
-        foreach ($rows as $key => $row) {
-            $rowKey     = $row->getKey();
-            $cellValues = array_values($row->getCellValues());
-
-            if ($this->rowKeyType === null && $rowKey !== null) {
-                throw TypeMismatchException::format(
-                        'Invalid row key found in %s: expecting null, %s found',
-                        __METHOD__, Debug::getType($rowKey)
-                );
-            } elseif ($this->rowKeyType !== null && !$this->rowKeyType->isOfType($rowKey)) {
-                throw TypeMismatchException::format(
-                        'Invalid row key found in %s: expecting type of %s, %s found',
-                        __METHOD__, $this->rowKeyType->asTypeString(), Debug::getType($rowKey)
-                );
-            }
-
-            if (count($cellValues) !== $amountOfColumns) {
-                throw InvalidArgumentException::format(
-                        'Invalid row passed to %s: expecting %d cell values, %d given at index \'%s\'',
-                        __METHOD__, $amountOfColumns, count($cellValues), $key
-                );
-            }
-
-            foreach ($cellValues as $cellValue) {
-                if (!$this->cellType->isOfType($cellValue)) {
-                    throw TypeMismatchException::format(
-                            'Invalid data passed to %s: invalid cell value found, expecting type of %s, %s found',
-                            __METHOD__, $this->cellType->asTypeString(), Debug::getType($cellValue)
-                    );
-                }
-            }
-
-            $tableDataRows[] = new TableDataRow(
-                    $this->columnCellIndexMap,
-                    $this->rowKeyType ? $this->getRowLabel($rowKey) : null,
-                    $rowKey,
-                    $cellValues
+    public function __construct(
+            $cellType,
+            array $cells,
+            IIteratorScheme $scheme = null,
+            Collection $source = null
+    ) {
+        /** @var TableDataCell $cellType */
+        if (!is_subclass_of($cellType, TableDataCell::class, true)) {
+            throw InvalidArgumentException::format(
+                    'Invalid cell class type supplied to %s: expecting subclass of %s, %s given',
+                    __METHOD__, TableDataCell::class, $cellType
             );
         }
 
-        return $tableDataRows;
+        parent::__construct($cellType, [], $scheme, $source);
+
+        $cellDefinition      = $cellType::definition();
+        $this->columnKeyType = $cellDefinition->getProperty(TableDataCell::COLUMN_KEY)->getType();
+        $this->rowKeyType    = $cellDefinition->getProperty(TableDataCell::ROW_KEY)->getType();
+
+        $this->updateElements(new \ArrayIterator($cells));
+    }
+
+    protected function updateElements(\Traversable $elements)
+    {
+        $uniqueCells = [];
+
+        /** @var TableDataCell $cell */
+        foreach ($elements as $cell) {
+            $uniqueCells[ValueHasher::hash($cell->rowKey) . '::' . ValueHasher::hash($cell->columnKey)] = $cell;
+        }
+
+        parent::updateElements(new \ArrayIterator($uniqueCells));
+        $this->requireReloadOfRowsAndColumns();
     }
 
     /**
-     * @return IType
+     * @return TableDataCell[]
      */
-    abstract protected function columnKeyType();
+    public function getAll()
+    {
+        return parent::getAll();
+    }
 
     /**
-     * @return IType|null
+     * @return void
      */
-    abstract protected function rowKeyType();
+    protected function requireReloadOfRowsAndColumns()
+    {
+        $this->columns = null;
+        $this->rows    = null;
+    }
 
     /**
-     * @return IType
+     * @return TableDataColumn[]
      */
-    abstract protected function cellType();
+    protected function loadColumns()
+    {
+        if ($this->columns) {
+            return;
+        }
+
+        $cells = $this->getAll();
+
+        $columns = [];
+
+        foreach ($cells as $cell) {
+            $columns[ValueHasher::hash($cell->columnKey)] = new TableDataColumn($cell->columnKey, $cell->getColumnLabel());
+        }
+
+        $this->columns = $columns;
+    }
 
     /**
-     * @param mixed $columnKey
-     *
-     * @return string
+     * @return TableDataRow[]
      */
-    abstract protected function getColumnLabel($columnKey);
+    protected function loadRows()
+    {
+        if ($this->rows) {
+            return;
+        }
 
-    /**
-     * @param mixed $rowKey
-     *
-     * @return string
-     */
-    abstract protected function getRowLabel($rowKey);
+        $cells = $this->getAll();
+
+        $columns        = [];
+        $columnIndexMap = new \SplObjectStorage();
+
+        foreach ($this->getColumns() as $index => $column) {
+            $columns[ValueHasher::hash($column->getKey())] = $column;
+            $columnIndexMap[$column]                       = $index;
+        }
+
+        /** @var TableDataCell[][] $rows */
+        $rows = [];
+
+        foreach ($cells as $cell) {
+            $rows[ValueHasher::hash($cell->rowKey)][ValueHasher::hash($cell->columnKey)] = $cell;
+        }
+
+        foreach ($rows as $key => $cells) {
+            /** @var TableDataCell $firstCell */
+            $firstCell = reset($cells);
+
+            $cellValues = [];
+            foreach ($columns as $columnKeyHash => $column) {
+                $cellValues[] = isset($cells[$columnKeyHash])
+                        ? $cells[$columnKeyHash]->cellValue
+                        : null;
+            }
+
+            $rows[$key] = new TableDataRow(
+                    $columnIndexMap,
+                    $firstCell->getRowLabel(),
+                    $firstCell->rowKey,
+                    array_values($cellValues)
+            );
+        }
+        
+        $this->rows = $rows;
+    }
 
     /**
      * @return TableDataColumn[]
      */
     public function getColumns()
     {
-        return $this->columns;
+        $this->loadColumns();
+
+        return array_values($this->columns);
     }
 
     /**
-     * @return TableDataRow[]|mixed[][]
+     * @return TableDataRow[]
      */
     public function getRows()
     {
-        return $this->rows;
+        $this->loadRows();
+
+        return array_values($this->rows);
     }
 
-    /**
-     * Returns a new table with the supplied rows added.
-     *
-     * @param Row[] $rows
-     *
-     * @return static
-     */
-    public function withRows(array $rows)
+    protected function validateRowKey($method, $rowKey)
     {
-        InvalidArgumentException::verifyAllInstanceOf(__METHOD__, 'rows', $rows, Row::class);
-
-        $clone = clone $this;
-        $clone->hydrate([
-                'rows' => array_merge($this->rows, $this->loadRows($rows))
-        ]);
-
-        return $clone;
+        if (!$this->rowKeyType->isOfType($rowKey)) {
+            throw TypeMismatchException::format(
+                    'Invalid row key passed to %s: expecting type of %s, %s given',
+                    $method, $this->rowKeyType->asTypeString(), Debug::getType($rowKey)
+            );
+        }
     }
 
-    /**
-     * Gets the table data as a collection of table cell value objects.
-     *
-     * Returns the cells in the order of their column then their row.
-     *
-     * @return ValueObjectCollection
-     */
-    final public function asCellCollection()
+    protected function validateColumnKey($method, $columnKey)
     {
-        $cellGroups = [];
-
-        foreach ($this->rows as $row) {
-            $rowKey = $row->getKey();
-
-            foreach ($row->getCellValues() as $columnIndex => $cellValue) {
-                $cellGroups[$columnIndex][] = TableDataCell::create(
-                        $this->columnIndexKeyMap[$columnIndex],
-                        $rowKey,
-                        $cellValue
-                );
-            }
+        if (!$this->columnKeyType->isOfType($columnKey)) {
+            throw TypeMismatchException::format(
+                    'Invalid column key passed to %s: expecting type of %s, %s given',
+                    $method, $this->columnKeyType->asTypeString(), Debug::getType($columnKey)
+            );
         }
-
-        ksort($cellGroups);
-        $cells = [];
-
-        foreach ($cellGroups as $cellGroup) {
-            foreach ($cellGroup as $cell) {
-                $cells[] = $cell;
-            }
-        }
-
-        return TableDataCell::collection($cells);
     }
 
     /**
-     * Loads a collection of table cell value objects into the table structure.
+     * Returns whether the table data contains a column with the supplied key.
      *
-     * NOTE: This exists for persistence purposes only.
+     * @param string $columnKey
      *
-     * @param ValueObjectCollection|TableDataCell[] $cells
+     * @return bool
+     * @throws TypeMismatchException
+     */
+    public function hasColumn($columnKey)
+    {
+        $this->validateColumnKey(__METHOD__, $columnKey);
+        $this->loadColumns();
+
+        $columnHash = ValueHasher::hash($columnKey);
+
+        return isset($this->columns[$columnHash]);
+    }
+
+    /**
+     * Gets the table column with the supplied key.
      *
-     * @return static
+     * @param string $columnKey
+     *
+     * @return TableDataColumn
      * @throws InvalidArgumentException
      * @throws TypeMismatchException
      */
-    final public function hydrateFromCellCollection(ValueObjectCollection $cells)
+    public function getColumn($columnKey)
     {
-        if (!TableDataCell::collectionType()->isOfType($cells)) {
-            throw TypeMismatchException::format(
-                    'Invalid collection passed to %s: expecting type of %s, %s given',
-                    __METHOD__, TableDataCell::collectionType()->asTypeString(), Type::from($cells)->asTypeString()
+        $this->validateColumnKey(__METHOD__, $columnKey);
+        $this->loadColumns();
+
+        $columnHash = ValueHasher::hash($columnKey);
+
+        if (!isset($this->columns[$columnHash])) {
+            throw InvalidArgumentException::format(
+                    'Invalid column key supplied to %s: expecting one of hashes (%s), value with \'%s\' hash given',
+                    __METHOD__, Debug::formatValues(array_keys($this->columns)), $columnHash
             );
         }
 
-        $columnKeys = [];
-        $rowKeys    = [];
-        $rowData    = [];
+        return $this->columns[$columnHash];
+    }
 
-        foreach ($cells as $cell) {
-            $columnHash = ObjectHasher::hash($cell->columnKey);
-            $rowHash    = ObjectHasher::hash($cell->rowKey);
+    /**
+     * Returns whether the table data contains a row with the supplied key.
+     *
+     * @param string $rowKey
+     *
+     * @return bool
+     * @throws TypeMismatchException
+     */
+    public function hasRow($rowKey)
+    {
+        $this->validateRowKey(__METHOD__, $rowKey);
+        $this->loadRows();
 
-            $columnKeys[$columnHash]        = $cell->columnKey;
-            $rowKeys[$rowHash]              = $cell->rowKey;
-            $rowData[$rowHash][$columnHash] = $cell->cellValue;
-        }
+        $rowHash = ValueHasher::hash($rowKey);
 
-        $rows               = [];
-        $columnHashIndexMap = array_flip(array_keys($columnKeys));
+        return isset($this->rows[$rowHash]);
+    }
 
-        foreach ($rowData as $rowKeyHash => $row) {
-            $cellValues = [];
-            foreach ($row as $columnHash => $cellValue) {
-                $cellValues[$columnHashIndexMap[$columnHash]] = $cellValue;
-            }
+    /**
+     * Gets the table row with the supplied key.
+     *
+     * @param string $rowKey
+     *
+     * @return TableDataRow
+     * @throws InvalidArgumentException
+     * @throws TypeMismatchException
+     */
+    public function getRow($rowKey)
+    {
+        $this->validateRowKey(__METHOD__, $rowKey);
+        $this->loadRows();
 
-            $rows[] = new Row(
-                    $rowKeys[$rowKeyHash],
-                    $cellValues
+        $rowHash = ValueHasher::hash($rowKey);
+
+        if (!isset($this->rows[$rowHash])) {
+            throw InvalidArgumentException::format(
+                    'Invalid row key supplied to %s: expecting one of hashes (%s), value with \'%s\' hash given',
+                    __METHOD__, Debug::formatValues(array_keys($this->rows)), $rowHash
             );
         }
 
-        $this->loadTableData(array_values($columnKeys), $rows);
+        return $this->rows[$rowHash];
+    }
+
+    /**
+     * Returns whether their is a cell value at the supplied row and column.
+     *
+     * @param mixed $columnKey
+     * @param mixed $rowKey
+     *
+     * @return bool
+     * @throws TypeMismatchException
+     */
+    public function hasCell($columnKey, $rowKey)
+    {
+        $this->validateColumnKey(__METHOD__, $columnKey);
+        $this->validateRowKey(__METHOD__, $rowKey);
+
+        $this->loadColumns();
+        $this->loadRows();
+
+        $columnHash = ValueHasher::hash($columnKey);
+        if (!isset($this->columns[$columnHash])) {
+            return false;
+        }
+
+        $rowHash = ValueHasher::hash($rowKey);
+        if (!isset($this->rows[$rowHash])) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Gets the value of the cell or NULL if the cell does not exist.
+     *
+     * @param mixed $columnKey
+     * @param mixed $rowKey
+     *
+     * @return mixed
+     * @throws TypeMismatchException
+     */
+    public function getCell($columnKey, $rowKey)
+    {
+        $column = $this->getColumn($columnKey);
+        $row    = $this->getRow($rowKey);
+
+        return $row[$column];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function apply(callable $function)
+    {
+        parent::apply($function);
+        $this->requireReloadOfRowsAndColumns();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function offsetUnset($index)
+    {
+        parent::offsetUnset($index);
+        $this->requireReloadOfRowsAndColumns();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function offsetSet($index, $value)
+    {
+        parent::offsetSet($index, $value);
+        $this->requireReloadOfRowsAndColumns();
     }
 }

@@ -4,11 +4,11 @@ namespace Iddigital\Cms\Common\Structure\Tests\Table;
 
 use Iddigital\Cms\Common\Structure\DateTime\DayOfWeek;
 use Iddigital\Cms\Common\Structure\DateTime\TimeOfDay;
-use Iddigital\Cms\Common\Structure\Table\Row;
+use Iddigital\Cms\Common\Structure\Table\TableData;
 use Iddigital\Cms\Common\Structure\Table\TableDataColumn;
 use Iddigital\Cms\Common\Structure\Table\TableDataRow;
 use Iddigital\Cms\Common\Structure\Tests\Table\Fixtures\TestBusinessAvailability;
-use Iddigital\Cms\Common\Structure\Tests\Table\Fixtures\TestBusinessHoursTimetableData;
+use Iddigital\Cms\Common\Structure\Tests\Table\Fixtures\TestBusinessHoursTimetableCell;
 use Iddigital\Cms\Common\Testing\CmsTestCase;
 use Iddigital\Cms\Core\Exception\InvalidArgumentException;
 use Iddigital\Cms\Core\Exception\TypeMismatchException;
@@ -19,13 +19,13 @@ use Iddigital\Cms\Core\Exception\TypeMismatchException;
 class BusinessHoursTimetableTest extends CmsTestCase
 {
     /**
-     * @var TestBusinessHoursTimetableData
+     * @var TableData
      */
     protected $table;
 
     public function setUp()
     {
-        $this->table = TestBusinessHoursTimetableData::defaultTimetable();
+        $this->table = TestBusinessHoursTimetableCell::defaultTimetable();
     }
 
     public function testColumns()
@@ -60,7 +60,7 @@ class BusinessHoursTimetableTest extends CmsTestCase
 
                 if ($day->isWeekEnd()) {
                     $this->assertEquals(TestBusinessAvailability::closed(), $row[$column]);
-                } elseif ($hour->getHour() >= TestBusinessHoursTimetableData::OPENING_HOUR && $hour->getHour() <= TestBusinessHoursTimetableData::CLOSING_HOUR) {
+                } elseif ($hour->getHour() >= TestBusinessHoursTimetableCell::OPENING_HOUR && $hour->getHour() <= TestBusinessHoursTimetableCell::CLOSING_HOUR) {
                     $this->assertEquals(TestBusinessAvailability::open(), $row[$column]);
                 } else {
                     $this->assertEquals(TestBusinessAvailability::closed(), $row[$column]);
@@ -79,6 +79,81 @@ class BusinessHoursTimetableTest extends CmsTestCase
         $this->assertSame(false, isset($row[$this->getMockBuilder(TableDataColumn::class)->disableOriginalConstructor()->getMock()]));
     }
 
+    public function testColumnGetters()
+    {
+        $this->assertSame(true, $this->table->hasColumn(DayOfWeek::monday()));
+        $this->assertSame(true, $this->table->hasColumn(DayOfWeek::tuesday()));
+        $this->assertSame(false, $this->table->hasColumn(
+                $this->getMockBuilder(DayOfWeek::class)->disableOriginalConstructor()->getMock()
+        ));
+
+        $this->assertThrows(function () {
+            $this->table->hasRow('abc');
+        }, TypeMismatchException::class);
+
+        $this->assertInstanceOf(TableDataColumn::class, $this->table->getColumn(DayOfWeek::monday()));
+        $this->assertInstanceOf(TableDataColumn::class, $this->table->getColumn(DayOfWeek::tuesday()));
+        $this->assertThrows(function () {
+            $this->table->getColumn($this->getMockBuilder(DayOfWeek::class)->disableOriginalConstructor()->getMock());
+        }, InvalidArgumentException::class);
+
+        $this->assertThrows(function () {
+            $this->table->getColumn('abc');
+        }, TypeMismatchException::class);
+    }
+
+    public function testRowGetters()
+    {
+        $this->assertSame(true, $this->table->hasRow(new TimeOfDay(1)));
+        $this->assertSame(true, $this->table->hasRow(new TimeOfDay(12)));
+        $this->assertSame(false, $this->table->hasRow(new TimeOfDay(12, 0, 1)));
+
+        $this->assertThrows(function () {
+            $this->table->hasRow('abc');
+        }, TypeMismatchException::class);
+
+        $this->assertInstanceOf(TableDataRow::class, $this->table->getRow(new TimeOfDay(1)));
+        $this->assertInstanceOf(TableDataRow::class, $this->table->getRow(new TimeOfDay(12)));
+        $this->assertThrows(function () {
+            $this->table->getRow(new TimeOfDay(12, 0, 1));
+        }, InvalidArgumentException::class);
+
+        $this->assertThrows(function () {
+            $this->table->getRow('abc');
+        }, TypeMismatchException::class);
+    }
+
+    public function testCellGetters()
+    {
+        $this->assertSame(true, $this->table->hasCell(DayOfWeek::monday(), new TimeOfDay(1)));
+        $this->assertSame(true, $this->table->hasCell(DayOfWeek::tuesday(), new TimeOfDay(3)));
+        $this->assertSame(false, $this->table->hasCell(DayOfWeek::tuesday(), new TimeOfDay(3, 10, 00)));
+
+        $this->assertThrows(function () {
+            $this->table->hasCell('abc', new TimeOfDay(3));
+        }, TypeMismatchException::class);
+
+        $this->assertThrows(function () {
+            $this->table->hasCell(DayOfWeek::tuesday(), 'abc');
+        }, TypeMismatchException::class);
+
+        $this->assertInstanceOf(TestBusinessAvailability::class, $this->table->getCell(DayOfWeek::monday(), new TimeOfDay(1)));
+        $this->assertInstanceOf(TestBusinessAvailability::class, $this->table->getCell(DayOfWeek::tuesday(), new TimeOfDay(3)));
+
+        $this->assertThrows(function () {
+            $this->table->getCell(DayOfWeek::tuesday(), new TimeOfDay(3, 10, 00));
+        }, InvalidArgumentException::class);
+
+        $this->assertThrows(function () {
+            $this->table->getCell('abc', new TimeOfDay(3));
+        }, TypeMismatchException::class);
+
+        $this->assertThrows(function () {
+            $this->table->getCell(DayOfWeek::tuesday(), 'abc');
+        }, TypeMismatchException::class);
+
+    }
+
     public function testInvalidColumn()
     {
         $this->assertThrows(function () {
@@ -90,35 +165,43 @@ class BusinessHoursTimetableTest extends CmsTestCase
         }, InvalidArgumentException::class);
     }
 
-    public function testInvalidRows()
+    public function testMissingCellIsReplacedWithNull()
     {
-        $this->assertThrows(function () {
-            new TestBusinessHoursTimetableData(['abc']);
-        }, InvalidArgumentException::class);
+        $this->table = TestBusinessHoursTimetableCell::collection([
+                new TestBusinessHoursTimetableCell(DayOfWeek::monday(), new TimeOfDay(12), TestBusinessAvailability::open()),
+                new TestBusinessHoursTimetableCell(DayOfWeek::monday(), new TimeOfDay(13), TestBusinessAvailability::open()),
+                //
+                new TestBusinessHoursTimetableCell(DayOfWeek::tuesday(), new TimeOfDay(12), TestBusinessAvailability::open()),
+        ]);
 
-        $this->assertThrows(function () {
-            new TestBusinessHoursTimetableData([
-                    new Row(new TimeOfDay(1), array_fill(0, 7, new \stdClass()))
-            ]);
-        }, TypeMismatchException::class);
+        $this->assertEquals(TestBusinessAvailability::open(), $this->table->getCell(DayOfWeek::tuesday(), new TimeOfDay(12)));
+        $this->assertSame(null, $this->table->getCell(DayOfWeek::tuesday(), new TimeOfDay(13)));
+    }
 
-        $this->assertThrows(function () {
-            new TestBusinessHoursTimetableData([
-                // Requires 7 values per row
-                new Row(new TimeOfDay(1), [TestBusinessAvailability::open()])
-            ]);
-        }, InvalidArgumentException::class);
+    public function testDuplicateCellsAreRemoved()
+    {
+        $this->table = TestBusinessHoursTimetableCell::collection([
+                new TestBusinessHoursTimetableCell(DayOfWeek::monday(), new TimeOfDay(12), TestBusinessAvailability::open()),
+                new TestBusinessHoursTimetableCell(DayOfWeek::monday(), new TimeOfDay(12), TestBusinessAvailability::closed()),
+        ]);
 
-        $this->assertThrows(function () {
-            new TestBusinessHoursTimetableData([
-                    new Row(null, array_fill(0, 7, TestBusinessAvailability::open()))
-            ]);
-        }, TypeMismatchException::class);
+        $this->assertCount(1, $this->table);
+        $this->assertEquals(TestBusinessAvailability::closed(), $this->table->getCell(DayOfWeek::monday(), new TimeOfDay(12)));
+    }
 
-        $this->assertThrows(function () {
-            new TestBusinessHoursTimetableData([
-                    new Row(new \stdClass(), array_fill(0, 7, TestBusinessAvailability::open()))
-            ]);
-        }, TypeMismatchException::class);
+    public function testAddingCell()
+    {
+        $this->table = TestBusinessHoursTimetableCell::collection([
+                new TestBusinessHoursTimetableCell(DayOfWeek::monday(), new TimeOfDay(12), TestBusinessAvailability::open()),
+                new TestBusinessHoursTimetableCell(DayOfWeek::monday(), new TimeOfDay(13), TestBusinessAvailability::open()),
+                //
+                new TestBusinessHoursTimetableCell(DayOfWeek::tuesday(), new TimeOfDay(12), TestBusinessAvailability::open()),
+        ]);
+
+        $this->assertSame(null, $this->table->getCell(DayOfWeek::tuesday(), new TimeOfDay(13)));
+
+        $this->table[] = new TestBusinessHoursTimetableCell(DayOfWeek::tuesday(), new TimeOfDay(13), TestBusinessAvailability::closed());
+
+        $this->assertEquals(TestBusinessAvailability::closed(), $this->table->getCell(DayOfWeek::tuesday(), new TimeOfDay(13)));
     }
 }

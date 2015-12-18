@@ -2,9 +2,12 @@
 
 namespace Iddigital\Cms\Common\Structure\Tests\Table\Persistence;
 
+use Iddigital\Cms\Common\Structure\DateTime\DayOfWeek;
+use Iddigital\Cms\Common\Structure\DateTime\TimeOfDay;
 use Iddigital\Cms\Common\Structure\Table\Row;
 use Iddigital\Cms\Common\Structure\Table\TableData;
-use Iddigital\Cms\Common\Structure\Tests\Table\Fixtures\TestBusinessHoursTimetableData;
+use Iddigital\Cms\Common\Structure\Tests\Table\Fixtures\TestBusinessAvailability;
+use Iddigital\Cms\Common\Structure\Tests\Table\Fixtures\TestBusinessHoursTimetableCell;
 use Iddigital\Cms\Common\Structure\Tests\Table\Persistence\Fixtures\BusinessHours\TestBusinessHoursEntity;
 use Iddigital\Cms\Common\Structure\Tests\Table\Persistence\Fixtures\BusinessHours\TestBusinessHoursOrm;
 use Iddigital\Cms\Core\Persistence\Db\Mapping\IOrm;
@@ -52,7 +55,7 @@ class BusinessHoursTimetableMapperTest extends DbIntegrationTest
     /**
      * @return array
      */
-    private function loadDefaultTimetableDataRows()
+    private function loadDefaultTimetableDataRows($businessHoursId = 1)
     {
         $expectedDataRows = [];
         $id               = 1;
@@ -61,11 +64,11 @@ class BusinessHoursTimetableMapperTest extends DbIntegrationTest
             foreach (range(0, 23) as $hour) {
                 $expectedDataRows[] = [
                         'id'                => $id++,
-                        'business_hours_id' => 1,
+                        'business_hours_id' => $businessHoursId,
                         'day'               => $day,
                         'time'              => str_pad($hour, 2, 0, STR_PAD_LEFT) . ':00:00',
                         'status'            =>
-                                $day <= 5 && $hour >= TestBusinessHoursTimetableData::OPENING_HOUR && $hour <= TestBusinessHoursTimetableData::CLOSING_HOUR
+                                $day <= 5 && $hour >= TestBusinessHoursTimetableCell::OPENING_HOUR && $hour <= TestBusinessHoursTimetableCell::CLOSING_HOUR
                                         ? 'open'
                                         : 'closed',
                 ];
@@ -77,7 +80,7 @@ class BusinessHoursTimetableMapperTest extends DbIntegrationTest
 
     public function testSave()
     {
-        $this->repo->save(new TestBusinessHoursEntity(null, TestBusinessHoursTimetableData::defaultTimetable()));
+        $this->repo->save(new TestBusinessHoursEntity(null, TestBusinessHoursTimetableCell::defaultTimetable()));
 
         $expectedDataRows = $this->loadDefaultTimetableDataRows();
 
@@ -91,17 +94,45 @@ class BusinessHoursTimetableMapperTest extends DbIntegrationTest
 
     public function testLoad()
     {
-        $dataRows = $this->loadDefaultTimetableDataRows();
-
         $this->db->setData([
                 'business_hours'      => [
                         ['id' => 1]
                 ],
-                'business_hours_data' => $dataRows,
+                'business_hours_data' => $this->loadDefaultTimetableDataRows(),
         ]);
 
-        $expectedEntity = new TestBusinessHoursEntity(1, TestBusinessHoursTimetableData::defaultTimetable());
+        $expectedEntity = new TestBusinessHoursEntity(1, TestBusinessHoursTimetableCell::defaultTimetable());
 
         $this->assertEquals($expectedEntity, $this->repo->get(1));
+    }
+
+    public function testCriteria()
+    {
+        $this->db->setData([
+                'business_hours'      => [
+                        ['id' => 1],
+                        ['id' => 2],
+                ],
+                'business_hours_data' => array_merge($this->loadDefaultTimetableDataRows(1), [
+                        [
+                                'id'                => 200,
+                                'business_hours_id' => 2,
+                                'day'               => 3,
+                                'time'              => '05:00:00',
+                                'status'            => 'open',
+                        ]
+                ]),
+        ]);
+
+        $results = $this->repo->matching(
+                $this->repo->criteria()
+                        ->where('timetable.count()', '<', 100)
+        );
+
+        $this->assertEquals([
+            new TestBusinessHoursEntity(2, TestBusinessHoursTimetableCell::collection([
+                new TestBusinessHoursTimetableCell(DayOfWeek::wednesday(), new TimeOfDay(5), TestBusinessAvailability::open())
+            ]))
+        ], $results);
     }
 }

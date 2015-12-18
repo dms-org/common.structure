@@ -2,15 +2,16 @@
 
 namespace Iddigital\Cms\Common\Structure\Table;
 
-use Iddigital\Cms\Core\Model\Object\ClassDefinition;
 use Iddigital\Cms\Core\Model\Object\ValueObject;
+use Iddigital\Cms\Core\Model\Type\Builder\Type;
+use Iddigital\Cms\Core\Model\Type\CollectionType;
 
 /**
  * The table data cell value object class.
  *
  * @author Elliot Levin <elliotlevin@hotmail.com>
  */
-class TableDataCell extends ValueObject
+abstract class TableDataCell extends ValueObject
 {
     const COLUMN_KEY = 'columnKey';
     const ROW_KEY = 'rowKey';
@@ -32,32 +33,53 @@ class TableDataCell extends ValueObject
     public $cellValue;
 
     /**
+     * TableDataCell constructor.
+     *
      * @param mixed $columnKey
      * @param mixed $rowKey
      * @param mixed $cellValue
-     *
-     * @return TableDataCell
      */
-    public static function create($columnKey, $rowKey, $cellValue)
+    public function __construct($columnKey, $rowKey, $cellValue)
     {
-        $cell = self::construct();
-
-        $cell->columnKey = $columnKey;
-        $cell->rowKey    = $rowKey;
-        $cell->cellValue = $cellValue;
-
-        return $cell;
+        parent::__construct();
+        $this->columnKey = $columnKey;
+        $this->rowKey    = $rowKey;
+        $this->cellValue = $cellValue;
     }
 
     /**
-     * Defines the structure of this class.
+     * Gets the type of the of table data collection.
      *
-     * @param ClassDefinition $class
+     * @return CollectionType
      */
-    protected function define(ClassDefinition $class)
+    public static function collectionType()
     {
-        $class->property($this->columnKey)->asMixed();
-        $class->property($this->rowKey)->asMixed();
-        $class->property($this->cellValue)->asMixed();
+        return Type::collectionOf(static::type(), TableData::class);
     }
+
+    /**
+     * Creates a table data collection with the supplied cells.
+     *
+     * @param static[] $cells
+     *
+     * @return TableData
+     */
+    public static function collection(array $cells = [])
+    {
+        return new TableData(get_called_class(), $cells);
+    }
+
+    /**
+     * Gets the label for the column of this cell.
+     *
+     * @return string
+     */
+    abstract public function getColumnLabel();
+
+    /**
+     * Gets the label for the row of this cell.
+     *
+     * @return string
+     */
+    abstract public function getRowLabel();
 }

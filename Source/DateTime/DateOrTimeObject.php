@@ -5,13 +5,14 @@ namespace Iddigital\Cms\Common\Structure\DateTime;
 use Iddigital\Cms\Core\Model\IComparable;
 use Iddigital\Cms\Core\Model\Object\ClassDefinition;
 use Iddigital\Cms\Core\Model\Object\ValueObject;
+use Iddigital\Cms\Core\Util\Hashing\IHashable;
 
 /**
  * The date time object base
  *
  * @author Elliot Levin <elliotlevin@hotmail.com>
  */
-abstract class DateOrTimeObject extends ValueObject implements IComparable
+abstract class DateOrTimeObject extends ValueObject implements IComparable, IHashable
 {
     const DATE_TIME = 'dateTime';
 
