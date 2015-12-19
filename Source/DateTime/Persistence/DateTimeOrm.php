@@ -32,7 +32,7 @@ class DateTimeOrm extends Orm
                 TimeOfDay::class              => TimeOfDayMapper::class,
                 Date::class                   => DateMapper::class,
                 DateTime::class               => DateTimeMapper::class,
-                TimezonedDateTime::class      => TimeZonedDateTimeMapper::class,
+                TimezonedDateTime::class      => TimezonedDateTimeMapper::class,
                 //
                 TimeRange::class              => TimeRangeMapper::class,
                 DateRangeMapper::class        => DateRangeMapper::class,

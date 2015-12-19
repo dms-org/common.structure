@@ -3,7 +3,7 @@
 namespace Iddigital\Cms\Common\Structure\Tests\DateTime\Persistence;
 
 use Iddigital\Cms\Common\Structure\DateTime\TimezonedDateTime;
-use Iddigital\Cms\Common\Structure\DateTime\Persistence\TimeZonedDateTimeMapper;
+use Iddigital\Cms\Common\Structure\DateTime\Persistence\TimezonedDateTimeMapper;
 use Iddigital\Cms\Core\Persistence\Db\Mapping\IEmbeddedObjectMapper;
 use Iddigital\Cms\Core\Tests\Persistence\Db\Mapper\ValueObjectMapperTest;
 
@@ -17,7 +17,7 @@ class TimezonedDateTimeMapperTest extends ValueObjectMapperTest
      */
     protected function buildMapper()
     {
-        return new TimeZonedDateTimeMapper();
+        return new TimezonedDateTimeMapper();
     }
 
     /**

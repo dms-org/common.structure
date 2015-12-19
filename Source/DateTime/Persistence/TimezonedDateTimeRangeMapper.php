@@ -49,9 +49,9 @@ class TimezonedDateTimeRangeMapper extends DateOrTimeRangeMapper
         $map->type(TimezonedDateTimeRange::class);
 
         $map->embedded(TimezonedDateTimeRange::START)
-                ->using(new TimeZonedDateTimeMapper($this->startColumnName, $this->startTimezoneName));
+                ->using(new TimezonedDateTimeMapper($this->startColumnName, $this->startTimezoneName));
 
         $map->embedded(TimezonedDateTimeRange::END)
-                ->using(new TimeZonedDateTimeMapper($this->endColumnName, $this->endTimezoneName));
+                ->using(new TimezonedDateTimeMapper($this->endColumnName, $this->endTimezoneName));
     }
 }
