@@ -19,7 +19,8 @@
     },
     "require": {
         "php": ">=5.5.0",
-        "iddigital/cms.core": "dev-master"
+        "iddigital/cms.core": "dev-master",
+        "psr/http-message": "1.0"
     },
     "require-dev": {
         "iddigital/cms.common.testing": "dev-master"
