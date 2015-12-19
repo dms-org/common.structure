@@ -17,7 +17,7 @@ class DirectoryMapper extends FileOrDirectoryMapper
      * @param string      $directoryPathColumnName
      * @param string|null $baseDirectoryPath
      */
-    public function __construct($directoryPathColumnName, $baseDirectoryPath = null)
+    public function __construct($directoryPathColumnName = 'directory', $baseDirectoryPath = null)
     {
         parent::__construct($directoryPathColumnName, $baseDirectoryPath);
     }

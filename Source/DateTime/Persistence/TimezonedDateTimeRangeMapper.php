@@ -30,7 +30,12 @@ class TimezonedDateTimeRangeMapper extends DateOrTimeRangeMapper
      * @param string $endDateTimeColumnName
      * @param string $endTimezoneName
      */
-    public function __construct($startDateTimeColumnName, $startTimezoneName, $endDateTimeColumnName, $endTimezoneName)
+    public function __construct(
+            $startDateTimeColumnName = 'start_datetime',
+            $startTimezoneName = 'start_timezone',
+            $endDateTimeColumnName = 'end_datetime',
+            $endTimezoneName = 'end_timezone'
+    )
     {
         $this->startTimezoneName = $startTimezoneName;
         $this->endTimezoneName   = $endTimezoneName;

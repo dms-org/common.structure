@@ -3,6 +3,7 @@
 namespace Iddigital\Cms\Common\Structure;
 
 use Iddigital\Cms\Common\Structure\DateTime\Persistence\DateTimeOrm;
+use Iddigital\Cms\Common\Structure\FileSystem\Persistence\FileSystemOrm;
 use Iddigital\Cms\Common\Structure\Geo\Persistence\GeoOrm;
 use Iddigital\Cms\Common\Structure\Web\Persistence\WebOrm;
 use Iddigital\Cms\Core\Persistence\Db\Mapping\Definition\Orm\OrmDefinition;
@@ -27,6 +28,7 @@ class CommonOrm extends Orm
         $orm->encompassAll([
                 new DateTimeOrm(),
                 new GeoOrm(),
+                new FileSystemOrm(),
                 new WebOrm(),
         ]);
     }

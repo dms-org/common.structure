@@ -2,10 +2,6 @@
 
 namespace Iddigital\Cms\Common\Structure\Geo\Persistence;
 
-use Iddigital\Cms\Common\Structure\DateTime\DateTimeRange;
-use Iddigital\Cms\Common\Structure\DateTime\TimeRange;
-use Iddigital\Cms\Common\Structure\DateTime\TimezonedDateTime;
-use Iddigital\Cms\Common\Structure\DateTime\TimezonedDateTimeRange;
 use Iddigital\Cms\Common\Structure\Geo\LatLng;
 use Iddigital\Cms\Common\Structure\Geo\StringAddress;
 use Iddigital\Cms\Common\Structure\Geo\StringAddressWithLatLng;

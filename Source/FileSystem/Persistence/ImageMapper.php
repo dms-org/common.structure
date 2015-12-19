@@ -17,7 +17,7 @@ class ImageMapper extends FileOrDirectoryMapper
      * @param string      $filePathColumnName
      * @param string|null $baseDirectoryPath
      */
-    public function __construct($filePathColumnName, $baseDirectoryPath = null)
+    public function __construct($filePathColumnName = 'image', $baseDirectoryPath = null)
     {
         parent::__construct($filePathColumnName, $baseDirectoryPath);
     }

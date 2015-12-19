@@ -13,6 +13,14 @@ use Iddigital\Cms\Core\Persistence\Db\Mapping\Definition\MapperDefinition;
 class TimeRangeMapper extends DateOrTimeRangeMapper
 {
     /**
+     * @inheritDoc
+     */
+    public function __construct($startColumnName = 'start_time', $endColumnName = 'end_time')
+    {
+        parent::__construct($startColumnName, $endColumnName);
+    }
+
+    /**
      * Defines the value object mapper
      *
      * @param MapperDefinition $map

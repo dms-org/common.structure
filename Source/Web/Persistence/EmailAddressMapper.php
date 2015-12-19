@@ -13,6 +13,14 @@ use Iddigital\Cms\Core\Persistence\Db\Mapping\Definition\Column\ColumnTypeDefine
 class EmailAddressMapper extends StringValueObjectMapper
 {
     /**
+     * @inheritDoc
+     */
+    public function __construct($columnName = 'email')
+    {
+        parent::__construct($columnName);
+    }
+
+    /**
      * Gets the mapped class type.
      *
      * @return string

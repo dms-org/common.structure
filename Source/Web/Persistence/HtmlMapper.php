@@ -13,6 +13,14 @@ use Iddigital\Cms\Core\Persistence\Db\Mapping\Definition\Column\ColumnTypeDefine
 class HtmlMapper extends StringValueObjectMapper
 {
     /**
+     * @inheritDoc
+     */
+    public function __construct($columnName = 'html')
+    {
+        parent::__construct($columnName);
+    }
+
+    /**
      * Gets the mapped class type.
      *
      * @return string

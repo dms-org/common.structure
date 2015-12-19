@@ -18,7 +18,7 @@ class DateTimeMapper extends IndependentValueObjectMapper
      */
     protected $columnName;
 
-    public function __construct($columnName)
+    public function __construct($columnName = 'datetime')
     {
         $this->columnName = $columnName;
         parent::__construct();

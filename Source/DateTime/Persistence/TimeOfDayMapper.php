@@ -18,7 +18,7 @@ class TimeOfDayMapper extends IndependentValueObjectMapper
      */
     protected $columnName;
 
-    public function __construct($columnName)
+    public function __construct($columnName = 'time')
     {
         $this->columnName = $columnName;
         parent::__construct();

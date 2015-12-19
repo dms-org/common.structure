@@ -2,7 +2,6 @@
 
 namespace Iddigital\Cms\Common\Structure\Web\Persistence;
 
-use Iddigital\Cms\Common\Structure\Web\IpAddress;
 use Iddigital\Cms\Common\Structure\Web\Uri;
 use Iddigital\Cms\Core\Persistence\Db\Mapping\Definition\Column\ColumnTypeDefiner;
 
@@ -13,6 +12,14 @@ use Iddigital\Cms\Core\Persistence\Db\Mapping\Definition\Column\ColumnTypeDefine
  */
 class UriMapper extends StringValueObjectMapper
 {
+    /**
+     * @inheritDoc
+     */
+    public function __construct($columnName = 'uri')
+    {
+        parent::__construct($columnName);
+    }
+
     /**
      * Gets the mapped class type.
      *
