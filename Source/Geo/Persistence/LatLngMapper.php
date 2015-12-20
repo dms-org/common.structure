@@ -1,10 +1,10 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Geo\Persistence;
+namespace Dms\Common\Structure\Geo\Persistence;
 
-use Iddigital\Cms\Common\Structure\Geo\LatLng;
-use Iddigital\Cms\Core\Persistence\Db\Mapping\Definition\MapperDefinition;
-use Iddigital\Cms\Core\Persistence\Db\Mapping\IndependentValueObjectMapper;
+use Dms\Common\Structure\Geo\LatLng;
+use Dms\Core\Persistence\Db\Mapping\Definition\MapperDefinition;
+use Dms\Core\Persistence\Db\Mapping\IndependentValueObjectMapper;
 
 /**
  * The lat/lng value object mapper

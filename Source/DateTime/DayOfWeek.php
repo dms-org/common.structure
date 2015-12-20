@@ -1,10 +1,10 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\DateTime;
+namespace Dms\Common\Structure\DateTime;
 
-use Iddigital\Cms\Core\Model\Object\Enum;
-use Iddigital\Cms\Core\Model\Object\InvalidEnumValueException;
-use Iddigital\Cms\Core\Model\Object\PropertyTypeDefiner;
+use Dms\Core\Model\Object\Enum;
+use Dms\Core\Model\Object\InvalidEnumValueException;
+use Dms\Core\Model\Object\PropertyTypeDefiner;
 
 /**
  * The day of week enum.

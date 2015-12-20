@@ -1,9 +1,9 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\FileSystem;
+namespace Dms\Common\Structure\FileSystem;
 
-use Iddigital\Cms\Core\Model\Object\ClassDefinition;
-use Iddigital\Cms\Core\Model\Object\ValueObject;
+use Dms\Core\Model\Object\ClassDefinition;
+use Dms\Core\Model\Object\ValueObject;
 
 /**
  * The file system object value class.

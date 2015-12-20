@@ -1,10 +1,10 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\DateTime\Persistence;
+namespace Dms\Common\Structure\DateTime\Persistence;
 
-use Iddigital\Cms\Common\Structure\DateTime\TimeOfDay;
-use Iddigital\Cms\Core\Persistence\Db\Mapping\Definition\MapperDefinition;
-use Iddigital\Cms\Core\Persistence\Db\Mapping\IndependentValueObjectMapper;
+use Dms\Common\Structure\DateTime\TimeOfDay;
+use Dms\Core\Persistence\Db\Mapping\Definition\MapperDefinition;
+use Dms\Core\Persistence\Db\Mapping\IndependentValueObjectMapper;
 
 /**
  * The time value object mapper

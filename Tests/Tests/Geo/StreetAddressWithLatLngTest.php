@@ -1,10 +1,10 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Tests\Geo;
+namespace Dms\Common\Structure\Tests\Geo;
 
-use Iddigital\Cms\Common\Structure\Geo\LatLng;
-use Iddigital\Cms\Common\Structure\Geo\StreetAddressWithLatLng;
-use Iddigital\Cms\Common\Testing\CmsTestCase;
+use Dms\Common\Structure\Geo\LatLng;
+use Dms\Common\Structure\Geo\StreetAddressWithLatLng;
+use Dms\Common\Testing\CmsTestCase;
 
 /**
  * @author Elliot Levin <elliotlevin@hotmail.com>

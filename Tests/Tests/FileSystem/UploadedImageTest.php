@@ -1,9 +1,9 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Tests\ImageSystem;
+namespace Dms\Common\Structure\Tests\ImageSystem;
 
-use Iddigital\Cms\Common\Structure\FileSystem\UploadedImage;
-use Iddigital\Cms\Common\Testing\CmsTestCase;
+use Dms\Common\Structure\FileSystem\UploadedImage;
+use Dms\Common\Testing\CmsTestCase;
 
 /**
  * @author Elliot Levin <elliotlevin@hotmail.com>

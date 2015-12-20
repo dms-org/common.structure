@@ -1,5 +1,5 @@
 {
-    "name": "iddigital/cms.common.structures",
+    "name": "dms/common.structures",
     "description": "Implementation of common data structures for use in domain models",
     "authors": [
         {
@@ -13,16 +13,16 @@
     ],
     "autoload": {
         "psr-4": {
-            "Iddigital\\Cms\\Common\\Structure\\": "./Source/",
-            "Iddigital\\Cms\\Common\\Structure\\Tests\\": "./Tests/Tests"
+            "Dms\\Common\\Structure\\": "./Source/",
+            "Dms\\Common\\Structure\\Tests\\": "./Tests/Tests"
         }
     },
     "require": {
         "php": ">=5.5.0",
-        "iddigital/cms.core": "dev-master",
+        "dms/core": "dev-master",
         "psr/http-message": "1.0"
     },
     "require-dev": {
-        "iddigital/cms.common.testing": "dev-master"
+        "dms/common.testing": "dev-master"
     }
 }

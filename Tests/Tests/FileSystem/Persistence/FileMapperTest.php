@@ -1,11 +1,11 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Tests\FileSystem\Persistence;
+namespace Dms\Common\Structure\Tests\FileSystem\Persistence;
 
-use Iddigital\Cms\Common\Structure\FileSystem\File;
-use Iddigital\Cms\Common\Structure\FileSystem\Persistence\FileMapper;
-use Iddigital\Cms\Core\Persistence\Db\Mapping\IEmbeddedObjectMapper;
-use Iddigital\Cms\Core\Tests\Persistence\Db\Mapper\ValueObjectMapperTest;
+use Dms\Common\Structure\FileSystem\File;
+use Dms\Common\Structure\FileSystem\Persistence\FileMapper;
+use Dms\Core\Persistence\Db\Mapping\IEmbeddedObjectMapper;
+use Dms\Core\Tests\Persistence\Db\Mapper\ValueObjectMapperTest;
 
 /**
  * @author Elliot Levin <elliotlevin@hotmail.com>

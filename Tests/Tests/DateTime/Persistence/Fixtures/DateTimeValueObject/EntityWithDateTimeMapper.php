@@ -1,10 +1,10 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Tests\DateTime\Persistence\Fixtures\DateTimeValueObject;
+namespace Dms\Common\Structure\Tests\DateTime\Persistence\Fixtures\DateTimeValueObject;
 
-use Iddigital\Cms\Common\Structure\DateTime\Persistence\DateTimeMapper;
-use Iddigital\Cms\Core\Persistence\Db\Mapping\Definition\MapperDefinition;
-use Iddigital\Cms\Core\Persistence\Db\Mapping\EntityMapper;
+use Dms\Common\Structure\DateTime\Persistence\DateTimeMapper;
+use Dms\Core\Persistence\Db\Mapping\Definition\MapperDefinition;
+use Dms\Core\Persistence\Db\Mapping\EntityMapper;
 
 /**
  * @author Elliot Levin <elliotlevin@hotmail.com>

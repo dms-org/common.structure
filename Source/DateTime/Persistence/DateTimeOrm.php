@@ -1,16 +1,16 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\DateTime\Persistence;
+namespace Dms\Common\Structure\DateTime\Persistence;
 
-use Iddigital\Cms\Common\Structure\DateTime\Date;
-use Iddigital\Cms\Common\Structure\DateTime\DateTime;
-use Iddigital\Cms\Common\Structure\DateTime\DateTimeRange;
-use Iddigital\Cms\Common\Structure\DateTime\TimeOfDay;
-use Iddigital\Cms\Common\Structure\DateTime\TimeRange;
-use Iddigital\Cms\Common\Structure\DateTime\TimezonedDateTime;
-use Iddigital\Cms\Common\Structure\DateTime\TimezonedDateTimeRange;
-use Iddigital\Cms\Core\Persistence\Db\Mapping\Definition\Orm\OrmDefinition;
-use Iddigital\Cms\Core\Persistence\Db\Mapping\Orm;
+use Dms\Common\Structure\DateTime\Date;
+use Dms\Common\Structure\DateTime\DateTime;
+use Dms\Common\Structure\DateTime\DateTimeRange;
+use Dms\Common\Structure\DateTime\TimeOfDay;
+use Dms\Common\Structure\DateTime\TimeRange;
+use Dms\Common\Structure\DateTime\TimezonedDateTime;
+use Dms\Common\Structure\DateTime\TimezonedDateTimeRange;
+use Dms\Core\Persistence\Db\Mapping\Definition\Orm\OrmDefinition;
+use Dms\Core\Persistence\Db\Mapping\Orm;
 
 /**
  * The date time orm.

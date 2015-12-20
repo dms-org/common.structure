@@ -1,11 +1,11 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Table\Timetable;
+namespace Dms\Common\Structure\Table\Timetable;
 
-use Iddigital\Cms\Common\Structure\DateTime\DayOfWeek;
-use Iddigital\Cms\Common\Structure\DateTime\TimeOfDay;
-use Iddigital\Cms\Common\Structure\Table\TableDataCell;
-use Iddigital\Cms\Core\Model\Object\ClassDefinition;
+use Dms\Common\Structure\DateTime\DayOfWeek;
+use Dms\Common\Structure\DateTime\TimeOfDay;
+use Dms\Common\Structure\Table\TableDataCell;
+use Dms\Core\Model\Object\ClassDefinition;
 
 /**
  * The timetable data value object base class.

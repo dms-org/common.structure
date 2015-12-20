@@ -1,9 +1,9 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Tests\Web;
+namespace Dms\Common\Structure\Tests\Web;
 
-use Iddigital\Cms\Common\Structure\Web\Html;
-use Iddigital\Cms\Common\Testing\CmsTestCase;
+use Dms\Common\Structure\Web\Html;
+use Dms\Common\Testing\CmsTestCase;
 
 /**
  * @author Elliot Levin <elliotlevin@hotmail.com>

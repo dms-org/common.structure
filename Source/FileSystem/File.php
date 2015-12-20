@@ -1,11 +1,11 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\FileSystem;
+namespace Dms\Common\Structure\FileSystem;
 
-use Iddigital\Cms\Core\Exception\InvalidOperationException;
-use Iddigital\Cms\Core\File\IFile;
-use Iddigital\Cms\Core\Model\Object\ClassDefinition;
-use Iddigital\Cms\Core\Model\Object\ValueObject;
+use Dms\Core\Exception\InvalidOperationException;
+use Dms\Core\File\IFile;
+use Dms\Core\Model\Object\ClassDefinition;
+use Dms\Core\Model\Object\ValueObject;
 
 /**
  * The file value object class.

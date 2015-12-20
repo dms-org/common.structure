@@ -1,11 +1,11 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Tests\Web\Persistence;
+namespace Dms\Common\Structure\Tests\Web\Persistence;
 
-use Iddigital\Cms\Common\Structure\Web\EmailAddress;
-use Iddigital\Cms\Common\Structure\Web\Persistence\EmailAddressMapper;
-use Iddigital\Cms\Core\Persistence\Db\Mapping\IEmbeddedObjectMapper;
-use Iddigital\Cms\Core\Tests\Persistence\Db\Mapper\ValueObjectMapperTest;
+use Dms\Common\Structure\Web\EmailAddress;
+use Dms\Common\Structure\Web\Persistence\EmailAddressMapper;
+use Dms\Core\Persistence\Db\Mapping\IEmbeddedObjectMapper;
+use Dms\Core\Tests\Persistence\Db\Mapper\ValueObjectMapperTest;
 
 /**
  * @author Elliot Levin <elliotlevin@hotmail.com>

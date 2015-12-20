@@ -1,11 +1,11 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Type\Persistence;
+namespace Dms\Common\Structure\Type\Persistence;
 
-use Iddigital\Cms\Common\Structure\Type\StringValueObject;
-use Iddigital\Cms\Core\Persistence\Db\Mapping\Definition\Column\ColumnTypeDefiner;
-use Iddigital\Cms\Core\Persistence\Db\Mapping\Definition\MapperDefinition;
-use Iddigital\Cms\Core\Persistence\Db\Mapping\IndependentValueObjectMapper;
+use Dms\Common\Structure\Type\StringValueObject;
+use Dms\Core\Persistence\Db\Mapping\Definition\Column\ColumnTypeDefiner;
+use Dms\Core\Persistence\Db\Mapping\Definition\MapperDefinition;
+use Dms\Core\Persistence\Db\Mapping\IndependentValueObjectMapper;
 
 /**
  * The string value object mapper.

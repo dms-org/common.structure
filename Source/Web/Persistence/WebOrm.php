@@ -1,13 +1,13 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Web\Persistence;
+namespace Dms\Common\Structure\Web\Persistence;
 
-use Iddigital\Cms\Common\Structure\Web\EmailAddress;
-use Iddigital\Cms\Common\Structure\Web\Html;
-use Iddigital\Cms\Common\Structure\Web\IpAddress;
-use Iddigital\Cms\Common\Structure\Web\Uri;
-use Iddigital\Cms\Core\Persistence\Db\Mapping\Definition\Orm\OrmDefinition;
-use Iddigital\Cms\Core\Persistence\Db\Mapping\Orm;
+use Dms\Common\Structure\Web\EmailAddress;
+use Dms\Common\Structure\Web\Html;
+use Dms\Common\Structure\Web\IpAddress;
+use Dms\Common\Structure\Web\Uri;
+use Dms\Core\Persistence\Db\Mapping\Definition\Orm\OrmDefinition;
+use Dms\Core\Persistence\Db\Mapping\Orm;
 
 /**
  * The orm containing web value object mappers.

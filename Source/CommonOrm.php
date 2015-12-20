@@ -1,13 +1,13 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure;
+namespace Dms\Common\Structure;
 
-use Iddigital\Cms\Common\Structure\DateTime\Persistence\DateTimeOrm;
-use Iddigital\Cms\Common\Structure\FileSystem\Persistence\FileSystemOrm;
-use Iddigital\Cms\Common\Structure\Geo\Persistence\GeoOrm;
-use Iddigital\Cms\Common\Structure\Web\Persistence\WebOrm;
-use Iddigital\Cms\Core\Persistence\Db\Mapping\Definition\Orm\OrmDefinition;
-use Iddigital\Cms\Core\Persistence\Db\Mapping\Orm;
+use Dms\Common\Structure\DateTime\Persistence\DateTimeOrm;
+use Dms\Common\Structure\FileSystem\Persistence\FileSystemOrm;
+use Dms\Common\Structure\Geo\Persistence\GeoOrm;
+use Dms\Common\Structure\Web\Persistence\WebOrm;
+use Dms\Core\Persistence\Db\Mapping\Definition\Orm\OrmDefinition;
+use Dms\Core\Persistence\Db\Mapping\Orm;
 
 /**
  * The orm containing all the common mappers.

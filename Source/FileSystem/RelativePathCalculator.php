@@ -1,8 +1,8 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\FileSystem;
+namespace Dms\Common\Structure\FileSystem;
 
-use Iddigital\Cms\Core\Exception\InvalidArgumentException;
+use Dms\Core\Exception\InvalidArgumentException;
 
 /**
  * Calculates the relative path between two absolute paths.

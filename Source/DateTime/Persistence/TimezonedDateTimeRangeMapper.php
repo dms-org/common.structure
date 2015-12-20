@@ -1,9 +1,9 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\DateTime\Persistence;
+namespace Dms\Common\Structure\DateTime\Persistence;
 
-use Iddigital\Cms\Common\Structure\DateTime\TimezonedDateTimeRange;
-use Iddigital\Cms\Core\Persistence\Db\Mapping\Definition\MapperDefinition;
+use Dms\Common\Structure\DateTime\TimezonedDateTimeRange;
+use Dms\Core\Persistence\Db\Mapping\Definition\MapperDefinition;
 
 /**
  * The timezoned date time range value object mapper

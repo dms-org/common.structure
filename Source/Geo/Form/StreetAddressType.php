@@ -1,11 +1,11 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Geo\Form;
+namespace Dms\Common\Structure\Geo\Form;
 
-use Iddigital\Cms\Common\Structure\Geo\LatLng;
-use Iddigital\Cms\Common\Structure\Geo\StreetAddress;
-use Iddigital\Cms\Core\Form\Field\Processor\CustomProcessor;
-use Iddigital\Cms\Core\Form\Field\Type\StringType;
+use Dms\Common\Structure\Geo\LatLng;
+use Dms\Common\Structure\Geo\StreetAddress;
+use Dms\Core\Form\Field\Processor\CustomProcessor;
+use Dms\Core\Form\Field\Type\StringType;
 
 /**
  * The string address field type.

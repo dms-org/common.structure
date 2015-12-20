@@ -1,11 +1,11 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Tests\Geo\Persistence;
+namespace Dms\Common\Structure\Tests\Geo\Persistence;
 
-use Iddigital\Cms\Common\Structure\Geo\Persistence\StreetAddressMapper;
-use Iddigital\Cms\Common\Structure\Geo\StreetAddress;
-use Iddigital\Cms\Core\Persistence\Db\Mapping\IEmbeddedObjectMapper;
-use Iddigital\Cms\Core\Tests\Persistence\Db\Mapper\ValueObjectMapperTest;
+use Dms\Common\Structure\Geo\Persistence\StreetAddressMapper;
+use Dms\Common\Structure\Geo\StreetAddress;
+use Dms\Core\Persistence\Db\Mapping\IEmbeddedObjectMapper;
+use Dms\Core\Tests\Persistence\Db\Mapper\ValueObjectMapperTest;
 
 /**
  * @author Elliot Levin <elliotlevin@hotmail.com>

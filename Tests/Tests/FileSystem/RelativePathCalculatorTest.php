@@ -1,9 +1,9 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Tests\FileSystem;
+namespace Dms\Common\Structure\Tests\FileSystem;
 
-use Iddigital\Cms\Common\Structure\FileSystem\RelativePathCalculator;
-use Iddigital\Cms\Common\Testing\CmsTestCase;
+use Dms\Common\Structure\FileSystem\RelativePathCalculator;
+use Dms\Common\Testing\CmsTestCase;
 
 /**
  * @author Elliot Levin <elliotlevin@hotmail.com>

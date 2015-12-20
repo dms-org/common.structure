@@ -1,6 +1,6 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\DateTime;
+namespace Dms\Common\Structure\DateTime;
 
 /**
  * The time range value object.

@@ -1,11 +1,11 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Tests\DateTime;
+namespace Dms\Common\Structure\Tests\DateTime;
 
-use Iddigital\Cms\Common\Structure\DateTime\TimeOfDay;
-use Iddigital\Cms\Common\Structure\DateTime\TimeRange;
-use Iddigital\Cms\Common\Structure\Tests\DateTime\DateOrTimeRangeTest;
-use Iddigital\Cms\Core\Exception\InvalidArgumentException;
+use Dms\Common\Structure\DateTime\TimeOfDay;
+use Dms\Common\Structure\DateTime\TimeRange;
+use Dms\Common\Structure\Tests\DateTime\DateOrTimeRangeTest;
+use Dms\Core\Exception\InvalidArgumentException;
 
 /**
  * @author Elliot Levin <elliotlevin@hotmail.com>

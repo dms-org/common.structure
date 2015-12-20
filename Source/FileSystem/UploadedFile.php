@@ -1,9 +1,9 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\FileSystem;
+namespace Dms\Common\Structure\FileSystem;
 
-use Iddigital\Cms\Core\File\IUploadedFile;
-use Iddigital\Cms\Core\Model\Object\ClassDefinition;
+use Dms\Core\File\IUploadedFile;
+use Dms\Core\Model\Object\ClassDefinition;
 
 /**
  * The uploaded file value object class.

@@ -1,10 +1,10 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Tests\Web;
+namespace Dms\Common\Structure\Tests\Web;
 
-use Iddigital\Cms\Common\Structure\Web\EmailAddress;
-use Iddigital\Cms\Common\Testing\CmsTestCase;
-use Iddigital\Cms\Core\Exception\InvalidArgumentException;
+use Dms\Common\Structure\Web\EmailAddress;
+use Dms\Common\Testing\CmsTestCase;
+use Dms\Core\Exception\InvalidArgumentException;
 
 /**
  * @author Elliot Levin <elliotlevin@hotmail.com>

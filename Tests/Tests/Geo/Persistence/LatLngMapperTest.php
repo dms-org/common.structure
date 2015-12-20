@@ -1,11 +1,11 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Tests\Geo\Persistence;
+namespace Dms\Common\Structure\Tests\Geo\Persistence;
 
-use Iddigital\Cms\Common\Structure\Geo\LatLng;
-use Iddigital\Cms\Common\Structure\Geo\Persistence\LatLngMapper;
-use Iddigital\Cms\Core\Persistence\Db\Mapping\IEmbeddedObjectMapper;
-use Iddigital\Cms\Core\Tests\Persistence\Db\Mapper\ValueObjectMapperTest;
+use Dms\Common\Structure\Geo\LatLng;
+use Dms\Common\Structure\Geo\Persistence\LatLngMapper;
+use Dms\Core\Persistence\Db\Mapping\IEmbeddedObjectMapper;
+use Dms\Core\Tests\Persistence\Db\Mapper\ValueObjectMapperTest;
 
 /**
  * @author Elliot Levin <elliotlevin@hotmail.com>

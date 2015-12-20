@@ -1,9 +1,9 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Web;
+namespace Dms\Common\Structure\Web;
 
-use Iddigital\Cms\Common\Structure\Type\StringValueObject;
-use Iddigital\Cms\Core\Exception\InvalidArgumentException;
+use Dms\Common\Structure\Type\StringValueObject;
+use Dms\Core\Exception\InvalidArgumentException;
 
 /**
  * The email address value object class

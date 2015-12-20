@@ -1,10 +1,10 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\FileSystem\Persistence;
+namespace Dms\Common\Structure\FileSystem\Persistence;
 
-use Iddigital\Cms\Common\Structure\FileSystem\RelativePathCalculator;
-use Iddigital\Cms\Core\Persistence\Db\Mapping\Definition\MapperDefinition;
-use Iddigital\Cms\Core\Persistence\Db\Mapping\IndependentValueObjectMapper;
+use Dms\Common\Structure\FileSystem\RelativePathCalculator;
+use Dms\Core\Persistence\Db\Mapping\Definition\MapperDefinition;
+use Dms\Core\Persistence\Db\Mapping\IndependentValueObjectMapper;
 
 /**
  * The file or directory value object mapper.

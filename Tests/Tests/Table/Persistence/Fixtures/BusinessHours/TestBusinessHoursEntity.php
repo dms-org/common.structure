@@ -1,11 +1,11 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Tests\Table\Persistence\Fixtures\BusinessHours;
+namespace Dms\Common\Structure\Tests\Table\Persistence\Fixtures\BusinessHours;
 
-use Iddigital\Cms\Common\Structure\Table\TableData;
-use Iddigital\Cms\Common\Structure\Tests\Table\Fixtures\TestBusinessHoursTimetableCell;
-use Iddigital\Cms\Core\Model\Object\ClassDefinition;
-use Iddigital\Cms\Core\Model\Object\Entity;
+use Dms\Common\Structure\Table\TableData;
+use Dms\Common\Structure\Tests\Table\Fixtures\TestBusinessHoursTimetableCell;
+use Dms\Core\Model\Object\ClassDefinition;
+use Dms\Core\Model\Object\Entity;
 
 /**
  * @author Elliot Levin <elliotlevin@hotmail.com>

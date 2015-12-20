@@ -1,11 +1,11 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Geo\Persistence;
+namespace Dms\Common\Structure\Geo\Persistence;
 
-use Iddigital\Cms\Common\Structure\Geo\StreetAddress;
-use Iddigital\Cms\Common\Structure\Geo\StreetAddressWithLatLng;
-use Iddigital\Cms\Core\Persistence\Db\Mapping\Definition\MapperDefinition;
-use Iddigital\Cms\Core\Persistence\Db\Mapping\IndependentValueObjectMapper;
+use Dms\Common\Structure\Geo\StreetAddress;
+use Dms\Common\Structure\Geo\StreetAddressWithLatLng;
+use Dms\Core\Persistence\Db\Mapping\Definition\MapperDefinition;
+use Dms\Core\Persistence\Db\Mapping\IndependentValueObjectMapper;
 
 /**
  * The string address with lat/lng value object mapper

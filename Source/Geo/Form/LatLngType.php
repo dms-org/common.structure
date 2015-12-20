@@ -1,13 +1,13 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Geo\Form;
+namespace Dms\Common\Structure\Geo\Form;
 
-use Iddigital\Cms\Common\Structure\Geo\LatLng;
-use Iddigital\Cms\Core\Form\Builder\Form;
-use Iddigital\Cms\Core\Form\Field\Builder\Field;
-use Iddigital\Cms\Core\Form\Field\Processor\CustomProcessor;
-use Iddigital\Cms\Core\Form\Field\Type\InnerFormType;
-use Iddigital\Cms\Core\Form\IForm;
+use Dms\Common\Structure\Geo\LatLng;
+use Dms\Core\Form\Builder\Form;
+use Dms\Core\Form\Field\Builder\Field;
+use Dms\Core\Form\Field\Processor\CustomProcessor;
+use Dms\Core\Form\Field\Type\InnerFormType;
+use Dms\Core\Form\IForm;
 
 /**
  * The lat/lng field type.

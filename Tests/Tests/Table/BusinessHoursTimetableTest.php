@@ -1,17 +1,17 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Tests\Table;
+namespace Dms\Common\Structure\Tests\Table;
 
-use Iddigital\Cms\Common\Structure\DateTime\DayOfWeek;
-use Iddigital\Cms\Common\Structure\DateTime\TimeOfDay;
-use Iddigital\Cms\Common\Structure\Table\TableData;
-use Iddigital\Cms\Common\Structure\Table\TableDataColumn;
-use Iddigital\Cms\Common\Structure\Table\TableDataRow;
-use Iddigital\Cms\Common\Structure\Tests\Table\Fixtures\TestBusinessAvailability;
-use Iddigital\Cms\Common\Structure\Tests\Table\Fixtures\TestBusinessHoursTimetableCell;
-use Iddigital\Cms\Common\Testing\CmsTestCase;
-use Iddigital\Cms\Core\Exception\InvalidArgumentException;
-use Iddigital\Cms\Core\Exception\TypeMismatchException;
+use Dms\Common\Structure\DateTime\DayOfWeek;
+use Dms\Common\Structure\DateTime\TimeOfDay;
+use Dms\Common\Structure\Table\TableData;
+use Dms\Common\Structure\Table\TableDataColumn;
+use Dms\Common\Structure\Table\TableDataRow;
+use Dms\Common\Structure\Tests\Table\Fixtures\TestBusinessAvailability;
+use Dms\Common\Structure\Tests\Table\Fixtures\TestBusinessHoursTimetableCell;
+use Dms\Common\Testing\CmsTestCase;
+use Dms\Core\Exception\InvalidArgumentException;
+use Dms\Core\Exception\TypeMismatchException;
 
 /**
  * @author Elliot Levin <elliotlevin@hotmail.com>

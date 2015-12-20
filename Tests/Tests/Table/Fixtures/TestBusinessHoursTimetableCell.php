@@ -1,12 +1,12 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Tests\Table\Fixtures;
+namespace Dms\Common\Structure\Tests\Table\Fixtures;
 
-use Iddigital\Cms\Common\Structure\DateTime\DayOfWeek;
-use Iddigital\Cms\Common\Structure\DateTime\TimeOfDay;
-use Iddigital\Cms\Common\Structure\Table\TableData;
-use Iddigital\Cms\Common\Structure\Table\Timetable\TimetableDataCell;
-use Iddigital\Cms\Core\Model\Object\ClassDefinition;
+use Dms\Common\Structure\DateTime\DayOfWeek;
+use Dms\Common\Structure\DateTime\TimeOfDay;
+use Dms\Common\Structure\Table\TableData;
+use Dms\Common\Structure\Table\Timetable\TimetableDataCell;
+use Dms\Core\Model\Object\ClassDefinition;
 
 /**
  * @author Elliot Levin <elliotlevin@hotmail.com>

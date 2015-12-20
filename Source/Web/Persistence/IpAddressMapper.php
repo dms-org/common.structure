@@ -1,10 +1,10 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Web\Persistence;
+namespace Dms\Common\Structure\Web\Persistence;
 
-use Iddigital\Cms\Common\Structure\Type\Persistence\StringValueObjectMapper;
-use Iddigital\Cms\Common\Structure\Web\IpAddress;
-use Iddigital\Cms\Core\Persistence\Db\Mapping\Definition\Column\ColumnTypeDefiner;
+use Dms\Common\Structure\Type\Persistence\StringValueObjectMapper;
+use Dms\Common\Structure\Web\IpAddress;
+use Dms\Core\Persistence\Db\Mapping\Definition\Column\ColumnTypeDefiner;
 
 /**
  * The ip address value object mapper.

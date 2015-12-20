@@ -1,10 +1,10 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Tests\ImageSystem;
+namespace Dms\Common\Structure\Tests\ImageSystem;
 
-use Iddigital\Cms\Common\Structure\FileSystem\Image;
-use Iddigital\Cms\Common\Testing\CmsTestCase;
-use Iddigital\Cms\Core\Exception\InvalidOperationException;
+use Dms\Common\Structure\FileSystem\Image;
+use Dms\Common\Testing\CmsTestCase;
+use Dms\Core\Exception\InvalidOperationException;
 
 /**
  * @author Elliot Levin <elliotlevin@hotmail.com>

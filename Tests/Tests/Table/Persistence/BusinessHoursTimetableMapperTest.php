@@ -1,18 +1,18 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Tests\Table\Persistence;
+namespace Dms\Common\Structure\Tests\Table\Persistence;
 
-use Iddigital\Cms\Common\Structure\DateTime\DayOfWeek;
-use Iddigital\Cms\Common\Structure\DateTime\TimeOfDay;
-use Iddigital\Cms\Common\Structure\Table\Row;
-use Iddigital\Cms\Common\Structure\Table\TableData;
-use Iddigital\Cms\Common\Structure\Tests\Table\Fixtures\TestBusinessAvailability;
-use Iddigital\Cms\Common\Structure\Tests\Table\Fixtures\TestBusinessHoursTimetableCell;
-use Iddigital\Cms\Common\Structure\Tests\Table\Persistence\Fixtures\BusinessHours\TestBusinessHoursEntity;
-use Iddigital\Cms\Common\Structure\Tests\Table\Persistence\Fixtures\BusinessHours\TestBusinessHoursOrm;
-use Iddigital\Cms\Core\Persistence\Db\Mapping\IOrm;
-use Iddigital\Cms\Core\Tests\Helpers\Comparators\IgnorePropertyComparator;
-use Iddigital\Cms\Core\Tests\Persistence\Db\Integration\Mapping\DbIntegrationTest;
+use Dms\Common\Structure\DateTime\DayOfWeek;
+use Dms\Common\Structure\DateTime\TimeOfDay;
+use Dms\Common\Structure\Table\Row;
+use Dms\Common\Structure\Table\TableData;
+use Dms\Common\Structure\Tests\Table\Fixtures\TestBusinessAvailability;
+use Dms\Common\Structure\Tests\Table\Fixtures\TestBusinessHoursTimetableCell;
+use Dms\Common\Structure\Tests\Table\Persistence\Fixtures\BusinessHours\TestBusinessHoursEntity;
+use Dms\Common\Structure\Tests\Table\Persistence\Fixtures\BusinessHours\TestBusinessHoursOrm;
+use Dms\Core\Persistence\Db\Mapping\IOrm;
+use Dms\Core\Tests\Helpers\Comparators\IgnorePropertyComparator;
+use Dms\Core\Tests\Persistence\Db\Integration\Mapping\DbIntegrationTest;
 use SebastianBergmann\Comparator\Comparator;
 use SebastianBergmann\Comparator\Factory;
 

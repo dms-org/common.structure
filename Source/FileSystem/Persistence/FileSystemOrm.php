@@ -1,12 +1,12 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\FileSystem\Persistence;
+namespace Dms\Common\Structure\FileSystem\Persistence;
 
-use Iddigital\Cms\Common\Structure\FileSystem\Directory;
-use Iddigital\Cms\Common\Structure\FileSystem\File;
-use Iddigital\Cms\Common\Structure\FileSystem\Image;
-use Iddigital\Cms\Core\Persistence\Db\Mapping\Definition\Orm\OrmDefinition;
-use Iddigital\Cms\Core\Persistence\Db\Mapping\Orm;
+use Dms\Common\Structure\FileSystem\Directory;
+use Dms\Common\Structure\FileSystem\File;
+use Dms\Common\Structure\FileSystem\Image;
+use Dms\Core\Persistence\Db\Mapping\Definition\Orm\OrmDefinition;
+use Dms\Core\Persistence\Db\Mapping\Orm;
 
 /**
  * The file system orm.

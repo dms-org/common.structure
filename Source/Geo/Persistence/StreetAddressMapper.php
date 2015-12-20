@@ -1,10 +1,10 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Geo\Persistence;
+namespace Dms\Common\Structure\Geo\Persistence;
 
-use Iddigital\Cms\Common\Structure\Geo\StreetAddress;
-use Iddigital\Cms\Common\Structure\Type\Persistence\StringValueObjectMapper;
-use Iddigital\Cms\Core\Persistence\Db\Mapping\Definition\Column\ColumnTypeDefiner;
+use Dms\Common\Structure\Geo\StreetAddress;
+use Dms\Common\Structure\Type\Persistence\StringValueObjectMapper;
+use Dms\Core\Persistence\Db\Mapping\Definition\Column\ColumnTypeDefiner;
 
 /**
  * The string address value object mapper

@@ -1,11 +1,11 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Tests\FileSystem;
+namespace Dms\Common\Structure\Tests\FileSystem;
 
-use Iddigital\Cms\Common\Structure\FileSystem\Directory;
-use Iddigital\Cms\Common\Structure\FileSystem\File;
-use Iddigital\Cms\Common\Testing\CmsTestCase;
-use Iddigital\Cms\Core\Exception\InvalidOperationException;
+use Dms\Common\Structure\FileSystem\Directory;
+use Dms\Common\Structure\FileSystem\File;
+use Dms\Common\Testing\CmsTestCase;
+use Dms\Core\Exception\InvalidOperationException;
 
 /**
  * @author Elliot Levin <elliotlevin@hotmail.com>

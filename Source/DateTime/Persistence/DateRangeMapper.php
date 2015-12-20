@@ -1,9 +1,9 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\DateTime\Persistence;
+namespace Dms\Common\Structure\DateTime\Persistence;
 
-use Iddigital\Cms\Common\Structure\DateTime\DateRange;
-use Iddigital\Cms\Core\Persistence\Db\Mapping\Definition\MapperDefinition;
+use Dms\Common\Structure\DateTime\DateRange;
+use Dms\Core\Persistence\Db\Mapping\Definition\MapperDefinition;
 
 /**
  * The date range value object mapper

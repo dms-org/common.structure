@@ -1,13 +1,13 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Tests\DateTime\Persistence;
+namespace Dms\Common\Structure\Tests\DateTime\Persistence;
 
-use Iddigital\Cms\Common\Structure\DateTime\DateTime;
-use Iddigital\Cms\Common\Structure\Tests\DateTime\Persistence\Fixtures\DateTimeValueObject\EntityWithDateTimeMapper;
-use Iddigital\Cms\Core\Persistence\Db\Criteria\CriteriaMapper;
-use Iddigital\Cms\Core\Persistence\Db\Mapping\CustomOrm;
-use Iddigital\Cms\Core\Persistence\Db\Query\Expression\Expr;
-use Iddigital\Cms\Core\Tests\Persistence\Db\Integration\Criteria\CriteriaMapperTestBase;
+use Dms\Common\Structure\DateTime\DateTime;
+use Dms\Common\Structure\Tests\DateTime\Persistence\Fixtures\DateTimeValueObject\EntityWithDateTimeMapper;
+use Dms\Core\Persistence\Db\Criteria\CriteriaMapper;
+use Dms\Core\Persistence\Db\Mapping\CustomOrm;
+use Dms\Core\Persistence\Db\Query\Expression\Expr;
+use Dms\Core\Tests\Persistence\Db\Integration\Criteria\CriteriaMapperTestBase;
 
 /**
  * @author Elliot Levin <elliotlevin@hotmail.com>

@@ -1,11 +1,11 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Tests\Geo;
+namespace Dms\Common\Structure\Tests\Geo;
 
-use Iddigital\Cms\Common\Structure\Geo\StreetAddress;
-use Iddigital\Cms\Common\Testing\CmsTestCase;
-use Iddigital\Cms\Core\Exception\InvalidArgumentException;
-use Iddigital\Cms\Core\Model\Object\InvalidPropertyValueException;
+use Dms\Common\Structure\Geo\StreetAddress;
+use Dms\Common\Testing\CmsTestCase;
+use Dms\Core\Exception\InvalidArgumentException;
+use Dms\Core\Model\Object\InvalidPropertyValueException;
 
 /**
  * @author Elliot Levin <elliotlevin@hotmail.com>

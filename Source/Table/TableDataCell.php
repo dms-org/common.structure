@@ -1,10 +1,10 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Table;
+namespace Dms\Common\Structure\Table;
 
-use Iddigital\Cms\Core\Model\Object\ValueObject;
-use Iddigital\Cms\Core\Model\Type\Builder\Type;
-use Iddigital\Cms\Core\Model\Type\CollectionType;
+use Dms\Core\Model\Object\ValueObject;
+use Dms\Core\Model\Type\Builder\Type;
+use Dms\Core\Model\Type\CollectionType;
 
 /**
  * The table data cell value object class.

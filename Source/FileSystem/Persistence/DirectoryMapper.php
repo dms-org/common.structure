@@ -1,8 +1,8 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\FileSystem\Persistence;
+namespace Dms\Common\Structure\FileSystem\Persistence;
 
-use Iddigital\Cms\Common\Structure\FileSystem\Directory;
+use Dms\Common\Structure\FileSystem\Directory;
 
 /**
  * The directory value object mapper.

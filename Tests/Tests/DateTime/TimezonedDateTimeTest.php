@@ -1,12 +1,12 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Tests\DateTime;
+namespace Dms\Common\Structure\Tests\DateTime;
 
-use Iddigital\Cms\Core\Exception\InvalidArgumentException;
-use Iddigital\Cms\Common\Structure\DateTime\Date;
-use Iddigital\Cms\Common\Structure\DateTime\DateTime;
-use Iddigital\Cms\Common\Structure\DateTime\TimezonedDateTime;
-use Iddigital\Cms\Common\Structure\DateTime\TimeOfDay;
+use Dms\Core\Exception\InvalidArgumentException;
+use Dms\Common\Structure\DateTime\Date;
+use Dms\Common\Structure\DateTime\DateTime;
+use Dms\Common\Structure\DateTime\TimezonedDateTime;
+use Dms\Common\Structure\DateTime\TimeOfDay;
 
 /**
  * @author Elliot Levin <elliotlevin@hotmail.com>

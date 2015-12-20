@@ -1,8 +1,8 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\DateTime;
+namespace Dms\Common\Structure\DateTime;
 
-use Iddigital\Cms\Core\Exception\InvalidArgumentException;
+use Dms\Core\Exception\InvalidArgumentException;
 
 /**
  * The time value object.

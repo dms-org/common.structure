@@ -1,5 +1,5 @@
-iddigital/cms.common.structures
-===============================
+dms.common.structures
+=====================
 
 An implementation of common data structures for use in domain models
 

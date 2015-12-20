@@ -1,6 +1,6 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Table;
+namespace Dms\Common\Structure\Table;
 
 /**
  * The table data column class.

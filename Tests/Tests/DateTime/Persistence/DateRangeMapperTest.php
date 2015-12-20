@@ -1,12 +1,12 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Tests\DateTime\Persistence;
+namespace Dms\Common\Structure\Tests\DateTime\Persistence;
 
-use Iddigital\Cms\Common\Structure\DateTime\Date;
-use Iddigital\Cms\Common\Structure\DateTime\DateRange;
-use Iddigital\Cms\Common\Structure\DateTime\Persistence\DateRangeMapper;
-use Iddigital\Cms\Core\Persistence\Db\Mapping\IEmbeddedObjectMapper;
-use Iddigital\Cms\Core\Tests\Persistence\Db\Mapper\ValueObjectMapperTest;
+use Dms\Common\Structure\DateTime\Date;
+use Dms\Common\Structure\DateTime\DateRange;
+use Dms\Common\Structure\DateTime\Persistence\DateRangeMapper;
+use Dms\Core\Persistence\Db\Mapping\IEmbeddedObjectMapper;
+use Dms\Core\Tests\Persistence\Db\Mapper\ValueObjectMapperTest;
 
 /**
  * @author Elliot Levin <elliotlevin@hotmail.com>

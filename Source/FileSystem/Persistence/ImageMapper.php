@@ -1,8 +1,8 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\FileSystem\Persistence;
+namespace Dms\Common\Structure\FileSystem\Persistence;
 
-use Iddigital\Cms\Common\Structure\FileSystem\Image;
+use Dms\Common\Structure\FileSystem\Image;
 
 /**
  * The image value object mapper.

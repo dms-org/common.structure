@@ -1,14 +1,14 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Table;
+namespace Dms\Common\Structure\Table;
 
-use Iddigital\Cms\Core\Exception\InvalidArgumentException;
-use Iddigital\Cms\Core\Exception\TypeMismatchException;
-use Iddigital\Cms\Core\Model\Collection;
-use Iddigital\Cms\Core\Model\Type\IType;
-use Iddigital\Cms\Core\Model\ValueObjectCollection;
-use Iddigital\Cms\Core\Util\Debug;
-use Iddigital\Cms\Core\Util\Hashing\ValueHasher;
+use Dms\Core\Exception\InvalidArgumentException;
+use Dms\Core\Exception\TypeMismatchException;
+use Dms\Core\Model\Collection;
+use Dms\Core\Model\Type\IType;
+use Dms\Core\Model\ValueObjectCollection;
+use Dms\Core\Util\Debug;
+use Dms\Core\Util\Hashing\ValueHasher;
 use Pinq\Iterators\IIteratorScheme;
 
 /**

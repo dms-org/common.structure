@@ -1,12 +1,12 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Geo\Persistence;
+namespace Dms\Common\Structure\Geo\Persistence;
 
-use Iddigital\Cms\Common\Structure\Geo\LatLng;
-use Iddigital\Cms\Common\Structure\Geo\StreetAddress;
-use Iddigital\Cms\Common\Structure\Geo\StreetAddressWithLatLng;
-use Iddigital\Cms\Core\Persistence\Db\Mapping\Definition\Orm\OrmDefinition;
-use Iddigital\Cms\Core\Persistence\Db\Mapping\Orm;
+use Dms\Common\Structure\Geo\LatLng;
+use Dms\Common\Structure\Geo\StreetAddress;
+use Dms\Common\Structure\Geo\StreetAddressWithLatLng;
+use Dms\Core\Persistence\Db\Mapping\Definition\Orm\OrmDefinition;
+use Dms\Core\Persistence\Db\Mapping\Orm;
 
 /**
  * The geography value object orm.

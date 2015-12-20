@@ -1,10 +1,10 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Tests\DateTime;
+namespace Dms\Common\Structure\Tests\DateTime;
 
-use Iddigital\Cms\Common\Structure\DateTime\TimezonedDateTime;
-use Iddigital\Cms\Common\Structure\DateTime\TimezonedDateTimeRange;
-use Iddigital\Cms\Core\Exception\InvalidArgumentException;
+use Dms\Common\Structure\DateTime\TimezonedDateTime;
+use Dms\Common\Structure\DateTime\TimezonedDateTimeRange;
+use Dms\Core\Exception\InvalidArgumentException;
 
 /**
  * @author Elliot Levin <elliotlevin@hotmail.com>

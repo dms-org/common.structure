@@ -1,13 +1,13 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Tests\Geo\Form;
+namespace Dms\Common\Structure\Tests\Geo\Form;
 
-use Iddigital\Cms\Common\Structure\Geo\Form\StreetAddressType;
-use Iddigital\Cms\Common\Structure\Geo\StreetAddress;
-use Iddigital\Cms\Common\Structure\Tests\Form\FieldTypeTest;
-use Iddigital\Cms\Core\Form\Field\Processor\Validator\TypeValidator;
-use Iddigital\Cms\Core\Form\IFieldType;
-use Iddigital\Cms\Core\Language\Message;
+use Dms\Common\Structure\Geo\Form\StreetAddressType;
+use Dms\Common\Structure\Geo\StreetAddress;
+use Dms\Common\Structure\Tests\Form\FieldTypeTest;
+use Dms\Core\Form\Field\Processor\Validator\TypeValidator;
+use Dms\Core\Form\IFieldType;
+use Dms\Core\Language\Message;
 
 /**
  * @author Elliot Levin <elliotlevin@hotmail.com>

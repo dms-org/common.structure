@@ -1,11 +1,11 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\DateTime;
+namespace Dms\Common\Structure\DateTime;
 
-use Iddigital\Cms\Core\Model\IComparable;
-use Iddigital\Cms\Core\Model\Object\ClassDefinition;
-use Iddigital\Cms\Core\Model\Object\ValueObject;
-use Iddigital\Cms\Core\Util\Hashing\IHashable;
+use Dms\Core\Model\IComparable;
+use Dms\Core\Model\Object\ClassDefinition;
+use Dms\Core\Model\Object\ValueObject;
+use Dms\Core\Util\Hashing\IHashable;
 
 /**
  * The date time object base

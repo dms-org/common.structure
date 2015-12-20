@@ -1,10 +1,10 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Tests\DateTime;
+namespace Dms\Common\Structure\Tests\DateTime;
 
-use Iddigital\Cms\Common\Structure\DateTime\DayOfWeek;
-use Iddigital\Cms\Common\Testing\CmsTestCase;
-use Iddigital\Cms\Core\Model\Object\InvalidEnumValueException;
+use Dms\Common\Structure\DateTime\DayOfWeek;
+use Dms\Common\Testing\CmsTestCase;
+use Dms\Core\Model\Object\InvalidEnumValueException;
 
 /**
  * @author Elliot Levin <elliotlevin@hotmail.com>

@@ -1,8 +1,8 @@
 <?php
 
-namespace Iddigital\Cms;
+namespace Dms;
 
-use Iddigital\Cms\Common\Testing;
+use Dms\Common\Testing;
 
 $projectAutoLoaderPath    = __DIR__ . '/../vendor/autoload.php';
 $dependencyAutoLoaderPath = __DIR__ . '/../../../../autoload.php';

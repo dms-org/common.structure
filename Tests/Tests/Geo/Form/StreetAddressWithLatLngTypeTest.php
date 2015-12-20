@@ -1,17 +1,17 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Tests\Geo\Form;
+namespace Dms\Common\Structure\Tests\Geo\Form;
 
-use Iddigital\Cms\Common\Structure\Geo\Form\StreetAddressWithLatLngType;
-use Iddigital\Cms\Common\Structure\Geo\LatLng;
-use Iddigital\Cms\Common\Structure\Geo\StreetAddressWithLatLng;
-use Iddigital\Cms\Common\Structure\Tests\Form\FieldTypeTest;
-use Iddigital\Cms\Core\Form\Field\Processor\Validator\FloatValidator;
-use Iddigital\Cms\Core\Form\Field\Processor\Validator\RequiredValidator;
-use Iddigital\Cms\Core\Form\Field\Processor\Validator\TypeValidator;
-use Iddigital\Cms\Core\Form\IFieldType;
-use Iddigital\Cms\Core\Language\Message;
-use Iddigital\Cms\Core\Model\Type\Builder\Type;
+use Dms\Common\Structure\Geo\Form\StreetAddressWithLatLngType;
+use Dms\Common\Structure\Geo\LatLng;
+use Dms\Common\Structure\Geo\StreetAddressWithLatLng;
+use Dms\Common\Structure\Tests\Form\FieldTypeTest;
+use Dms\Core\Form\Field\Processor\Validator\FloatValidator;
+use Dms\Core\Form\Field\Processor\Validator\RequiredValidator;
+use Dms\Core\Form\Field\Processor\Validator\TypeValidator;
+use Dms\Core\Form\IFieldType;
+use Dms\Core\Language\Message;
+use Dms\Core\Model\Type\Builder\Type;
 
 /**
  * @author Elliot Levin <elliotlevin@hotmail.com>

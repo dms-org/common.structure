@@ -1,10 +1,10 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\FileSystem;
+namespace Dms\Common\Structure\FileSystem;
 
-use Iddigital\Cms\Core\Exception\InvalidOperationException;
-use Iddigital\Cms\Core\File\IImage;
-use Iddigital\Cms\Core\Model\Object\ClassDefinition;
+use Dms\Core\Exception\InvalidOperationException;
+use Dms\Core\File\IImage;
+use Dms\Core\Model\Object\ClassDefinition;
 
 /**
  * The image value object class.

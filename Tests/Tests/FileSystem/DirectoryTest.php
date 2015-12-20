@@ -1,9 +1,9 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Tests\FileSystem;
+namespace Dms\Common\Structure\Tests\FileSystem;
 
-use Iddigital\Cms\Common\Structure\FileSystem\Directory;
-use Iddigital\Cms\Common\Testing\CmsTestCase;
+use Dms\Common\Structure\FileSystem\Directory;
+use Dms\Common\Testing\CmsTestCase;
 
 /**
  * @author Elliot Levin <elliotlevin@hotmail.com>

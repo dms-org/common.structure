@@ -1,15 +1,15 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Tests\Form;
+namespace Dms\Common\Structure\Tests\Form;
 
-use Iddigital\Cms\Common\Testing\CmsTestCase;
-use Iddigital\Cms\Core\Exception\BaseException;
-use Iddigital\Cms\Core\Form\Field\Field;
-use Iddigital\Cms\Core\Form\IField;
-use Iddigital\Cms\Core\Form\IFieldType;
-use Iddigital\Cms\Core\Form\InvalidFormSubmissionException;
-use Iddigital\Cms\Core\Form\InvalidInputException;
-use Iddigital\Cms\Core\Language\Message;
+use Dms\Common\Testing\CmsTestCase;
+use Dms\Core\Exception\BaseException;
+use Dms\Core\Form\Field\Field;
+use Dms\Core\Form\IField;
+use Dms\Core\Form\IFieldType;
+use Dms\Core\Form\InvalidFormSubmissionException;
+use Dms\Core\Form\InvalidInputException;
+use Dms\Core\Language\Message;
 
 /**
  * @author Elliot Levin <elliotlevin@hotmail.com>
