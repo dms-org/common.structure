@@ -41,6 +41,6 @@ class StringAddressMapper extends IndependentValueObjectMapper
     {
         $map->type(StringAddress::class);
 
-        $map->property(StringAddress::ADDRESS)->to($this->addressColumnName)->asVarchar(255);
+        $map->property(StringAddress::ADDRESS_STRING)->to($this->addressColumnName)->asVarchar(255);
     }
 }

@@ -13,12 +13,12 @@ use Iddigital\Cms\Core\Model\Object\ValueObject;
  */
 class StringAddress extends ValueObject
 {
-    const ADDRESS = 'address';
+    const ADDRESS_STRING = 'addressString';
 
     /**
      * @var string
      */
-    protected $address;
+    protected $addressString;
 
     /**
      * StringAddress constructor.
@@ -38,7 +38,7 @@ class StringAddress extends ValueObject
 
         parent::__construct();
 
-        $this->address = $address;
+        $this->addressString = $address;
     }
 
     /**
@@ -48,14 +48,14 @@ class StringAddress extends ValueObject
      */
     protected function define(ClassDefinition $class)
     {
-        $class->property($this->address)->asString();
+        $class->property($this->addressString)->asString();
     }
 
     /**
      * @return string
      */
-    public function getAddress()
+    public function asString()
     {
-        return $this->address;
+        return $this->addressString;
     }
 }

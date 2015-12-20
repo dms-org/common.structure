@@ -15,7 +15,7 @@ class StringAddressWithLatLngTest extends CmsTestCase
     {
         $address = new StringAddressWithLatLng('abc', $latLng = new LatLng(-10.0, 10.0));
 
-        $this->assertSame('abc', $address->getAddress());
+        $this->assertSame('abc', $address->asString());
         $this->assertSame($latLng, $address->getLatLng());
     }
 }

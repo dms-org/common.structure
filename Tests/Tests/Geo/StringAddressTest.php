@@ -16,7 +16,7 @@ class StringAddressTest extends CmsTestCase
     {
         $address = new StringAddress('abc');
 
-        $this->assertSame('abc', $address->getAddress());
+        $this->assertSame('abc', $address->asString());
     }
 
     public function testInvalidType()
