@@ -2,6 +2,7 @@
 
 namespace Iddigital\Cms\Common\Structure\Web\Persistence;
 
+use Iddigital\Cms\Common\Structure\Type\Persistence\StringValueObjectMapper;
 use Iddigital\Cms\Common\Structure\Web\EmailAddress;
 use Iddigital\Cms\Core\Persistence\Db\Mapping\Definition\Column\ColumnTypeDefiner;
 

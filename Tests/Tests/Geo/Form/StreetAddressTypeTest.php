@@ -2,8 +2,8 @@
 
 namespace Iddigital\Cms\Common\Structure\Tests\Geo\Form;
 
-use Iddigital\Cms\Common\Structure\Geo\Form\StringAddressType;
-use Iddigital\Cms\Common\Structure\Geo\StringAddress;
+use Iddigital\Cms\Common\Structure\Geo\Form\StreetAddressType;
+use Iddigital\Cms\Common\Structure\Geo\StreetAddress;
 use Iddigital\Cms\Common\Structure\Tests\Form\FieldTypeTest;
 use Iddigital\Cms\Core\Form\Field\Processor\Validator\TypeValidator;
 use Iddigital\Cms\Core\Form\IFieldType;
@@ -12,14 +12,14 @@ use Iddigital\Cms\Core\Language\Message;
 /**
  * @author Elliot Levin <elliotlevin@hotmail.com>
  */
-class StringAddressTypeTest extends FieldTypeTest
+class StreetAddressTypeTest extends FieldTypeTest
 {
     /**
      * @return IFieldType
      */
     protected function buildFieldType()
     {
-        return new StringAddressType();
+        return new StreetAddressType();
     }
 
     /**
@@ -38,8 +38,8 @@ class StringAddressTypeTest extends FieldTypeTest
     public function processTests()
     {
         return [
-                ['123 Smith St', new StringAddress('123 Smith St')],
-                ['555 Evergreen Tce Springfield', new StringAddress('555 Evergreen Tce Springfield')],
+                ['123 Smith St', new StreetAddress('123 Smith St')],
+                ['555 Evergreen Tce Springfield', new StreetAddress('555 Evergreen Tce Springfield')],
         ];
     }
 
@@ -49,8 +49,8 @@ class StringAddressTypeTest extends FieldTypeTest
     public function unprocessTests()
     {
         return [
-                [new StringAddress('123 Smith St'), '123 Smith St'],
-                [new StringAddress('555 Evergreen Tce Springfield'), '555 Evergreen Tce Springfield'],
+                [new StreetAddress('123 Smith St'), '123 Smith St'],
+                [new StreetAddress('555 Evergreen Tce Springfield'), '555 Evergreen Tce Springfield'],
         ];
     }
 }

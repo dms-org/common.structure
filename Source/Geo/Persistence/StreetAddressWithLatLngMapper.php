@@ -2,15 +2,17 @@
 
 namespace Iddigital\Cms\Common\Structure\Geo\Persistence;
 
-use Iddigital\Cms\Common\Structure\Geo\StringAddressWithLatLng;
+use Iddigital\Cms\Common\Structure\Geo\StreetAddress;
+use Iddigital\Cms\Common\Structure\Geo\StreetAddressWithLatLng;
 use Iddigital\Cms\Core\Persistence\Db\Mapping\Definition\MapperDefinition;
+use Iddigital\Cms\Core\Persistence\Db\Mapping\IndependentValueObjectMapper;
 
 /**
  * The string address with lat/lng value object mapper
  *
  * @author Elliot Levin <elliotlevin@hotmail.com>
  */
-class StringAddressWithLatLngMapper extends StringAddressMapper
+class StreetAddressWithLatLngMapper extends IndependentValueObjectMapper
 {
     /**
      * @var string
@@ -52,11 +54,12 @@ class StringAddressWithLatLngMapper extends StringAddressMapper
      */
     protected function define(MapperDefinition $map)
     {
-        parent::define($map);
+        $map->type(StreetAddressWithLatLng::class);
 
-        $map->type(StringAddressWithLatLng::class);
+        $map->property(StreetAddressWithLatLng::ADDRESS)
+                ->to($this->addressColumnName)->asVarchar(StreetAddress::MAX_LENGTH);
 
-        $map->embedded(StringAddressWithLatLng::LAT_LNG)
+        $map->embedded(StreetAddressWithLatLng::LAT_LNG)
                 ->using(new LatLngMapper($this->latColumnName, $this->lngColumnName));
     }
 }

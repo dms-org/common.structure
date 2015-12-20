@@ -1,8 +1,8 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Web\Persistence;
+namespace Iddigital\Cms\Common\Structure\Type\Persistence;
 
-use Iddigital\Cms\Common\Structure\Web\StringValueObject;
+use Iddigital\Cms\Common\Structure\Type\StringValueObject;
 use Iddigital\Cms\Core\Persistence\Db\Mapping\Definition\Column\ColumnTypeDefiner;
 use Iddigital\Cms\Core\Persistence\Db\Mapping\Definition\MapperDefinition;
 use Iddigital\Cms\Core\Persistence\Db\Mapping\IndependentValueObjectMapper;

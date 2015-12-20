@@ -4,15 +4,22 @@ namespace Iddigital\Cms\Common\Structure\Geo;
 
 use Iddigital\Cms\Core\Exception\InvalidArgumentException;
 use Iddigital\Cms\Core\Model\Object\ClassDefinition;
+use Iddigital\Cms\Core\Model\Object\ValueObject;
 
 /**
  * The string address with lat/lng value object.
  *
  * @author Elliot Levin <elliotlevin@hotmail.com>
  */
-class StringAddressWithLatLng extends StringAddress
+class StreetAddressWithLatLng extends ValueObject
 {
+    const ADDRESS = 'address';
     const LAT_LNG = 'latLng';
+
+    /**
+     * @var string
+     */
+    protected $address;
 
     /**
      * @var LatLng
@@ -29,8 +36,13 @@ class StringAddressWithLatLng extends StringAddress
      */
     public function __construct($address, LatLng $latLng)
     {
-        parent::__construct($address);
-        $this->latLng = $latLng;
+        if(!$address) {
+            throw InvalidArgumentException::format('Invalid address passed to %s: address cannot be empty', __CLASS__);
+        }
+
+        parent::__construct();
+        $this->address = $address;
+        $this->latLng  = $latLng;
     }
 
     /**
@@ -40,9 +52,16 @@ class StringAddressWithLatLng extends StringAddress
      */
     protected function define(ClassDefinition $class)
     {
-        parent::define($class);
-
+        $class->property($this->address)->asString();
         $class->property($this->latLng)->asObject(LatLng::class);
+    }
+
+    /**
+     * @return string
+     */
+    public function getAddress()
+    {
+        return $this->address;
     }
 
     /**

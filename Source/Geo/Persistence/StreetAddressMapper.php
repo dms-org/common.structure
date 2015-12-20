@@ -1,24 +1,26 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Web\Persistence;
+namespace Iddigital\Cms\Common\Structure\Geo\Persistence;
 
+use Iddigital\Cms\Common\Structure\Geo\StreetAddress;
 use Iddigital\Cms\Common\Structure\Type\Persistence\StringValueObjectMapper;
-use Iddigital\Cms\Common\Structure\Web\Uri;
 use Iddigital\Cms\Core\Persistence\Db\Mapping\Definition\Column\ColumnTypeDefiner;
 
 /**
- * The uri value object mapper.
+ * The string address value object mapper
  *
  * @author Elliot Levin <elliotlevin@hotmail.com>
  */
-class UriMapper extends StringValueObjectMapper
+class StreetAddressMapper extends StringValueObjectMapper
 {
     /**
-     * @inheritDoc
+     * StreetAddressMapper constructor.
+     *
+     * @param string $addressColumnName
      */
-    public function __construct($columnName = 'uri')
+    public function __construct($addressColumnName = 'address')
     {
-        parent::__construct($columnName);
+        parent::__construct($addressColumnName);
     }
 
     /**
@@ -28,7 +30,7 @@ class UriMapper extends StringValueObjectMapper
      */
     protected function classType()
     {
-        return Uri::class;
+        return StreetAddress::class;
     }
 
     /**
@@ -40,6 +42,6 @@ class UriMapper extends StringValueObjectMapper
      */
     protected function defineStringColumnType(ColumnTypeDefiner $stringColumn)
     {
-        $stringColumn->asVarchar(Uri::MAX_LENGTH);
+        $stringColumn->asVarchar(StreetAddress::MAX_LENGTH);
     }
 }

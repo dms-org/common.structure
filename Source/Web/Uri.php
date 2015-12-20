@@ -2,6 +2,7 @@
 
 namespace Iddigital\Cms\Common\Structure\Web;
 
+use Iddigital\Cms\Common\Structure\Type\StringValueObject;
 use Iddigital\Cms\Core\Exception\InvalidArgumentException;
 
 /**

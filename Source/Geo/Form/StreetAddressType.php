@@ -3,7 +3,7 @@
 namespace Iddigital\Cms\Common\Structure\Geo\Form;
 
 use Iddigital\Cms\Common\Structure\Geo\LatLng;
-use Iddigital\Cms\Common\Structure\Geo\StringAddress;
+use Iddigital\Cms\Common\Structure\Geo\StreetAddress;
 use Iddigital\Cms\Core\Form\Field\Processor\CustomProcessor;
 use Iddigital\Cms\Core\Form\Field\Type\StringType;
 
@@ -12,7 +12,7 @@ use Iddigital\Cms\Core\Form\Field\Type\StringType;
  *
  * @author Elliot Levin <elliotlevin@hotmail.com>
  */
-class StringAddressType extends StringType
+class StreetAddressType extends StringType
 {
     public function __construct()
     {
@@ -28,9 +28,9 @@ class StringAddressType extends StringType
                 new CustomProcessor(
                         LatLng::type(),
                         function ($input) {
-                            return new StringAddress($input);
+                            return new StreetAddress($input);
                         },
-                        function (StringAddress $address) {
+                        function (StreetAddress $address) {
                             return $address->asString();
                         }
                 )

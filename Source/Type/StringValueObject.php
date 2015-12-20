@@ -1,6 +1,6 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Web;
+namespace Iddigital\Cms\Common\Structure\Type;
 
 use Iddigital\Cms\Core\Exception\InvalidArgumentException;
 use Iddigital\Cms\Core\Model\Object\ClassDefinition;
