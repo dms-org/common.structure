@@ -19,8 +19,7 @@
     },
     "require": {
         "php": ">=5.5.0",
-        "dms/core": "dev-master",
-        "psr/http-message": "1.0"
+        "dms/core": "dev-master"
     },
     "require-dev": {
         "dms/common.testing": "dev-master"
