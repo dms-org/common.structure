@@ -55,30 +55,28 @@ abstract class FieldTypeTest extends CmsTestCase
     /**
      * @dataProvider validationTests
      */
-    public function testValidation($input, array $messages)
+    public function testValidation($input, array $messages, $fieldMessages = true)
     {
         /** @var Message[] $messages */
-        foreach ($messages as $key => $message) {
-            if (!isset($message->getParameters()['field'])) {
-                $messages[$key] = $message->withParameters([
-                        'field' => 'Test',
-                        'input' => $input,
-                ]);
+        if ($fieldMessages) {
+            foreach ($messages as $key => $message) {
+                if (!isset($message->getParameters()['field'])) {
+                    $messages[$key] = $message->withParameters([
+                            'field' => 'Test',
+                            'input' => $input,
+                    ]);
+                }
             }
         }
 
-
         /** @var InvalidInputException|InvalidFormSubmissionException $e */
-        $e = $this->assertThrows(function () use ($input) {
+        try {
             $this->field->process($input);
-        }, BaseException::class);
-
-        if ($e instanceof InvalidInputException) {
+            $this->fail('Exception was not thrown');
+        } catch (InvalidInputException $e) {
             $this->assertEquals($messages, $e->getMessages());
-        } elseif ($e instanceof InvalidFormSubmissionException) {
+        } catch (InvalidFormSubmissionException $e) {
             $this->assertEquals($messages, $e->getAllMessages());
-        } else {
-            $this->fail('Unknown exception type :' . get_class($e));
         }
     }
 

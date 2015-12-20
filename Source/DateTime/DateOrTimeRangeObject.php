@@ -38,7 +38,7 @@ abstract class DateOrTimeRangeObject extends ValueObject
     {
         if ($start->getNativeDateTime() > $end->getNativeDateTime()) {
             throw InvalidArgumentException::format(
-                    'Invalid start and end supplied to %s: the start must be less than or equal to the end, (start:%s | end:%s)',
+                    'Invalid start and end supplied to %s: the start must be less than or equal to the end, (start:%s | end:%s) given',
                     get_class($this) . '::' . __FUNCTION__, $start->debugFormat(), $end->debugFormat()
             );
         }
