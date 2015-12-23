@@ -5,7 +5,7 @@ namespace Dms\Common\Structure\Web\Persistence;
 use Dms\Common\Structure\Web\EmailAddress;
 use Dms\Common\Structure\Web\Html;
 use Dms\Common\Structure\Web\IpAddress;
-use Dms\Common\Structure\Web\Uri;
+use Dms\Common\Structure\Web\Url;
 use Dms\Core\Persistence\Db\Mapping\Definition\Orm\OrmDefinition;
 use Dms\Core\Persistence\Db\Mapping\Orm;
 
@@ -29,7 +29,7 @@ class WebOrm extends Orm
                 EmailAddress::class => EmailAddressMapper::class,
                 Html::class         => HtmlMapper::class,
                 IpAddress::class    => IpAddressMapper::class,
-                Uri::class          => UriMapper::class,
+                Url::class          => UrlMapper::class,
         ]);
     }
 }

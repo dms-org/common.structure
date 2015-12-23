@@ -28,6 +28,14 @@ class LatLngTypeTest extends FieldTypeTest
     }
 
     /**
+     * @inheritDoc
+     */
+    public function processedType()
+    {
+        return LatLng::type();
+    }
+
+    /**
      * @return array[]
      */
     public function validationTests()

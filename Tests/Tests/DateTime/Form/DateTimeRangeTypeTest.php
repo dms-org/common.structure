@@ -1,6 +1,6 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Tests\DateTimeTime\Form;
+namespace Dms\Common\Structure\Tests\DateTimeTime\Form;
 
 use Dms\Common\Structure\DateTime\DateTime;
 use Dms\Common\Structure\DateTime\DateTimeRange;
@@ -23,6 +23,14 @@ class DateTimeRangeTypeTest extends FieldTypeTest
     protected function buildFieldType()
     {
         return new DateTimeRangeType('Y-m-d H:i:s');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function processedType()
+    {
+        return DateTimeRange::type();
     }
 
     /**

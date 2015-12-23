@@ -31,7 +31,7 @@ class TimeOfDayType extends BaseTimeOfDayType
     {
         return array_merge(parent::buildProcessors(), [
                 new CustomProcessor(
-                        Date::type(),
+                        TimeOfDay::type(),
                         function (\DateTimeImmutable $input) {
                             return TimeOfDay::fromNative($input);
                         },

@@ -2,7 +2,7 @@
 
 namespace Dms\Common\Structure\Tests\Web;
 
-use Dms\Common\Structure\Web\Uri;
+use Dms\Common\Structure\Web\Url;
 use Dms\Common\Testing\CmsTestCase;
 use Dms\Core\Exception\InvalidArgumentException;
 
@@ -13,7 +13,7 @@ class UriTest extends CmsTestCase
 {
     public function testUri()
     {
-        $uri = new Uri('http://google.com.au');
+        $uri = new Url('http://google.com.au');
 
         $this->assertSame('http://google.com.au', $uri->asString());
     }
@@ -27,7 +27,7 @@ class UriTest extends CmsTestCase
 
          foreach ($invalidUris as $uriString) {
              $this->assertThrows(function () use($uriString) {
-                 new Uri($uriString);
+                 new Url($uriString);
              }, InvalidArgumentException::class);
          }
     }

@@ -9,6 +9,8 @@ namespace Dms\Common\Structure\DateTime;
  */
 class DateTime extends DateTimeBase
 {
+    const DEFAULT_FORMAT = 'Y-m-d H:i:s';
+
     /**
      * @param \DateTimeInterface $dateTime
      */
@@ -16,8 +18,8 @@ class DateTime extends DateTimeBase
     {
         parent::__construct(
                 \DateTimeImmutable::createFromFormat(
-                        'Y-m-d H:i:s',
-                        $dateTime->format('Y-m-d H:i:s'),
+                        self::DEFAULT_FORMAT,
+                        $dateTime->format(self::DEFAULT_FORMAT),
                         new \DateTimeZone('UTC')
                 )
         );
@@ -66,7 +68,7 @@ class DateTime extends DateTimeBase
      */
     public function debugFormat()
     {
-        return $this->dateTime->format('Y-m-d H:i:s');
+        return $this->dateTime->format(self::DEFAULT_FORMAT);
     }
 
     /**
@@ -74,7 +76,7 @@ class DateTime extends DateTimeBase
      */
     protected function serializationFormat()
     {
-        return 'Y-m-d H:i:s';
+        return self::DEFAULT_FORMAT;
     }
 
     /**
@@ -150,8 +152,8 @@ class DateTime extends DateTimeBase
     {
         return new TimezonedDateTime(
                 \DateTimeImmutable::createFromFormat(
-                        'Y-m-d H:i:s',
-                        $this->format('Y-m-d H:i:s'),
+                        self::DEFAULT_FORMAT,
+                        $this->format(self::DEFAULT_FORMAT),
                         new \DateTimeZone($timeZoneId)
                 )
         );

@@ -23,12 +23,20 @@ class StreetAddressTypeTest extends FieldTypeTest
     }
 
     /**
+     * @inheritDoc
+     */
+    public function processedType()
+    {
+        return StreetAddress::type();
+    }
+
+    /**
      * @return array[]
      */
     public function validationTests()
     {
         return [
-                [[1, 2, 3], [new Message(TypeValidator::MESSAGE, ['expected_type' => 'string', 'actual_type' => 'array'])]],
+                [[1, 2, 3], [new Message(TypeValidator::MESSAGE, ['type' => 'string'])]],
         ];
     }
 

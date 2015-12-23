@@ -1,6 +1,6 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Tests\DateTimeTime\Form;
+namespace Dms\Common\Structure\Tests\DateTimeTime\Form;
 
 use Dms\Common\Structure\DateTime\Form\TimeOfDayType;
 use Dms\Common\Structure\DateTime\TimeOfDay;
@@ -20,6 +20,14 @@ class TimeOfDayTypeTest extends FieldTypeTest
     protected function buildFieldType()
     {
         return new TimeOfDayType('H:i:s');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function processedType()
+    {
+        return TimeOfDay::type();
     }
 
     /**

@@ -11,6 +11,8 @@ use Dms\Core\Exception\InvalidArgumentException;
  */
 class TimeOfDay extends DateOrTimeObject
 {
+    const DEFAULT_FORMAT = 'H:i:s';
+
     use TimeOfDayOperations;
 
     /**
@@ -81,7 +83,7 @@ class TimeOfDay extends DateOrTimeObject
      */
     public function debugFormat()
     {
-        return $this->dateTime->format('H:i:s');
+        return $this->dateTime->format(self::DEFAULT_FORMAT);
     }
 
     /**
@@ -89,7 +91,7 @@ class TimeOfDay extends DateOrTimeObject
      */
     protected function serializationFormat()
     {
-        return 'H:i:s';
+        return self::DEFAULT_FORMAT;
     }
 
     /**

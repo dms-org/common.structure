@@ -48,6 +48,18 @@ abstract class TableDataCell extends ValueObject
     }
 
     /**
+     * @param mixed $columnKey
+     * @param mixed $rowKey
+     * @param mixed $cellValue
+     *
+     * @return static
+     */
+    public static function create($columnKey, $rowKey, $cellValue)
+    {
+        return new static($columnKey, $rowKey, $cellValue);
+    }
+
+    /**
      * Gets the type of the of table data collection.
      *
      * @return CollectionType

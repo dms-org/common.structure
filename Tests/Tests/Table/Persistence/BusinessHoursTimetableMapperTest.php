@@ -102,8 +102,9 @@ class BusinessHoursTimetableMapperTest extends DbIntegrationTest
         ]);
 
         $expectedEntity = new TestBusinessHoursEntity(1, TestBusinessHoursTimetableCell::defaultTimetable());
+        $actualEntity   = $this->repo->get(1);
 
-        $this->assertEquals($expectedEntity, $this->repo->get(1));
+        $this->assertEquals($expectedEntity, $actualEntity);
     }
 
     public function testCriteria()
@@ -130,9 +131,9 @@ class BusinessHoursTimetableMapperTest extends DbIntegrationTest
         );
 
         $this->assertEquals([
-            new TestBusinessHoursEntity(2, TestBusinessHoursTimetableCell::collection([
-                new TestBusinessHoursTimetableCell(DayOfWeek::wednesday(), new TimeOfDay(5), TestBusinessAvailability::open())
-            ]))
+                new TestBusinessHoursEntity(2, TestBusinessHoursTimetableCell::collection([
+                        new TestBusinessHoursTimetableCell(DayOfWeek::wednesday(), new TimeOfDay(5), TestBusinessAvailability::open())
+                ]))
         ], $results);
     }
 }

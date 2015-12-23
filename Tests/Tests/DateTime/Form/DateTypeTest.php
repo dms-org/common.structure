@@ -1,10 +1,8 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Tests\DateTimeTime\Form;
+namespace Dms\Common\Structure\Tests\DateTimeTime\Form;
 
 use Dms\Common\Structure\DateTime\Date;
-use Dms\Common\Structure\DateTime\DateTime;
-use Dms\Common\Structure\DateTime\Form\DateTimeType;
 use Dms\Common\Structure\DateTime\Form\DateType;
 use Dms\Common\Structure\Tests\Form\FieldTypeTest;
 use Dms\Core\Form\Field\Processor\Validator\DateFormatValidator;
@@ -22,6 +20,14 @@ class DateTypeTest extends FieldTypeTest
     protected function buildFieldType()
     {
         return new DateType('Y-m-d');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function processedType()
+    {
+        return Date::type();
     }
 
     /**

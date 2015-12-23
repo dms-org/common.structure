@@ -3,15 +3,15 @@
 namespace Dms\Common\Structure\Web\Persistence;
 
 use Dms\Common\Structure\Type\Persistence\StringValueObjectMapper;
-use Dms\Common\Structure\Web\Uri;
+use Dms\Common\Structure\Web\Url;
 use Dms\Core\Persistence\Db\Mapping\Definition\Column\ColumnTypeDefiner;
 
 /**
- * The uri value object mapper.
+ * The ur; value object mapper.
  *
  * @author Elliot Levin <elliotlevin@hotmail.com>
  */
-class UriMapper extends StringValueObjectMapper
+class UrlMapper extends StringValueObjectMapper
 {
     /**
      * @inheritDoc
@@ -28,7 +28,7 @@ class UriMapper extends StringValueObjectMapper
      */
     protected function classType()
     {
-        return Uri::class;
+        return Url::class;
     }
 
     /**
@@ -40,6 +40,6 @@ class UriMapper extends StringValueObjectMapper
      */
     protected function defineStringColumnType(ColumnTypeDefiner $stringColumn)
     {
-        $stringColumn->asVarchar(Uri::MAX_LENGTH);
+        $stringColumn->asVarchar(Url::MAX_LENGTH);
     }
 }

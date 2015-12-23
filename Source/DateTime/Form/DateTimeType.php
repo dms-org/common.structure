@@ -2,7 +2,6 @@
 
 namespace Dms\Common\Structure\DateTime\Form;
 
-use Dms\Common\Structure\DateTime\Date;
 use Dms\Common\Structure\DateTime\DateTime;
 use Dms\Core\Form\Field\Processor\CustomProcessor;
 use Dms\Core\Form\Field\Type\DateTimeType as BaseDateTimeType;
@@ -31,7 +30,7 @@ class DateTimeType extends BaseDateTimeType
     {
         return array_merge(parent::buildProcessors(), [
                 new CustomProcessor(
-                        Date::type(),
+                        DateTime::type(),
                         function (\DateTimeImmutable $input) {
                             return new DateTime($input);
                         },

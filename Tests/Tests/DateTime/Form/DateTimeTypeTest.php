@@ -1,6 +1,6 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Tests\DateTimeTime\Form;
+namespace Dms\Common\Structure\Tests\DateTimeTime\Form;
 
 use Dms\Common\Structure\DateTime\DateTime;
 use Dms\Common\Structure\DateTime\Form\DateTimeType;
@@ -20,6 +20,14 @@ class DateTimeTypeTest extends FieldTypeTest
     protected function buildFieldType()
     {
         return new DateTimeType('Y-m-d H:i:s');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function processedType()
+    {
+        return DateTime::type();
     }
 
     /**

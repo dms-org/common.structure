@@ -43,7 +43,7 @@ class TimezonedDateTimeRangeType extends DateOrTimeRangeType
     {
         return array_merge(parent::buildProcessors(), [
                 new CustomProcessor(
-                        DateTimeRange::type(),
+                        TimezonedDateTimeRange::type(),
                         function ($input) {
                             return new TimezonedDateTimeRange(
                                     $input['start'],

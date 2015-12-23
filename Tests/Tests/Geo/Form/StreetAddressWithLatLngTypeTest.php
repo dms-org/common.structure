@@ -27,6 +27,14 @@ class StreetAddressWithLatLngTypeTest extends FieldTypeTest
     }
 
     /**
+     * @inheritDoc
+     */
+    public function processedType()
+    {
+        return StreetAddressWithLatLng::type();
+    }
+
+    /**
      * @return array[]
      */
     public function validationTests()

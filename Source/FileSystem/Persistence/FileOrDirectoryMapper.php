@@ -36,10 +36,11 @@ abstract class FileOrDirectoryMapper extends IndependentValueObjectMapper
     /**
      * FileOrDirectoryMapper constructor.
      *
-     * @param string      $pathColumnName
-     * @param string|null $baseDirectoryPath
+     * @param string                      $pathColumnName
+     * @param string|null                 $baseDirectoryPath
+     * @param RelativePathCalculator|null $relativePathCalculator
      */
-    public function __construct($pathColumnName, $baseDirectoryPath = null)
+    public function __construct($pathColumnName, $baseDirectoryPath = null, RelativePathCalculator $relativePathCalculator = null)
     {
         if ($baseDirectoryPath) {
             $baseDirectoryPath = str_replace('\\', '/', $baseDirectoryPath);
@@ -51,7 +52,7 @@ abstract class FileOrDirectoryMapper extends IndependentValueObjectMapper
 
         $this->pathColumnName         = $pathColumnName;
         $this->basePath               = $baseDirectoryPath;
-        $this->relativePathCalculator = new RelativePathCalculator();
+        $this->relativePathCalculator = $relativePathCalculator ?: new RelativePathCalculator();
 
         parent::__construct();
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Tests\DateTime\Form;
+namespace Dms\Common\Structure\Tests\DateTime\Form;
 
 use Dms\Common\Structure\DateTime\Date;
 use Dms\Common\Structure\DateTime\DateRange;
@@ -11,6 +11,7 @@ use Dms\Core\Form\Field\Processor\Validator\RequiredValidator;
 use Dms\Core\Form\IFieldType;
 use Dms\Core\Form\Processor\Validator\FieldLessThanOrEqualAnotherValidator;
 use Dms\Core\Language\Message;
+use Dms\Core\Model\Type\IType;
 
 /**
  * @author Elliot Levin <elliotlevin@hotmail.com>
@@ -23,6 +24,14 @@ class DateRangeTypeTest extends FieldTypeTest
     protected function buildFieldType()
     {
         return new DateRangeType('Y-m-d');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function processedType()
+    {
+        return DateRange::type();
     }
 
     /**

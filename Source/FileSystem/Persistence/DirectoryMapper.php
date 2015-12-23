@@ -3,6 +3,7 @@
 namespace Dms\Common\Structure\FileSystem\Persistence;
 
 use Dms\Common\Structure\FileSystem\Directory;
+use Dms\Common\Structure\FileSystem\RelativePathCalculator;
 
 /**
  * The directory value object mapper.
@@ -14,12 +15,13 @@ class DirectoryMapper extends FileOrDirectoryMapper
     /**
      * DirectoryMapper constructor.
      *
-     * @param string      $directoryPathColumnName
-     * @param string|null $baseDirectoryPath
+     * @param string                 $directoryPathColumnName
+     * @param string|null            $baseDirectoryPath
+     * @param RelativePathCalculator|null $relativePathCalculator
      */
-    public function __construct($directoryPathColumnName = 'directory', $baseDirectoryPath = null)
+    public function __construct($directoryPathColumnName = 'directory', $baseDirectoryPath = null, RelativePathCalculator $relativePathCalculator = null)
     {
-        parent::__construct($directoryPathColumnName, $baseDirectoryPath);
+        parent::__construct($directoryPathColumnName, $baseDirectoryPath, $relativePathCalculator);
     }
 
     /**

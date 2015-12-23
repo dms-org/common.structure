@@ -6,11 +6,11 @@ use Dms\Common\Structure\Type\StringValueObject;
 use Dms\Core\Exception\InvalidArgumentException;
 
 /**
- * The uri value object class
+ * The url value object class
  *
  * @author Elliot Levin <elliotlevin@hotmail.com>
  */
-class Uri extends StringValueObject
+class Url extends StringValueObject
 {
     /**
      * @see http://stackoverflow.com/questions/219569/best-database-field-type-for-a-url

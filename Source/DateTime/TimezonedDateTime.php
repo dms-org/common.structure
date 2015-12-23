@@ -9,6 +9,8 @@ namespace Dms\Common\Structure\DateTime;
  */
 class TimezonedDateTime extends DateTimeBase
 {
+    const DEFAULT_FORMAT = 'Y-m-d H:i:s e';
+
     /**
      * @param \DateTimeInterface $dateTime
      */
@@ -61,7 +63,7 @@ class TimezonedDateTime extends DateTimeBase
      */
     protected function serializationFormat()
     {
-        return 'Y-m-d H:i:s e';
+        return self::DEFAULT_FORMAT;
     }
 
     /**

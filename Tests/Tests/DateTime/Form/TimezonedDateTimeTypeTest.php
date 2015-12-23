@@ -1,13 +1,11 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Tests\DateTimeTime\Form;
+namespace Dms\Common\Structure\Tests\DateTimeTime\Form;
 
 use Dms\Common\Structure\DateTime\Form\TimezonedDateTimeType;
 use Dms\Common\Structure\DateTime\TimezonedDateTime;
-use Dms\Common\Structure\DateTime\TimezonedDateTimeRange;
 use Dms\Common\Structure\Tests\Form\FieldTypeTest;
 use Dms\Core\Form\Field\Processor\Validator\DateFormatValidator;
-use Dms\Core\Form\Field\Processor\Validator\OneOfValidator;
 use Dms\Core\Form\IFieldType;
 use Dms\Core\Language\Message;
 
@@ -21,7 +19,15 @@ class TimezonedDateTimeTypeTest extends FieldTypeTest
      */
     protected function buildFieldType()
     {
-        return new TimezonedDateTimeType('Y-m-d H:i:s');
+        return new TimezonedDateTimeType('Y-m-d H:i:s e');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function processedType()
+    {
+        return TimezonedDateTime::type();
     }
 
     /**
@@ -29,16 +35,10 @@ class TimezonedDateTimeTypeTest extends FieldTypeTest
      */
     public function validationTests()
     {
-        $timezoneOptions = implode(', ', \DateTimeZone::listIdentifiers());
-
         return [
                 [
-                        ['datetime' => '123', 'timezone' => 'UTC'],
-                        [new Message(DateFormatValidator::MESSAGE, ['field' => 'Date/Time', 'input' => 123, 'format' => 'Y-m-d H:i:s'])]
-                ],
-                [
-                        ['datetime' => '2000-01-01 00:00:00', 'timezone' => 'bad'],
-                        [new Message(OneOfValidator::MESSAGE, ['field' => 'Timezone', 'input' => 'bad', 'options' => $timezoneOptions])]
+                        'datetime' => '123',
+                        [new Message(DateFormatValidator::MESSAGE, ['format' => 'Y-m-d H:i:s e'])]
                 ],
         ];
     }
@@ -49,10 +49,8 @@ class TimezonedDateTimeTypeTest extends FieldTypeTest
     public function processTests()
     {
         return [
-                [
-                        ['datetime' => '2000-01-01 10:00:00', 'timezone' => 'Australia/Melbourne'],
-                        TimezonedDateTime::fromString('2000-01-01 10:00:00', 'Australia/Melbourne'),
-                ],
+                ['2000-01-01 10:00:00 Australia/Melbourne', TimezonedDateTime::fromString('2000-01-01 10:00:00', 'Australia/Melbourne')],
+                ['2010-08-09 10:33:55 UTC', TimezonedDateTime::fromString('2010-08-09 10:33:55', 'UTC')],
         ];
     }
 
@@ -62,10 +60,8 @@ class TimezonedDateTimeTypeTest extends FieldTypeTest
     public function unprocessTests()
     {
         return [
-                [
-                        TimezonedDateTime::fromString('2000-01-01 10:00:00', 'Australia/Melbourne'),
-                        ['datetime' => '2000-01-01 10:00:00', 'timezone' => 'Australia/Melbourne'],
-                ],
+                [TimezonedDateTime::fromString('2000-01-01 10:00:00', 'Australia/Melbourne'), '2000-01-01 10:00:00 Australia/Melbourne'],
+                [TimezonedDateTime::fromString('2010-08-09 10:33:55', 'UTC'), '2010-08-09 10:33:55 UTC'],
         ];
     }
 }

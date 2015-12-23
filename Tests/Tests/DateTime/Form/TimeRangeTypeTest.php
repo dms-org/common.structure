@@ -1,9 +1,7 @@
 <?php
 
-namespace Iddigital\Cms\Common\Structure\Tests\DateTime\Form;
+namespace Dms\Common\Structure\Tests\DateTime\Form;
 
-use Dms\Common\Structure\DateTime\Date;
-use Dms\Common\Structure\DateTime\DateRange;
 use Dms\Common\Structure\DateTime\Form\TimeRangeType;
 use Dms\Common\Structure\DateTime\TimeOfDay;
 use Dms\Common\Structure\DateTime\TimeRange;
@@ -25,6 +23,14 @@ class TimeRangeTypeTest extends FieldTypeTest
     protected function buildFieldType()
     {
         return new TimeRangeType('H:i:s');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function processedType()
+    {
+        return TimeRange::type();
     }
 
     /**
