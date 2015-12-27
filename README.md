@@ -6,6 +6,6 @@ An implementation of common data structures for use in domain models
 Links
 =====
 
- - [Documentation](./Docs/)
- - [Source](./Source/)
- - [Tests](./Tests/)
+ - [Documentation](./docs/)
+ - [Source](./src/)
+ - [Tests](./tests/)
