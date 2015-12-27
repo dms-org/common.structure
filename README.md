@@ -1,5 +1,5 @@
-dms.common.structures
-=====================
+dms.common.structure
+====================
 
 An implementation of common data structures for use in domain models
 
