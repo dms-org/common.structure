@@ -13,13 +13,17 @@
     ],
     "autoload": {
         "psr-4": {
-            "Dms\\Common\\Structure\\": "./src/",
-            "Dms\\Common\\Structure\\Tests\\": "./tests/Tests"
+            "Dms\\Common\\Structure\\": "./src/"
         }
     },
     "require": {
         "php": ">=5.5.0",
         "dms/core": "dev-master"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Dms\\Common\\Structure\\Tests\\": "./tests/Tests"
+        }
     },
     "require-dev": {
         "dms/common.testing": "dev-master"
