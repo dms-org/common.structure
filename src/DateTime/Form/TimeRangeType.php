@@ -4,10 +4,8 @@ namespace Dms\Common\Structure\DateTime\Form;
 
 use Dms\Common\Structure\DateTime\TimeOfDay;
 use Dms\Common\Structure\DateTime\TimeRange;
-use Dms\Core\Form\Builder\Form;
 use Dms\Core\Form\Field\Builder\Field;
-use Dms\Core\Form\Field\Processor\CustomProcessor;
-use Dms\Core\Form\IForm;
+use Dms\Core\Model\Type\IType;
 
 /**
  * The time range field type
@@ -17,46 +15,55 @@ use Dms\Core\Form\IForm;
 class TimeRangeType extends DateOrTimeRangeType
 {
     /**
+     * @param Field  $field
      * @param string $format
      *
-     * @return IForm
+     * @return Field
      */
-    public static function form($format)
+    protected function buildRangeInput(Field $field, $format)
     {
-        return Form::create()
-                ->section('Time Range', [
-                        Field::name('start_time')->label('Start')
-                                ->time($format)
-                                ->required(),
-                        Field::name('end_time')->label('End')
-                                ->time($format)
-                                ->required(),
-                ])
-                ->fieldLessThanOrEqualAnother('start_time', 'end_time')
-                ->build();
+        return $field->time($format);
     }
 
     /**
-     * @inheritDoc
+     * @return IType
      */
-    protected function buildProcessors()
+    protected function processedRangeType()
     {
-        return array_merge(parent::buildProcessors(), [
-                new CustomProcessor(
-                        TimeRange::type(),
-                        function ($input) {
-                            return new TimeRange(
-                                    TimeOfDay::fromNative($input['start_time']),
-                                    TimeOfDay::fromNative($input['end_time'])
-                            );
-                        },
-                        function (TimeRange $range) {
-                            return [
-                                    'start_time' => $range->getStart()->getNativeDateTime(),
-                                    'end_time'   => $range->getEnd()->getNativeDateTime(),
-                            ];
-                        }
-                )
-        ]);
+        return TimeRange::type();
+    }
+
+    /**
+     * @param mixed $start
+     * @param mixed $end
+     *
+     * @return mixed
+     */
+    protected function buildRangeObject($start, $end)
+    {
+        return new TimeRange(
+                TimeOfDay::fromNative($start),
+                TimeOfDay::fromNative($end)
+        );
+    }
+
+    /**
+     * @param TimeRange $range
+     *
+     * @return mixed
+     */
+    protected function getRangeStart($range)
+    {
+        return $range->getStart()->getNativeDateTime();
+    }
+
+    /**
+     * @param TimeRange $range
+     *
+     * @return mixed
+     */
+    protected function getRangeEnd($range)
+    {
+        return $range->getEnd()->getNativeDateTime();
     }
 }

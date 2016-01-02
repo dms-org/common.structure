@@ -48,14 +48,14 @@ class DateRangeTypeTest extends FieldTypeTest
                         ]
                 ],
                 [
-                        ['start_date' => '123', 'end_date' => '355'],
+                        ['start' => '123', 'end' => '355'],
                         [
                                 new Message(DateFormatValidator::MESSAGE, ['field' => 'Start', 'input' => 123, 'format' => 'Y-m-d']),
                                 new Message(DateFormatValidator::MESSAGE, ['field' => 'End', 'input' => 355, 'format' => 'Y-m-d']),
                         ]
                 ],
                 [
-                        ['start_date' => '2010-01-01', 'end_date' => '2000-01-01'],
+                        ['start' => '2010-01-01', 'end' => '2000-01-01'],
                         [
                                 new Message(FieldLessThanOrEqualAnotherValidator::MESSAGE, ['field1' => 'Start', 'field2' => 'End']),
                         ], false
@@ -69,7 +69,7 @@ class DateRangeTypeTest extends FieldTypeTest
     public function processTests()
     {
         return [
-                [['start_date' => '2000-01-01', 'end_date' => '2000-05-22'], new DateRange(new Date(2000, 1, 1), new Date(2000, 5, 22))],
+                [['start' => '2000-01-01', 'end' => '2000-05-22'], new DateRange(new Date(2000, 1, 1), new Date(2000, 5, 22))],
         ];
     }
 
@@ -79,7 +79,7 @@ class DateRangeTypeTest extends FieldTypeTest
     public function unprocessTests()
     {
         return [
-                [new DateRange(new Date(2000, 1, 1), new Date(2000, 5, 22)), ['start_date' => '2000-01-01', 'end_date' => '2000-05-22']],
+                [new DateRange(new Date(2000, 1, 1), new Date(2000, 5, 22)), ['start' => '2000-01-01', 'end' => '2000-05-22']],
         ];
     }
 }

@@ -47,14 +47,14 @@ class TimeRangeTypeTest extends FieldTypeTest
                         ]
                 ],
                 [
-                        ['start_time' => '123', 'end_time' => '355'],
+                        ['start' => '123', 'end' => '355'],
                         [
                                 new Message(DateFormatValidator::MESSAGE, ['field' => 'Start', 'input' => 123, 'format' => 'H:i:s']),
                                 new Message(DateFormatValidator::MESSAGE, ['field' => 'End', 'input' => 355, 'format' => 'H:i:s']),
                         ]
                 ],
                 [
-                        ['start_time' => '15:00:00', 'end_time' => '14:59:59'],
+                        ['start' => '15:00:00', 'end' => '14:59:59'],
                         [
                                 new Message(FieldLessThanOrEqualAnotherValidator::MESSAGE, ['field1' => 'Start', 'field2' => 'End']),
                         ],
@@ -69,7 +69,7 @@ class TimeRangeTypeTest extends FieldTypeTest
     public function processTests()
     {
         return [
-                [['start_time' => '14:59:59', 'end_time' => '15:00:00'], new TimeRange(new TimeOfDay(14, 59, 59), new TimeOfDay(15, 0, 0))],
+                [['start' => '14:59:59', 'end' => '15:00:00'], new TimeRange(new TimeOfDay(14, 59, 59), new TimeOfDay(15, 0, 0))],
         ];
     }
 
@@ -79,7 +79,7 @@ class TimeRangeTypeTest extends FieldTypeTest
     public function unprocessTests()
     {
         return [
-                [new TimeRange(new TimeOfDay(14, 59, 59), new TimeOfDay(15, 0, 0)), ['start_time' => '14:59:59', 'end_time' => '15:00:00']],
+                [new TimeRange(new TimeOfDay(14, 59, 59), new TimeOfDay(15, 0, 0)), ['start' => '14:59:59', 'end' => '15:00:00']],
         ];
     }
 }

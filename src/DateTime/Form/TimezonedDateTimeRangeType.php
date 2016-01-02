@@ -2,12 +2,12 @@
 
 namespace Dms\Common\Structure\DateTime\Form;
 
-use Dms\Common\Structure\DateTime\DateTimeRange;
 use Dms\Common\Structure\DateTime\TimezonedDateTimeRange;
 use Dms\Core\Form\Builder\Form;
 use Dms\Core\Form\Field\Builder\Field;
 use Dms\Core\Form\Field\Processor\CustomProcessor;
 use Dms\Core\Form\IForm;
+use Dms\Core\Model\Type\IType;
 
 /**
  * The timezoned datetime range field type
@@ -17,46 +17,52 @@ use Dms\Core\Form\IForm;
 class TimezonedDateTimeRangeType extends DateOrTimeRangeType
 {
     /**
+     * @param Field  $field
      * @param string $format
      *
-     * @return IForm
+     * @return Field
      */
-    public static function form($format)
+    protected function buildRangeInput(Field $field, $format)
     {
-        return Form::create()
-                ->section('Date/Time Range', [
-                        Field::name('start')->label('Start')
-                                ->type(new TimezonedDateTimeType($format))
-                                ->required(),
-                        Field::name('end')->label('End')
-                                ->type(new TimezonedDateTimeType($format))
-                                ->required(),
-                ])
-                ->fieldLessThanOrEqualAnother('start', 'end')
-                ->build();
+        return $field->type(new TimezonedDateTimeType($format));
     }
 
     /**
-     * @inheritDoc
+     * @return IType
      */
-    protected function buildProcessors()
+    protected function processedRangeType()
     {
-        return array_merge(parent::buildProcessors(), [
-                new CustomProcessor(
-                        TimezonedDateTimeRange::type(),
-                        function ($input) {
-                            return new TimezonedDateTimeRange(
-                                    $input['start'],
-                                    $input['end']
-                            );
-                        },
-                        function (TimezonedDateTimeRange $range) {
-                            return [
-                                    'start' => $range->getStart(),
-                                    'end'   => $range->getEnd(),
-                            ];
-                        }
-                )
-        ]);
+        return TimezonedDateTimeRange::type();
+    }
+
+    /**
+     * @param mixed $start
+     * @param mixed $end
+     *
+     * @return mixed
+     */
+    protected function buildRangeObject($start, $end)
+    {
+        return new TimezonedDateTimeRange($start, $end);
+    }
+
+    /**
+     * @param TimezonedDateTimeRange $range
+     *
+     * @return mixed
+     */
+    protected function getRangeStart($range)
+    {
+        return $range->getStart();
+    }
+
+    /**
+     * @param TimezonedDateTimeRange $range
+     *
+     * @return mixed
+     */
+    protected function getRangeEnd($range)
+    {
+        return $range->getEnd();
     }
 }

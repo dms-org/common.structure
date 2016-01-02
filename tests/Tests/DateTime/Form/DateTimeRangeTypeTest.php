@@ -47,14 +47,14 @@ class DateTimeRangeTypeTest extends FieldTypeTest
                         ]
                 ],
                 [
-                        ['start_datetime' => '123', 'end_datetime' => '355'],
+                        ['start' => '123', 'end' => '355'],
                         [
                                 new Message(DateFormatValidator::MESSAGE, ['field' => 'Start', 'input' => 123, 'format' => 'Y-m-d H:i:s']),
                                 new Message(DateFormatValidator::MESSAGE, ['field' => 'End', 'input' => 355, 'format' => 'Y-m-d H:i:s']),
                         ]
                 ],
                 [
-                        ['start_datetime' => '2010-01-01 10:00:00', 'end_datetime' => '2000-01-01 12:30:00'],
+                        ['start' => '2010-01-01 10:00:00', 'end' => '2000-01-01 12:30:00'],
                         [
                                 new Message(FieldLessThanOrEqualAnotherValidator::MESSAGE, ['field1' => 'Start', 'field2' => 'End']),
                         ],
@@ -70,7 +70,7 @@ class DateTimeRangeTypeTest extends FieldTypeTest
     {
         return [
                 [
-                        ['start_datetime' => '2000-01-01 10:00:00', 'end_datetime' => '2012-01-01 12:30:00'],
+                        ['start' => '2000-01-01 10:00:00', 'end' => '2012-01-01 12:30:00'],
                         new DateTimeRange(DateTime::fromString('2000-01-01 10:00:00'), DateTime::fromString('2012-01-01 12:30:00')),
                 ],
         ];
@@ -84,7 +84,7 @@ class DateTimeRangeTypeTest extends FieldTypeTest
         return [
                 [
                         new DateTimeRange(DateTime::fromString('2000-01-01 10:00:00'), DateTime::fromString('2012-01-01 12:30:00')),
-                        ['start_datetime' => '2000-01-01 10:00:00', 'end_datetime' => '2012-01-01 12:30:00'],
+                        ['start' => '2000-01-01 10:00:00', 'end' => '2012-01-01 12:30:00'],
                 ],
         ];
     }

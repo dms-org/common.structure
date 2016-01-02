@@ -4,10 +4,8 @@ namespace Dms\Common\Structure\DateTime\Form;
 
 use Dms\Common\Structure\DateTime\DateTime;
 use Dms\Common\Structure\DateTime\DateTimeRange;
-use Dms\Core\Form\Builder\Form;
 use Dms\Core\Form\Field\Builder\Field;
-use Dms\Core\Form\Field\Processor\CustomProcessor;
-use Dms\Core\Form\IForm;
+use Dms\Core\Model\Type\IType;
 
 /**
  * The datetime range field type
@@ -17,46 +15,55 @@ use Dms\Core\Form\IForm;
 class DateTimeRangeType extends DateOrTimeRangeType
 {
     /**
+     * @param Field  $field
      * @param string $format
      *
-     * @return IForm
+     * @return Field
      */
-    public static function form($format)
+    protected function buildRangeInput(Field $field, $format)
     {
-        return Form::create()
-                ->section('Date/Time Range', [
-                        Field::name('start_datetime')->label('Start')
-                                ->datetime($format)
-                                ->required(),
-                        Field::name('end_datetime')->label('End')
-                                ->datetime($format)
-                                ->required(),
-                ])
-                ->fieldLessThanOrEqualAnother('start_datetime', 'end_datetime')
-                ->build();
+        return $field->datetime($format);
     }
 
     /**
-     * @inheritDoc
+     * @return IType
      */
-    protected function buildProcessors()
+    protected function processedRangeType()
     {
-        return array_merge(parent::buildProcessors(), [
-                new CustomProcessor(
-                        DateTimeRange::type(),
-                        function ($input) {
-                            return new DateTimeRange(
-                                    new DateTime($input['start_datetime']),
-                                    new DateTime($input['end_datetime'])
-                            );
-                        },
-                        function (DateTimeRange $range) {
-                            return [
-                                    'start_datetime' => $range->getStart()->getNativeDateTime(),
-                                    'end_datetime'   => $range->getEnd()->getNativeDateTime(),
-                            ];
-                        }
-                )
-        ]);
+        return DateTimeRange::type();
+    }
+
+    /**
+     * @param mixed $start
+     * @param mixed $end
+     *
+     * @return mixed
+     */
+    protected function buildRangeObject($start, $end)
+    {
+        return new DateTimeRange(
+                new DateTime($start),
+                new DateTime($end)
+        );
+    }
+
+    /**
+     * @param DateTimeRange $range
+     *
+     * @return mixed
+     */
+    protected function getRangeStart($range)
+    {
+        return $range->getStart()->getNativeDateTime();
+    }
+
+    /**
+     * @param DateTimeRange $range
+     *
+     * @return mixed
+     */
+    protected function getRangeEnd($range)
+    {
+        return $range->getEnd()->getNativeDateTime();
     }
 }
