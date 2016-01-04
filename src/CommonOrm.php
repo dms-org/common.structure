@@ -2,6 +2,7 @@
 
 namespace Dms\Common\Structure;
 
+use Dms\Common\Structure\Colour\Mapper\ColourOrm;
 use Dms\Common\Structure\DateTime\Persistence\DateTimeOrm;
 use Dms\Common\Structure\FileSystem\Persistence\FileSystemOrm;
 use Dms\Common\Structure\Geo\Persistence\GeoOrm;
@@ -26,6 +27,7 @@ class CommonOrm extends Orm
     protected function define(OrmDefinition $orm)
     {
         $orm->encompassAll([
+                new ColourOrm(),
                 new DateTimeOrm(),
                 new GeoOrm(),
                 new FileSystemOrm(),

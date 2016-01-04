@@ -22,7 +22,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Dms\\Common\\Structure\\Tests\\": "./tests/Tests"
+            "Dms\\Common\\Structure\\Tests\\": "./tests/Tests",
+            "Dms\\Core\\Tests\\": "./vendor/dms/core/tests/Tests"
         }
     },
     "require-dev": {
