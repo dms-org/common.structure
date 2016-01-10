@@ -4,8 +4,9 @@ namespace Dms\Common\Structure\FileSystem;
 
 use Dms\Core\Exception\InvalidOperationException;
 use Dms\Core\File\IFile;
-use Dms\Core\Model\Object\ClassDefinition;
-use Dms\Core\Model\Object\ValueObject;
+use Dms\Core\File\IImage;
+use Dms\Core\File\IUploadedFile;
+use Dms\Core\File\IUploadedImage;
 
 /**
  * The file value object class.
@@ -14,6 +15,26 @@ use Dms\Core\Model\Object\ValueObject;
  */
 class File extends FileSystemObject implements IFile
 {
+    /**
+     * @param IFile $file
+     *
+     * @return File
+     */
+    public static function fromExisting(IFile $file)
+    {
+        if ($file instanceof self) {
+            return $file;
+        } elseif ($file instanceof IUploadedImage) {
+            return new UploadedImage($file->getFullPath(), $file->getUploadError());
+        } elseif ($file instanceof IUploadedFile) {
+            return new UploadedFile($file->getFullPath(), $file->getUploadError());
+        } elseif ($file instanceof IImage) {
+            return new Image($file->getFullPath());
+        } else {
+            return new self($file->getFullPath());
+        }
+    }
+
     /**
      * @inheritDoc
      */
@@ -53,7 +74,7 @@ class File extends FileSystemObject implements IFile
     }
 
     /**
-     * Gets the full file path.
+     * Gets the full file path including the file name.
      *
      * @return string
      */

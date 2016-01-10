@@ -4,8 +4,13 @@ namespace Dms\Common\Structure\Tests\FileSystem;
 
 use Dms\Common\Structure\FileSystem\Directory;
 use Dms\Common\Structure\FileSystem\File;
+use Dms\Common\Structure\FileSystem\UploadedFile;
+use Dms\Common\Structure\FileSystem\UploadedImage;
 use Dms\Common\Testing\CmsTestCase;
 use Dms\Core\Exception\InvalidOperationException;
+use Dms\Core\File\IFile;
+use Dms\Core\File\IUploadedFile;
+use Dms\Core\File\IUploadedImage;
 
 /**
  * @author Elliot Levin <elliotlevin@hotmail.com>
@@ -38,5 +43,31 @@ class FileTest extends CmsTestCase
         $this->assertThrows(function () use ($file) {
             $file->getSize();
         }, InvalidOperationException::class);
+    }
+
+    public function testFromExisting()
+    {
+        $mockFile = $this->getMockForAbstractClass(IFile::class);
+        $mockFile->method('getFullPath')
+                ->willReturn(__FILE__);
+
+        $mockUploadedFile = $this->getMockForAbstractClass(IUploadedFile::class);
+        $mockUploadedFile->method('getFullPath')
+                ->willReturn(__FILE__);
+        $mockUploadedFile->method('getUploadError')
+                ->willReturn(UPLOAD_ERR_OK);
+
+        $mockUploadedImage = $this->getMockForAbstractClass(IUploadedImage::class);
+        $mockUploadedImage->method('getFullPath')
+                ->willReturn(__FILE__);
+        $mockUploadedImage->method('getUploadError')
+                ->willReturn(UPLOAD_ERR_NO_TMP_DIR);
+
+        $file = new File(__FILE__);
+
+        $this->assertSame($file, File::fromExisting($file));
+        $this->assertEquals($file, File::fromExisting($mockFile));
+        $this->assertEquals(new UploadedFile(__FILE__, UPLOAD_ERR_OK), File::fromExisting($mockUploadedFile));
+        $this->assertEquals(new UploadedImage(__FILE__, UPLOAD_ERR_NO_TMP_DIR), File::fromExisting($mockUploadedImage));
     }
 }
