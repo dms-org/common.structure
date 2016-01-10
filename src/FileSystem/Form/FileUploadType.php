@@ -16,7 +16,7 @@ use Dms\Core\Form\Field\Type\InnerFormType;
 use Dms\Core\Form\IForm;
 use Dms\Core\Language\Message;
 use Dms\Core\Model\Type\Builder\Type;
-use Pinq\Analysis\IType;
+use Dms\Core\Model\Type\IType;
 
 /**
  * The file upload field type.
