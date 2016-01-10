@@ -4,6 +4,9 @@ namespace Dms\Common\Structure\FileSystem;
 
 use Dms\Core\Exception\InvalidArgumentException;
 use Dms\Core\Exception\InvalidOperationException;
+use Dms\Core\File\IFile;
+use Dms\Core\File\IUploadedFile;
+use Dms\Core\File\IUploadedImage;
 use Dms\Core\Model\Object\ClassDefinition;
 
 /**
@@ -19,11 +22,6 @@ trait UploadedFileTrait
      * @var int
      */
     protected $uploadStatus;
-
-    /**
-     * @var string|null
-     */
-    protected $clientFileName;
 
     /**
      * @var string|null
@@ -52,7 +50,6 @@ trait UploadedFileTrait
     protected function defineUploadedFileTrait(ClassDefinition $class)
     {
         $class->property($this->uploadStatus)->asInt();
-        $class->property($this->clientFileName)->nullable()->asString();
         $class->property($this->clientMimeType)->nullable()->asString();
     }
 
@@ -70,14 +67,6 @@ trait UploadedFileTrait
     public function getUploadError()
     {
         return $this->uploadStatus;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getClientFileName()
-    {
-        return $this->clientFileName;
     }
 
     /**
@@ -107,6 +96,11 @@ trait UploadedFileTrait
             );
         }
 
-        return new File($fullPath);
+        if ($this instanceof IUploadedImage) {
+            return new Image($fullPath, $this->getClientFileName());
+        } else {
+            /** @var IUploadedFile $this */
+            return new File($fullPath, $this->getClientFileName());
+        }
     }
 }

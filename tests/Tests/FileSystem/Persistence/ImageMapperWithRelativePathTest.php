@@ -17,7 +17,7 @@ class ImageMapperWithRelativePathTest extends ValueObjectMapperTest
      */
     protected function buildMapper()
     {
-        return new ImageMapper('path', '/storage/path');
+        return new ImageMapper('path', null, '/storage/path');
     }
 
     /**
@@ -26,10 +26,10 @@ class ImageMapperWithRelativePathTest extends ValueObjectMapperTest
     public function mapperTests()
     {
         return [
-                [['path' => 'image'], new Image('/storage/path/image')],
-                [['path' => 'image/in/sub/dir.gif'], new Image('/storage/path/image/in/sub/dir.gif')],
-                [['path' => '../parent.bmp'], new Image('/storage/parent.bmp')],
-                [['path' => '../parent/sub/dir.bmp'], new Image('/storage/parent/sub/dir.bmp')],
+                [['path' => 'image', 'client_name' => 'aaabbbccc'], new Image('/storage/path/image', 'aaabbbccc')],
+                [['path' => 'image/in/sub/dir.gif', 'client_name' => null], new Image('/storage/path/image/in/sub/dir.gif')],
+                [['path' => '../parent.bmp', 'client_name' => null], new Image('/storage/parent.bmp')],
+                [['path' => '../parent/sub/dir.bmp', 'client_name' => null], new Image('/storage/parent/sub/dir.bmp')],
         ];
     }
 }

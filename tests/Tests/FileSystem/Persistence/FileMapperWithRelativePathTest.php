@@ -17,7 +17,7 @@ class FileMapperWithRelativePathTest extends ValueObjectMapperTest
      */
     protected function buildMapper()
     {
-        return new FileMapper('path', '/storage/path');
+        return new FileMapper('path', null, '/storage/path');
     }
 
     /**

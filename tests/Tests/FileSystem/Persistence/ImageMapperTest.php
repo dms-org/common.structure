@@ -17,7 +17,7 @@ class ImageMapperTest extends ValueObjectMapperTest
      */
     protected function buildMapper()
     {
-        return new ImageMapper('path');
+        return new ImageMapper('path', 'client_name');
     }
 
     /**

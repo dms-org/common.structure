@@ -14,11 +14,17 @@ use Dms\Core\Persistence\Db\Mapping\IndependentValueObjectMapper;
 abstract class FileOrDirectoryMapper extends IndependentValueObjectMapper
 {
     const MAX_PATH_LENGTH = 500;
+    const MAX_CLIENT_FILE_NAME_LENGTH = 255;
 
     /**
      * @var string
      */
     protected $pathColumnName;
+
+    /**
+     * @var string|null
+     */
+    protected $clientNameColumnName;
 
     /**
      * The directory path which to store the file paths relative to
@@ -37,11 +43,16 @@ abstract class FileOrDirectoryMapper extends IndependentValueObjectMapper
      * FileOrDirectoryMapper constructor.
      *
      * @param string                      $pathColumnName
+     * @param string|null                 $clientNameColumnName
      * @param string|null                 $baseDirectoryPath
      * @param RelativePathCalculator|null $relativePathCalculator
      */
-    public function __construct($pathColumnName, $baseDirectoryPath = null, RelativePathCalculator $relativePathCalculator = null)
-    {
+    public function __construct(
+            $pathColumnName,
+            $clientNameColumnName = null,
+            $baseDirectoryPath = null,
+            RelativePathCalculator $relativePathCalculator = null
+    ) {
         if ($baseDirectoryPath) {
             $baseDirectoryPath = str_replace('\\', '/', $baseDirectoryPath);
 
@@ -51,6 +62,7 @@ abstract class FileOrDirectoryMapper extends IndependentValueObjectMapper
         }
 
         $this->pathColumnName         = $pathColumnName;
+        $this->clientNameColumnName   = $clientNameColumnName;
         $this->basePath               = $baseDirectoryPath;
         $this->relativePathCalculator = $relativePathCalculator ?: new RelativePathCalculator();
 
@@ -66,6 +78,11 @@ abstract class FileOrDirectoryMapper extends IndependentValueObjectMapper
      * @return string
      */
     abstract protected function fullPathPropertyName();
+
+    /**
+     * @return string|null
+     */
+    abstract protected function clientFileNamePropertyName();
 
     /**
      * Defines the value object mapper
@@ -93,6 +110,13 @@ abstract class FileOrDirectoryMapper extends IndependentValueObjectMapper
             $map->property($this->fullPathPropertyName())
                     ->to($this->pathColumnName)
                     ->asVarchar(self::MAX_PATH_LENGTH);
+        }
+
+        if ($this->clientNameColumnName) {
+            $map->property($this->clientFileNamePropertyName())
+                    ->to($this->clientNameColumnName)
+                    ->nullable()
+                    ->asVarchar(self::MAX_CLIENT_FILE_NAME_LENGTH);
         }
     }
 }

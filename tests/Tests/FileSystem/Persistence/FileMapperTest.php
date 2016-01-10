@@ -17,7 +17,7 @@ class FileMapperTest extends ValueObjectMapperTest
      */
     protected function buildMapper()
     {
-        return new FileMapper('path');
+        return new FileMapper('path', 'client_name');
     }
 
     /**
@@ -26,9 +26,9 @@ class FileMapperTest extends ValueObjectMapperTest
     public function mapperTests()
     {
         return [
-                [['path' => '/test/abc'], new File('/test/abc')],
-                [['path' => '/doc.pdf'], new File('/doc.pdf')],
-                [['path' => str_replace('\\', '/', __FILE__)], new File(__FILE__)],
+                [['path' => '/test/abc', 'client_name' => '123'], new File('/test/abc', '123')],
+                [['path' => '/doc.pdf', 'client_name' => null], new File('/doc.pdf')],
+                [['path' => str_replace('\\', '/', __FILE__), 'client_name' => null], new File(__FILE__)],
         ];
     }
 }

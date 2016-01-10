@@ -16,15 +16,17 @@ class FileMapper extends FileOrDirectoryMapper
      * FileMapper constructor.
      *
      * @param string                      $filePathColumnName
+     * @param string|null                 $clientFileNameColumnName
      * @param string|null                 $baseDirectoryPath
      * @param RelativePathCalculator|null $relativePathCalculator
      */
     public function __construct(
             $filePathColumnName = 'file',
+            $clientFileNameColumnName = null,
             $baseDirectoryPath = null,
             RelativePathCalculator $relativePathCalculator = null
     ) {
-        parent::__construct($filePathColumnName, $baseDirectoryPath, $relativePathCalculator);
+        parent::__construct($filePathColumnName, $clientFileNameColumnName, $baseDirectoryPath, $relativePathCalculator);
     }
 
     /**
@@ -41,5 +43,13 @@ class FileMapper extends FileOrDirectoryMapper
     protected function fullPathPropertyName()
     {
         return File::FULL_PATH;
+    }
+
+    /**
+     * @return string|null
+     */
+    protected function clientFileNamePropertyName()
+    {
+        return File::CLIENT_FILE_NAME;
     }
 }

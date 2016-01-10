@@ -16,15 +16,17 @@ class ImageMapper extends FileOrDirectoryMapper
      * ImageMapper constructor.
      *
      * @param string                      $filePathColumnName
+     * @param string|null                 $clientFileNameColumnName
      * @param string|null                 $baseDirectoryPath
      * @param RelativePathCalculator|null $relativePathCalculator
      */
     public function __construct(
             $filePathColumnName = 'image',
+            $clientFileNameColumnName = null,
             $baseDirectoryPath = null,
             RelativePathCalculator $relativePathCalculator = null
     ) {
-        parent::__construct($filePathColumnName, $baseDirectoryPath, $relativePathCalculator);
+        parent::__construct($filePathColumnName, $clientFileNameColumnName, $baseDirectoryPath, $relativePathCalculator);
     }
 
     /**
@@ -41,5 +43,13 @@ class ImageMapper extends FileOrDirectoryMapper
     protected function fullPathPropertyName()
     {
         return Image::FULL_PATH;
+    }
+
+    /**
+     * @return string|null
+     */
+    protected function clientFileNamePropertyName()
+    {
+        return Image::CLIENT_FILE_NAME;
     }
 }

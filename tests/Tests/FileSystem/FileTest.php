@@ -50,24 +50,30 @@ class FileTest extends CmsTestCase
         $mockFile = $this->getMockForAbstractClass(IFile::class);
         $mockFile->method('getFullPath')
                 ->willReturn(__FILE__);
+        $mockFile->method('getClientFileName')
+                ->willReturn('abc');
 
         $mockUploadedFile = $this->getMockForAbstractClass(IUploadedFile::class);
         $mockUploadedFile->method('getFullPath')
                 ->willReturn(__FILE__);
         $mockUploadedFile->method('getUploadError')
                 ->willReturn(UPLOAD_ERR_OK);
+        $mockUploadedFile->method('getClientFileName')
+                ->willReturn('abc');
 
         $mockUploadedImage = $this->getMockForAbstractClass(IUploadedImage::class);
         $mockUploadedImage->method('getFullPath')
                 ->willReturn(__FILE__);
         $mockUploadedImage->method('getUploadError')
                 ->willReturn(UPLOAD_ERR_NO_TMP_DIR);
+        $mockUploadedImage->method('getClientFileName')
+                ->willReturn('abc');
 
-        $file = new File(__FILE__);
+        $file = new File(__FILE__, 'abc');
 
         $this->assertSame($file, File::fromExisting($file));
         $this->assertEquals($file, File::fromExisting($mockFile));
-        $this->assertEquals(new UploadedFile(__FILE__, UPLOAD_ERR_OK), File::fromExisting($mockUploadedFile));
-        $this->assertEquals(new UploadedImage(__FILE__, UPLOAD_ERR_NO_TMP_DIR), File::fromExisting($mockUploadedImage));
+        $this->assertEquals(new UploadedFile(__FILE__, UPLOAD_ERR_OK, 'abc'), File::fromExisting($mockUploadedFile));
+        $this->assertEquals(new UploadedImage(__FILE__, UPLOAD_ERR_NO_TMP_DIR, 'abc'), File::fromExisting($mockUploadedImage));
     }
 }

@@ -7,6 +7,7 @@ use Dms\Core\File\IFile;
 use Dms\Core\File\IImage;
 use Dms\Core\File\IUploadedFile;
 use Dms\Core\File\IUploadedImage;
+use Dms\Core\Model\Object\ClassDefinition;
 
 /**
  * The file value object class.
@@ -15,6 +16,35 @@ use Dms\Core\File\IUploadedImage;
  */
 class File extends FileSystemObject implements IFile
 {
+    const CLIENT_FILE_NAME = 'clientFileName';
+
+    /**
+     * @var string|null
+     */
+    protected $clientFileName;
+
+    /**
+     * File constructor.
+     *
+     * @param string      $fullPath
+     * @param string|null $clientFileName
+     */
+    public function __construct($fullPath, $clientFileName = null)
+    {
+        parent::__construct($fullPath);
+        $this->clientFileName = $clientFileName;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function define(ClassDefinition $class)
+    {
+        parent::define($class);
+
+        $class->property($this->clientFileName)->nullable()->asString();
+    }
+
     /**
      * @param IFile $file
      *
@@ -25,13 +55,13 @@ class File extends FileSystemObject implements IFile
         if ($file instanceof self) {
             return $file;
         } elseif ($file instanceof IUploadedImage) {
-            return new UploadedImage($file->getFullPath(), $file->getUploadError());
+            return new UploadedImage($file->getFullPath(), $file->getUploadError(), $file->getClientFileName(), $file->getClientMimeType());
         } elseif ($file instanceof IUploadedFile) {
-            return new UploadedFile($file->getFullPath(), $file->getUploadError());
+            return new UploadedFile($file->getFullPath(), $file->getUploadError(), $file->getClientFileName(), $file->getClientMimeType());
         } elseif ($file instanceof IImage) {
-            return new Image($file->getFullPath());
+            return new Image($file->getFullPath(), $file->getClientFileName());
         } else {
-            return new self($file->getFullPath());
+            return new self($file->getFullPath(), $file->getClientFileName());
         }
     }
 
@@ -44,9 +74,7 @@ class File extends FileSystemObject implements IFile
     }
 
     /**
-     * Gets the file name.
-     *
-     * @return string
+     * @inheritDoc
      */
     public function getName()
     {
@@ -54,9 +82,23 @@ class File extends FileSystemObject implements IFile
     }
 
     /**
-     * Gets the directory containing the file.
-     *
-     * @return Directory
+     * @inheritDoc
+     */
+    public function getClientFileName()
+    {
+        return $this->clientFileName;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getClientFileNameWithFallback()
+    {
+        return $this->clientFileName ?: $this->getName();
+    }
+
+    /**
+     * @inheritDoc
      */
     public function getDirectory()
     {
@@ -64,9 +106,7 @@ class File extends FileSystemObject implements IFile
     }
 
     /**
-     * Gets the file extension.
-     *
-     * @return string
+     * @inheritDoc
      */
     public function getExtension()
     {
@@ -74,9 +114,7 @@ class File extends FileSystemObject implements IFile
     }
 
     /**
-     * Gets the full file path including the file name.
-     *
-     * @return string
+     * @inheritDoc
      */
     public function getFullPath()
     {
@@ -84,10 +122,7 @@ class File extends FileSystemObject implements IFile
     }
 
     /**
-     * Gets the file size in bytes.
-     *
-     * @return int
-     * @throws InvalidOperationException
+     * @inheritDoc
      */
     public function getSize()
     {
@@ -103,9 +138,7 @@ class File extends FileSystemObject implements IFile
     }
 
     /**
-     * Gets whether the file exists.
-     *
-     * @return bool
+     * @inheritDoc
      */
     public function exists()
     {
