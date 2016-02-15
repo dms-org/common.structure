@@ -46,12 +46,3 @@ class Field
         return self::create('__type', '__type');
     }
 }
-
-// TODO: test
-Field::create('timetable', 'Timetable')
-        ->table()
-        ->withDataCell(TimetableDataCell::class)
-        ->withPredefinedColumnValues(DayOfWeek::getOptions())
-        ->withRowKeyAs(Field::forType()->time()->required())
-        ->withCellValuesAs(Field::forType()->string())
-        ->maxRows(3);
