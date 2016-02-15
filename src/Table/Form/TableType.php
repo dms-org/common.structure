@@ -2,6 +2,8 @@
 
 namespace Dms\Common\Structure\Table\Form;
 
+use Dms\Common\Structure\Table\Form\Processor\TableDataProcessor;
+use Dms\Common\Structure\Table\Form\Processor\TableStructureValidator;
 use Dms\Core\Form\Builder\Form;
 use Dms\Core\Form\Field\Builder\Field;
 use Dms\Core\Form\Field\Type\ArrayOfType;
@@ -9,8 +11,6 @@ use Dms\Core\Form\Field\Type\InnerFormType;
 use Dms\Core\Form\IField;
 use Dms\Core\Form\IForm;
 use Dms\Core\Model\Type\Builder\Type;
-use Dms\Common\Structure\Table\Form\Processor\TableDataProcessor;
-use Dms\Common\Structure\Table\Form\Processor\TableStructureValidator;
 
 /**
  * The table field type.
@@ -65,9 +65,9 @@ class TableType extends InnerFormType
     public function __construct(string $tableDataCellClass, IField $columnField, IField $rowField = null, IField $cellField)
     {
         $this->tableDataCellClass = $tableDataCellClass;
-        $this->columnField = $columnField;
-        $this->rowField = $rowField;
-        $this->cellField = $cellField;
+        $this->columnField        = $columnField;
+        $this->rowField           = $rowField;
+        $this->cellField          = $cellField;
 
         parent::__construct($this->form());
     }
@@ -123,27 +123,27 @@ class TableType extends InnerFormType
         $tableFields = [];
 
         $columnValidation = [
-                ArrayOfType::ATTR_MIN_ELEMENTS   => $this->get(self::ATTR_MIN_COLUMNS),
-                ArrayOfType::ATTR_MAX_ELEMENTS   => $this->get(self::ATTR_MAX_COLUMNS),
-                ArrayOfType::ATTR_EXACT_ELEMENTS => $this->get(self::ATTR_EXACT_COLUMNS),
+            ArrayOfType::ATTR_MIN_ELEMENTS   => $this->get(self::ATTR_MIN_COLUMNS),
+            ArrayOfType::ATTR_MAX_ELEMENTS   => $this->get(self::ATTR_MAX_COLUMNS),
+            ArrayOfType::ATTR_EXACT_ELEMENTS => $this->get(self::ATTR_EXACT_COLUMNS),
         ];
 
         $rowValidation = [
-                ArrayOfType::ATTR_MIN_ELEMENTS   => $this->get(self::ATTR_MIN_ROWS),
-                ArrayOfType::ATTR_MAX_ELEMENTS   => $this->get(self::ATTR_MAX_ROWS),
-                ArrayOfType::ATTR_EXACT_ELEMENTS => $this->get(self::ATTR_EXACT_ROWS),
+            ArrayOfType::ATTR_MIN_ELEMENTS   => $this->get(self::ATTR_MIN_ROWS),
+            ArrayOfType::ATTR_MAX_ELEMENTS   => $this->get(self::ATTR_MAX_ROWS),
+            ArrayOfType::ATTR_EXACT_ELEMENTS => $this->get(self::ATTR_EXACT_ROWS),
         ];
 
         $columnArrayField = Field::name(self::COLUMNS_FIELD)->label('Columns')
-                ->arrayOfField($this->columnField)
-                ->required()
-                ->containsNoDuplicates()
-                ->attrs($columnValidation);
+            ->arrayOfField($this->columnField)
+            ->required()
+            ->containsNoDuplicates()
+            ->attrs($columnValidation);
 
         if ($this->has(self::ATTR_PREDEFINED_COLUMNS)) {
             $columnArrayField
-                    ->value($this->get(self::ATTR_PREDEFINED_COLUMNS))
-                    ->readonly();
+                ->value($this->get(self::ATTR_PREDEFINED_COLUMNS))
+                ->readonly();
         }
 
         $tableFields[] = $columnArrayField->build();
@@ -151,33 +151,33 @@ class TableType extends InnerFormType
 
         if ($this->rowField) {
             $rowArrayField = Field::name(self::ROWS_FIELD)->label('Rows')
-                    ->arrayOfField($this->rowField)
-                    ->required()
-                    ->containsNoDuplicates()
-                    ->attrs($rowValidation);
+                ->arrayOfField($this->rowField)
+                ->required()
+                ->containsNoDuplicates()
+                ->attrs($rowValidation);
 
             if ($this->has(self::ATTR_PREDEFINED_ROWS)) {
                 $rowArrayField
-                        ->value($this->get(self::ATTR_PREDEFINED_ROWS))
-                        ->readonly();
+                    ->value($this->get(self::ATTR_PREDEFINED_ROWS))
+                    ->readonly();
             }
 
             $tableFields[] = $rowArrayField->build();
         }
         $tableFields[] = Field::name(self::CELLS_FIELD)->label('Cells')
-                ->arrayOf(
-                        Field::element()
-                                ->arrayOfField($this->cellField)
-                                ->required()
-                                ->attrs($columnValidation)
-                )
-                ->required()
-                ->attrs($rowValidation)
-                ->build();
+            ->arrayOf(
+                Field::element()
+                    ->arrayOfField($this->cellField)
+                    ->required()
+                    ->attrs($columnValidation)
+            )
+            ->required()
+            ->attrs($rowValidation)
+            ->build();
 
         return Form::create()
-                ->section('Table', $tableFields)
-                ->build();
+            ->section('Table', $tableFields)
+            ->build();
     }
 
     /**
@@ -186,8 +186,8 @@ class TableType extends InnerFormType
     protected function buildProcessors() : array
     {
         return array_merge(parent::buildProcessors(), [
-                new TableStructureValidator(Type::arrayOf(Type::arrayOf(Type::mixed()))),
-                new TableDataProcessor($this->tableDataCellClass),
+            new TableStructureValidator(Type::arrayOf(Type::arrayOf(Type::mixed()))),
+            new TableDataProcessor($this->tableDataCellClass),
         ]);
     }
 }
