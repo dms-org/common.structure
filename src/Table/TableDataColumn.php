@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\Table;
 
@@ -25,7 +25,7 @@ class TableDataColumn
      * @param mixed  $columnKey
      * @param string $label
      */
-    public function __construct($columnKey, $label)
+    public function __construct($columnKey, string $label)
     {
         $this->columnKey = $columnKey;
         $this->label     = $label;
@@ -42,7 +42,7 @@ class TableDataColumn
     /**
      * @return string
      */
-    public function getLabel()
+    public function getLabel() : string
     {
         return $this->label;
     }

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\FileSystem;
 
@@ -22,7 +22,7 @@ class UploadedFile extends File implements IUploadedFile
      * @param string|null $clientFileName
      * @param string|null $clientMimeType
      */
-    public function __construct($fullPath, $uploadStatus, $clientFileName = null, $clientMimeType = null)
+    public function __construct(string $fullPath, int $uploadStatus, string $clientFileName = null, string $clientMimeType = null)
     {
         parent::__construct($fullPath);
 

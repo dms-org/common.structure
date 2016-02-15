@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\Geo\Form;
 
@@ -24,7 +24,7 @@ class LatLngType extends InnerFormType
     /**
      * @return IForm
      */
-    public static function form()
+    public static function form() : \Dms\Core\Form\IForm
     {
         return Form::create()
                 ->section('Lat/lng', [
@@ -43,7 +43,7 @@ class LatLngType extends InnerFormType
     /**
      * @inheritDoc
      */
-    protected function buildProcessors()
+    protected function buildProcessors() : array
     {
         return array_merge(parent::buildProcessors(), [
                 new CustomProcessor(

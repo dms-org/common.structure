@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\FileSystem;
 
@@ -33,7 +33,7 @@ trait UploadedFileTrait
      *
      * @return void
      */
-    public function verifyUploadStatus($uploadStatus)
+    public function verifyUploadStatus(int $uploadStatus)
     {
         InvalidArgumentException::verify(
                 $uploadStatus >= 0 && $uploadStatus <= 8,
@@ -56,7 +56,7 @@ trait UploadedFileTrait
     /**
      * @inheritdoc
      */
-    public function hasUploadedSuccessfully()
+    public function hasUploadedSuccessfully() : bool
     {
         return $this->uploadStatus === UPLOAD_ERR_OK;
     }
@@ -64,7 +64,7 @@ trait UploadedFileTrait
     /**
      * @inheritdoc
      */
-    public function getUploadError()
+    public function getUploadError() : int
     {
         return $this->uploadStatus;
     }
@@ -80,7 +80,7 @@ trait UploadedFileTrait
     /**
      * @inheritdoc
      */
-    public function moveTo($fullPath)
+    public function moveTo(string $fullPath) : IFile
     {
         if (!$this->hasUploadedSuccessfully()) {
             throw InvalidOperationException::format(

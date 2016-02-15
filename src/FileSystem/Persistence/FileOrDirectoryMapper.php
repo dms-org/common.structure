@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\FileSystem\Persistence;
 
@@ -48,9 +48,9 @@ abstract class FileOrDirectoryMapper extends IndependentValueObjectMapper
      * @param RelativePathCalculator|null $relativePathCalculator
      */
     public function __construct(
-            $pathColumnName,
-            $clientNameColumnName = null,
-            $baseDirectoryPath = null,
+            string $pathColumnName,
+            string $clientNameColumnName = null,
+            string $baseDirectoryPath = null,
             RelativePathCalculator $relativePathCalculator = null
     ) {
         if ($baseDirectoryPath) {
@@ -72,12 +72,12 @@ abstract class FileOrDirectoryMapper extends IndependentValueObjectMapper
     /**
      * @return string
      */
-    abstract protected function classType();
+    abstract protected function classType() : string;
 
     /**
      * @return string
      */
-    abstract protected function fullPathPropertyName();
+    abstract protected function fullPathPropertyName() : string;
 
     /**
      * @return string|null

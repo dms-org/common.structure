@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\Geo;
 
@@ -34,7 +34,7 @@ class LatLng extends ValueObject
      *
      * @throws InvalidArgumentException
      */
-    public function __construct($lat, $lng)
+    public function __construct(float $lat, float $lng)
     {
         if ($lat < -90 || $lat > 90) {
             throw InvalidArgumentException::format(
@@ -69,7 +69,7 @@ class LatLng extends ValueObject
     /**
      * @return float
      */
-    public function getLat()
+    public function getLat() : float
     {
         return $this->lat;
     }
@@ -77,7 +77,7 @@ class LatLng extends ValueObject
     /**
      * @return float
      */
-    public function getLng()
+    public function getLng() : float
     {
         return $this->lng;
     }

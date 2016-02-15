@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\Table\Form;
 
@@ -62,7 +62,7 @@ class TableType extends InnerFormType
      * @param IField|null $rowField
      * @param IField      $cellField
      */
-    public function __construct($tableDataCellClass, IField $columnField, IField $rowField = null, IField $cellField)
+    public function __construct(string $tableDataCellClass, IField $columnField, IField $rowField = null, IField $cellField)
     {
         $this->tableDataCellClass = $tableDataCellClass;
         $this->columnField = $columnField;
@@ -75,7 +75,7 @@ class TableType extends InnerFormType
     /**
      * @return IField
      */
-    public function getColumnField()
+    public function getColumnField() : IField
     {
         return $this->columnField;
     }
@@ -91,7 +91,7 @@ class TableType extends InnerFormType
     /**
      * @return IField
      */
-    public function getCellField()
+    public function getCellField() : IField
     {
         return $this->cellField;
     }
@@ -99,7 +99,7 @@ class TableType extends InnerFormType
     /**
      * @return string
      */
-    public function getTableDataCellClass()
+    public function getTableDataCellClass() : string
     {
         return $this->tableDataCellClass;
     }
@@ -118,7 +118,7 @@ class TableType extends InnerFormType
     /**
      * @return IForm
      */
-    protected function form()
+    protected function form() : IForm
     {
         $tableFields = [];
 
@@ -183,7 +183,7 @@ class TableType extends InnerFormType
     /**
      * @inheritDoc
      */
-    protected function buildProcessors()
+    protected function buildProcessors() : array
     {
         return array_merge(parent::buildProcessors(), [
                 new TableStructureValidator(Type::arrayOf(Type::arrayOf(Type::mixed()))),

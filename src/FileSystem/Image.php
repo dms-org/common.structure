@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\FileSystem;
 
@@ -24,6 +24,17 @@ class Image extends File implements IImage
     protected $height;
 
     /**
+     * Image constructor.
+     *
+     * @param string      $fullPath
+     * @param string|null $clientFileName
+     */
+    public function __construct(string $fullPath, string $clientFileName = null)
+    {
+        parent::__construct($fullPath, $clientFileName);
+    }
+
+    /**
      * @inheritDoc
      */
     protected function define(ClassDefinition $class)
@@ -38,7 +49,7 @@ class Image extends File implements IImage
     /**
      * @return bool
      */
-    protected function loadImageInfo()
+    protected function loadImageInfo() : bool
     {
         if (is_int($this->height) && is_int($this->width)) {
             return true;
@@ -64,7 +75,7 @@ class Image extends File implements IImage
      *
      * @return bool
      */
-    public function isValidImage()
+    public function isValidImage() : bool
     {
         return $this->loadImageInfo();
     }
@@ -75,7 +86,7 @@ class Image extends File implements IImage
      * @return int
      * @throws InvalidOperationException
      */
-    public function getWidth()
+    public function getWidth() : int
     {
         if (!$this->loadImageInfo()) {
             throw InvalidOperationException::format(
@@ -94,7 +105,7 @@ class Image extends File implements IImage
      * @return int
      * @throws InvalidOperationException
      */
-    public function getHeight()
+    public function getHeight() : int
     {
         if (!$this->loadImageInfo()) {
             throw InvalidOperationException::format(

@@ -40,7 +40,7 @@ class ColourTest extends CmsTestCase
 
         $this->assertThrows(function () {
             new Colour('abc', 10, 10);
-        }, InvalidPropertyValueException::class);
+        }, \TypeError::class);
     }
 
     public function testFromRgbString()

@@ -34,7 +34,7 @@ class TransparentColourTest extends CmsTestCase
 
         $this->assertThrows(function () {
             new TransparentColour(new Colour(10, 100, 150), 'abc');
-        }, InvalidPropertyValueException::class);
+        }, \TypeError::class);
     }
 
     public function testFromRgba()

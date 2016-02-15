@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\Table\Form\Builder;
 
@@ -29,7 +29,7 @@ class TableFieldBuilder extends FieldBuilderBase
      *
      * @return static
      */
-    public function minColumns($amount)
+    public function minColumns(int $amount)
     {
         return $this->attr(TableType::ATTR_MIN_COLUMNS, $amount);
     }
@@ -41,7 +41,7 @@ class TableFieldBuilder extends FieldBuilderBase
      *
      * @return static
      */
-    public function maxColumns($amount)
+    public function maxColumns(int $amount)
     {
         return $this->attr(TableType::ATTR_MAX_COLUMNS, $amount);
     }
@@ -53,7 +53,7 @@ class TableFieldBuilder extends FieldBuilderBase
      *
      * @return static
      */
-    public function exactColumns($amount)
+    public function exactColumns(int $amount)
     {
         return $this->attr(TableType::ATTR_EXACT_COLUMNS, $amount);
     }
@@ -65,7 +65,7 @@ class TableFieldBuilder extends FieldBuilderBase
      *
      * @return static
      */
-    public function minRows($amount)
+    public function minRows(int $amount)
     {
         return $this->attr(TableType::ATTR_MIN_ROWS, $amount);
     }
@@ -77,7 +77,7 @@ class TableFieldBuilder extends FieldBuilderBase
      *
      * @return static
      */
-    public function maxRows($amount)
+    public function maxRows(int $amount)
     {
         return $this->attr(TableType::ATTR_MAX_ROWS, $amount);
     }
@@ -89,7 +89,7 @@ class TableFieldBuilder extends FieldBuilderBase
      *
      * @return static
      */
-    public function exactRows($amount)
+    public function exactRows(int $amount)
     {
         return $this->attr(TableType::ATTR_EXACT_ROWS, $amount);
     }

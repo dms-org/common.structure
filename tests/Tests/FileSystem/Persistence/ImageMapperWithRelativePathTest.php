@@ -17,7 +17,7 @@ class ImageMapperWithRelativePathTest extends ValueObjectMapperTest
      */
     protected function buildMapper()
     {
-        return new ImageMapper('path', null, '/storage/path');
+        return new ImageMapper('path', 'client_name', '/storage/path');
     }
 
     /**

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\DateTime;
 
@@ -28,7 +28,7 @@ abstract class DateTimeBase extends DateOrTimeObject
      *
      * @return \DateInterval
      */
-    public function diff(DateTimeBase $other, $absolute = false)
+    public function diff(DateTimeBase $other, bool $absolute = false)
     {
         return $this->dateTime->diff($other->dateTime, $absolute);
     }
@@ -40,7 +40,7 @@ abstract class DateTimeBase extends DateOrTimeObject
      *
      * @return bool
      */
-    public function equals(DateTimeBase $other)
+    public function equals(DateTimeBase $other) : bool
     {
         $dateTime      = $this->dateTime;
         $otherDateTime = $other->dateTime;
@@ -54,7 +54,7 @@ abstract class DateTimeBase extends DateOrTimeObject
      *
      * @return int
      */
-    public function getTimestamp()
+    public function getTimestamp() : int
     {
         return $this->dateTime->getTimestamp();
     }
@@ -64,7 +64,7 @@ abstract class DateTimeBase extends DateOrTimeObject
      *
      * @return Date
      */
-    public function getDate()
+    public function getDate() : Date
     {
         return Date::fromNative($this->dateTime);
     }
@@ -74,7 +74,7 @@ abstract class DateTimeBase extends DateOrTimeObject
      *
      * @return TimeOfDay
      */
-    public function getTimeOfDay()
+    public function getTimeOfDay() : TimeOfDay
     {
         return TimeOfDay::fromNative($this->dateTime);
     }

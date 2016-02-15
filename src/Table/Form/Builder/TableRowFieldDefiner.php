@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\Table\Form\Builder;
 
@@ -35,7 +35,7 @@ class TableRowFieldDefiner
      * @param string           $cellClassName
      * @param IField           $columnField
      */
-    public function __construct(FieldBuilderBase $fieldBuilder, $cellClassName, IField $columnField)
+    public function __construct(FieldBuilderBase $fieldBuilder, string $cellClassName, IField $columnField)
     {
         $this->fieldBuilder  = $fieldBuilder;
         $this->cellClassName = $cellClassName;
@@ -49,7 +49,7 @@ class TableRowFieldDefiner
      *
      * @return TableCellValueFieldDefiner
      */
-    public function withPredefinedRowValues(array $rowValues)
+    public function withPredefinedRowValues(array $rowValues) : TableCellValueFieldDefiner
     {
         $this->fieldBuilder->attr(TableType::ATTR_PREDEFINED_ROWS, array_values($rowValues));
         return $this->withRowKeyAs(Field::forType()->custom(Type::mixed(), []));
@@ -62,7 +62,7 @@ class TableRowFieldDefiner
      *
      * @return TableCellValueFieldDefiner
      */
-    public function withRowKeyAs(FieldBuilderBase $field)
+    public function withRowKeyAs(FieldBuilderBase $field) : TableCellValueFieldDefiner
     {
         return $this->withRowKeyAsField($field->build());
     }
@@ -74,7 +74,7 @@ class TableRowFieldDefiner
      *
      * @return TableCellValueFieldDefiner
      */
-    public function withRowKeyAsField(IField $field)
+    public function withRowKeyAsField(IField $field) : TableCellValueFieldDefiner
     {
         return new TableCellValueFieldDefiner($this->fieldBuilder, $this->cellClassName, $this->columnField, $field);
     }
@@ -84,7 +84,7 @@ class TableRowFieldDefiner
      *
      * @return TableCellValueFieldDefiner
      */
-    public function withRowKeyAsIncrementingIntegers()
+    public function withRowKeyAsIncrementingIntegers() : TableCellValueFieldDefiner
     {
         return new TableCellValueFieldDefiner($this->fieldBuilder, $this->cellClassName, $this->columnField);
     }

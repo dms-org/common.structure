@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\DateTime;
 
@@ -22,7 +22,7 @@ class TimeOfDay extends DateOrTimeObject
      *
      * @throws InvalidArgumentException
      */
-    public function __construct($hour, $minute = 0, $second = 0)
+    public function __construct(int $hour, int $minute = 0, int $second = 0)
     {
         $dateTime = (new \DateTimeImmutable('now', new \DateTimeZone('UTC')))
                 ->setDate(1970, 1, 1)
@@ -45,9 +45,9 @@ class TimeOfDay extends DateOrTimeObject
      *
      * @return TimeOfDay
      */
-    public static function fromNative(\DateTimeInterface $dateTime)
+    public static function fromNative(\DateTimeInterface $dateTime) : TimeOfDay
     {
-        return new self($dateTime->format('H'), $dateTime->format('i'), $dateTime->format('s'));
+        return new self((int)$dateTime->format('H'), (int)$dateTime->format('i'), (int)$dateTime->format('s'));
     }
 
     /**
@@ -58,7 +58,7 @@ class TimeOfDay extends DateOrTimeObject
      *
      * @return TimeOfDay
      */
-    public static function fromFormat($format, $timeString)
+    public static function fromFormat(string $format, string $timeString) : TimeOfDay
     {
         return self::fromNative(\DateTimeImmutable::createFromFormat($format, $timeString));
     }
@@ -72,7 +72,7 @@ class TimeOfDay extends DateOrTimeObject
      *
      * @return TimeOfDay
      */
-    public static function fromString($timeString)
+    public static function fromString(string $timeString) : TimeOfDay
     {
         $parts = array_map('intval', explode(':', $timeString)) + [1 => 0, 2 => 0];
         return new self($parts[0], $parts[1], $parts[2]);
@@ -81,7 +81,7 @@ class TimeOfDay extends DateOrTimeObject
     /**
      * @inheritDoc
      */
-    public function debugFormat()
+    public function debugFormat() : string
     {
         return $this->dateTime->format(self::DEFAULT_FORMAT);
     }
@@ -89,7 +89,7 @@ class TimeOfDay extends DateOrTimeObject
     /**
      * @inheritDoc
      */
-    protected function serializationFormat()
+    protected function serializationFormat() : string
     {
         return self::DEFAULT_FORMAT;
     }
@@ -97,7 +97,7 @@ class TimeOfDay extends DateOrTimeObject
     /**
      * @inheritDoc
      */
-    protected function getValidDateFormatChars()
+    protected function getValidDateFormatChars() : array
     {
         return ['a', 'A', 'B', 'g', 'G', 'h', 'H', 'i', 's'];
     }
@@ -109,7 +109,7 @@ class TimeOfDay extends DateOrTimeObject
      *
      * @return bool
      */
-    public function isLaterThan(TimeOfDay $other)
+    public function isLaterThan(TimeOfDay $other) : bool
     {
         return $this->dateTime > $other->dateTime;
     }
@@ -121,7 +121,7 @@ class TimeOfDay extends DateOrTimeObject
      *
      * @return bool
      */
-    public function isLaterThanOrEqual(TimeOfDay $other)
+    public function isLaterThanOrEqual(TimeOfDay $other) : bool
     {
         return $this->dateTime >= $other->dateTime;
     }
@@ -133,7 +133,7 @@ class TimeOfDay extends DateOrTimeObject
      *
      * @return bool
      */
-    public function isEarlierThan(TimeOfDay $other)
+    public function isEarlierThan(TimeOfDay $other) : bool
     {
         return $this->dateTime < $other->dateTime;
     }
@@ -145,7 +145,7 @@ class TimeOfDay extends DateOrTimeObject
      *
      * @return bool
      */
-    public function isEarlierThanOrEqual(TimeOfDay $other)
+    public function isEarlierThanOrEqual(TimeOfDay $other) : bool
     {
         return $this->dateTime <= $other->dateTime;
     }
@@ -155,7 +155,7 @@ class TimeOfDay extends DateOrTimeObject
      *
      * @return bool
      */
-    public function isAM()
+    public function isAM() : bool
     {
         return $this->format('A') === 'AM';
     }
@@ -165,7 +165,7 @@ class TimeOfDay extends DateOrTimeObject
      *
      * @return bool
      */
-    public function isPM()
+    public function isPM() : bool
     {
         return $this->format('A') === 'PM';
     }
@@ -177,7 +177,7 @@ class TimeOfDay extends DateOrTimeObject
      *
      * @return int
      */
-    public function secondsBetween(TimeOfDay $other)
+    public function secondsBetween(TimeOfDay $other) : int
     {
         return abs($this->dateTime->getTimestamp() - $other->dateTime->getTimestamp());
     }
@@ -189,7 +189,7 @@ class TimeOfDay extends DateOrTimeObject
      *
      * @return bool
      */
-    public function equals(TimeOfDay $other)
+    public function equals(TimeOfDay $other) : bool
     {
         return $this->dateTime == $other->dateTime;
     }

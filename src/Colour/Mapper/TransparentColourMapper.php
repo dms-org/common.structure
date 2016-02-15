@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\Colour\Mapper;
 
@@ -40,9 +40,9 @@ class TransparentColourMapper extends IndependentValueObjectMapper
      *
      * @param string $columnName
      *
-     * @return ColourMapper
+     * @return TransparentColourMapper
      */
-    public static function asRgbaString($columnName)
+    public static function asRgbaString(string $columnName) : TransparentColourMapper
     {
         return new self(self::MODE_RGBA_STRING, $columnName);
     }
@@ -53,9 +53,9 @@ class TransparentColourMapper extends IndependentValueObjectMapper
      *
      * @param string $columnPrefix
      *
-     * @return ColourMapper
+     * @return TransparentColourMapper
      */
-    public static function asChannelColumns($columnPrefix = '')
+    public static function asChannelColumns(string $columnPrefix = '') : TransparentColourMapper
     {
         return (new self(self::MODE_CHANNELS))->withColumnsPrefixedBy($columnPrefix);
     }

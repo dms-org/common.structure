@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\Colour;
 
@@ -23,7 +23,7 @@ class ColourStringParser
      * @return int[] eg: [100, 100, 100]
      * @throws InvalidArgumentException
      */
-    public static function parseRgbString($string)
+    public static function parseRgbString(string $string) : array
     {
         if (!preg_match(self::REGEX_RGB, $string, $matches)) {
             throw InvalidArgumentException::format(
@@ -43,7 +43,7 @@ class ColourStringParser
      * @return \int[] eg: [100, 100, 100]
      * @throws InvalidArgumentException
      */
-    public static function parseHexString($string)
+    public static function parseHexString(string $string) : array
     {
         if (!preg_match(self::REGEX_HEX, $string, $matches)) {
             throw InvalidArgumentException::format(
@@ -75,7 +75,7 @@ class ColourStringParser
      * @return int[] eg: [100, 100, 100, 0.5]
      * @throws InvalidArgumentException
      */
-    public static function parseRgbaString($string)
+    public static function parseRgbaString(string $string) : array
     {
         if (!preg_match(self::REGEX_RGBA, $string, $matches)) {
             throw InvalidArgumentException::format(

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\Colour;
 
@@ -41,7 +41,7 @@ class Colour extends ValueObject
      *
      * @throws InvalidArgumentException
      */
-    public function __construct($red, $green, $blue)
+    public function __construct(int $red, int $green, int $blue)
     {
         parent::__construct();
 
@@ -81,7 +81,7 @@ class Colour extends ValueObject
      * @return Colour
      * @throws InvalidArgumentException
      */
-    public static function fromRgbString($string)
+    public static function fromRgbString(string $string) : Colour
     {
         list($r, $g, $b) = ColourStringParser::parseRgbString($string);
 
@@ -95,7 +95,7 @@ class Colour extends ValueObject
      *
      * @return Colour
      */
-    public static function fromHexString($string)
+    public static function fromHexString(string $string) : Colour
     {
         list($r, $g, $b) = ColourStringParser::parseHexString($string);
 
@@ -105,7 +105,7 @@ class Colour extends ValueObject
     /**
      * @return int
      */
-    public function getRed()
+    public function getRed() : int
     {
         return $this->red;
     }
@@ -113,7 +113,7 @@ class Colour extends ValueObject
     /**
      * @return int
      */
-    public function getGreen()
+    public function getGreen() : int
     {
         return $this->green;
     }
@@ -121,7 +121,7 @@ class Colour extends ValueObject
     /**
      * @return int
      */
-    public function getBlue()
+    public function getBlue() : int
     {
         return $this->blue;
     }
@@ -131,7 +131,7 @@ class Colour extends ValueObject
      *
      * @return string
      */
-    public function toRgbString()
+    public function toRgbString() : string
     {
         return "rgb({$this->red}, {$this->green}, {$this->blue})";
     }
@@ -141,7 +141,7 @@ class Colour extends ValueObject
      *
      * @return string
      */
-    public function toHexString()
+    public function toHexString() : string
     {
         return '#' . sprintf('%02x', $this->red) . sprintf('%02x', $this->green) . sprintf('%02x', $this->blue);
     }
@@ -153,7 +153,7 @@ class Colour extends ValueObject
      *
      * @return TransparentColour
      */
-    public function withTransparency($alphaChannel)
+    public function withTransparency(float $alphaChannel) : TransparentColour
     {
         return new TransparentColour($this, $alphaChannel);
     }

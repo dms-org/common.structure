@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\Web;
 
@@ -25,7 +25,7 @@ class IpAddress extends StringValueObject
      * @return void
      * @throws InvalidArgumentException
      */
-    protected function validateString($string)
+    protected function validateString(string $string)
     {
         if (strlen($string) > self::MAX_LENGTH || !filter_var($string, FILTER_VALIDATE_IP)) {
             throw InvalidArgumentException::format(

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\DateTime;
 
@@ -54,7 +54,7 @@ abstract class DateOrTimeRangeObject extends ValueObject
      *
      * @return string
      */
-    abstract protected function rangeOfClass();
+    abstract protected function rangeOfClass() : string;
 
     /**
      * @inheritDoc

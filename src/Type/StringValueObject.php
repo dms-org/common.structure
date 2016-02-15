@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\Type;
 
@@ -25,7 +25,7 @@ abstract class StringValueObject extends ValueObject
      *
      * @param string $string
      */
-    final public function __construct($string)
+    final public function __construct(string $string)
     {
         $this->validateString($string);
         parent::__construct();
@@ -41,7 +41,7 @@ abstract class StringValueObject extends ValueObject
      * @return void
      * @throws InvalidArgumentException
      */
-    abstract protected function validateString($string);
+    abstract protected function validateString(string $string);
 
     /**
      * Defines the structure of this class.
@@ -58,7 +58,7 @@ abstract class StringValueObject extends ValueObject
      *
      * @return string
      */
-    final public function asString()
+    final public function asString() : string
     {
         return $this->string;
     }

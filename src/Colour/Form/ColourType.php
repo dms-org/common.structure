@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\Colour\Form;
 
@@ -18,7 +18,7 @@ class ColourType extends StringType
     /**
      * @return IFieldProcessor[]
      */
-    protected function buildProcessors()
+    protected function buildProcessors() : array
     {
         return array_merge(parent::buildProcessors(), [
                 new RgbColourValidator(Type::string()->nullable()),

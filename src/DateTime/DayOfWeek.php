@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\DateTime;
 
@@ -62,7 +62,7 @@ class DayOfWeek extends Enum
     /**
      * @return DayOfWeek
      */
-    public static function monday()
+    public static function monday() : DayOfWeek
     {
         return new self(self::MONDAY);
     }
@@ -70,7 +70,7 @@ class DayOfWeek extends Enum
     /**
      * @return DayOfWeek
      */
-    public static function tuesday()
+    public static function tuesday() : DayOfWeek
     {
         return new self(self::TUESDAY);
     }
@@ -78,7 +78,7 @@ class DayOfWeek extends Enum
     /**
      * @return DayOfWeek
      */
-    public static function wednesday()
+    public static function wednesday() : DayOfWeek
     {
         return new self(self::WEDNESDAY);
     }
@@ -86,7 +86,7 @@ class DayOfWeek extends Enum
     /**
      * @return DayOfWeek
      */
-    public static function thursday()
+    public static function thursday() : DayOfWeek
     {
         return new self(self::THURSDAY);
     }
@@ -94,7 +94,7 @@ class DayOfWeek extends Enum
     /**
      * @return DayOfWeek
      */
-    public static function friday()
+    public static function friday() : DayOfWeek
     {
         return new self(self::FRIDAY);
     }
@@ -102,7 +102,7 @@ class DayOfWeek extends Enum
     /**
      * @return DayOfWeek
      */
-    public static function saturday()
+    public static function saturday() : DayOfWeek
     {
         return new self(self::SATURDAY);
     }
@@ -110,7 +110,7 @@ class DayOfWeek extends Enum
     /**
      * @return DayOfWeek
      */
-    public static function sunday()
+    public static function sunday() : DayOfWeek
     {
         return new self(self::SUNDAY);
     }
@@ -120,7 +120,7 @@ class DayOfWeek extends Enum
      *
      * @return DayOfWeek[]
      */
-    public static function weekdays()
+    public static function weekdays() : array
     {
         $days     = self::getAll();
         $weekDays = [];
@@ -139,7 +139,7 @@ class DayOfWeek extends Enum
      *
      * @return DayOfWeek[]
      */
-    public static function weekends()
+    public static function weekends() : array
     {
         $days        = self::getAll();
         $weekEndDays = [];
@@ -163,7 +163,7 @@ class DayOfWeek extends Enum
      * @return DayOfWeek
      * @throws InvalidEnumValueException
      */
-    public static function fromShortName($name)
+    public static function fromShortName(string $name) : DayOfWeek
     {
         return self::fromNameMap($name, self::$shortNames, __METHOD__);
     }
@@ -178,7 +178,7 @@ class DayOfWeek extends Enum
      * @return DayOfWeek
      * @throws InvalidEnumValueException
      */
-    public static function fromName($name)
+    public static function fromName(string $name) : DayOfWeek
     {
         return self::fromNameMap($name, self::$fullNames, __METHOD__);
     }
@@ -191,7 +191,7 @@ class DayOfWeek extends Enum
      * @return DayOfWeek
      * @throws InvalidEnumValueException
      */
-    private static function fromNameMap($name, array $nameMap, $method)
+    private static function fromNameMap(string $name, array $nameMap, string $method) : DayOfWeek
     {
         $name = ucfirst(strtolower($name));
 
@@ -207,7 +207,7 @@ class DayOfWeek extends Enum
     /**
      * @return string[]
      */
-    public static function getShortNameMap()
+    public static function getShortNameMap() : array
     {
         return self::$shortNames;
     }
@@ -215,7 +215,7 @@ class DayOfWeek extends Enum
     /**
      * @return string[]
      */
-    public static function getNameMap()
+    public static function getNameMap() : array
     {
         return self::$fullNames;
     }
@@ -230,7 +230,7 @@ class DayOfWeek extends Enum
      *
      * @return int
      */
-    public function getOrdinal()
+    public function getOrdinal() : int
     {
         return $this->getValue();
     }
@@ -245,7 +245,7 @@ class DayOfWeek extends Enum
      *
      * @return string
      */
-    public function getShortName()
+    public function getShortName() : string
     {
         return self::$shortNames[$this->getValue()];
     }
@@ -260,7 +260,7 @@ class DayOfWeek extends Enum
      *
      * @return string
      */
-    public function getName()
+    public function getName() : string
     {
         return self::$fullNames[$this->getValue()];
     }
@@ -270,7 +270,7 @@ class DayOfWeek extends Enum
      *
      * @return bool
      */
-    public function isWeekDay()
+    public function isWeekDay() : bool
     {
         return $this->getOrdinal() <= 5;
     }
@@ -278,7 +278,7 @@ class DayOfWeek extends Enum
     /**
      * @return bool
      */
-    public function isWeekEnd()
+    public function isWeekEnd() : bool
     {
         return $this->getOrdinal() >= 6;
     }

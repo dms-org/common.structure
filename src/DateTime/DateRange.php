@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\DateTime;
 
@@ -33,7 +33,7 @@ class DateRange extends DateOrTimeRangeObject
     /**
      * @inheritDoc
      */
-    protected function rangeOfClass()
+    protected function rangeOfClass() : string
     {
         return Date::class;
     }
@@ -43,7 +43,7 @@ class DateRange extends DateOrTimeRangeObject
      *
      * @return Date
      */
-    public function getStart()
+    public function getStart() : Date
     {
         return $this->start;
     }
@@ -53,7 +53,7 @@ class DateRange extends DateOrTimeRangeObject
      *
      * @return Date
      */
-    public function getEnd()
+    public function getEnd() : Date
     {
         return $this->end;
     }
@@ -65,7 +65,7 @@ class DateRange extends DateOrTimeRangeObject
      *
      * @return bool
      */
-    public function contains(Date $date)
+    public function contains(Date $date) : bool
     {
         return $this->start->comesBeforeOrEqual($date) && $this->end->comesAfterOrEqual($date);
     }
@@ -77,7 +77,7 @@ class DateRange extends DateOrTimeRangeObject
      *
      * @return bool
      */
-    public function containsExclusive(Date $date)
+    public function containsExclusive(Date $date) : bool
     {
         return $this->start->comesBefore($date) && $this->end->comesAfter($date);
     }
@@ -89,7 +89,7 @@ class DateRange extends DateOrTimeRangeObject
      *
      * @return bool
      */
-    public function overlaps(DateRange $otherRange)
+    public function overlaps(DateRange $otherRange) : bool
     {
         return $this->contains($otherRange->getStart()) || $this->contains($otherRange->getEnd());
     }

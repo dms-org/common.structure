@@ -1,10 +1,10 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\Table;
 
 use Dms\Core\Model\Object\ValueObject;
 use Dms\Core\Model\Type\Builder\Type;
-use Dms\Core\Model\Type\CollectionType;
+use Dms\Core\Model\Type\IType;
 
 /**
  * The table data cell value object class.
@@ -62,9 +62,9 @@ abstract class TableDataCell extends ValueObject
     /**
      * Gets the type of the of table data collection.
      *
-     * @return CollectionType
+     * @return IType
      */
-    public static function collectionType()
+    public static function collectionType() : IType
     {
         return Type::collectionOf(static::type(), TableData::class);
     }
@@ -76,7 +76,7 @@ abstract class TableDataCell extends ValueObject
      *
      * @return TableData
      */
-    public static function collection(array $cells = [])
+    public static function collection(array $cells = []) : TableData
     {
         return new TableData(get_called_class(), $cells);
     }
@@ -86,12 +86,12 @@ abstract class TableDataCell extends ValueObject
      *
      * @return string
      */
-    abstract public function getColumnLabel();
+    abstract public function getColumnLabel() : string;
 
     /**
      * Gets the label for the row of this cell.
      *
      * @return string
      */
-    abstract public function getRowLabel();
+    abstract public function getRowLabel() : string;
 }

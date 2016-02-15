@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\FileSystem;
 
@@ -29,7 +29,7 @@ class File extends FileSystemObject implements IFile
      * @param string      $fullPath
      * @param string|null $clientFileName
      */
-    public function __construct($fullPath, $clientFileName = null)
+    public function __construct(string $fullPath, string $clientFileName = null)
     {
         parent::__construct($fullPath);
         $this->clientFileName = $clientFileName;
@@ -50,7 +50,7 @@ class File extends FileSystemObject implements IFile
      *
      * @return File
      */
-    public static function fromExisting(IFile $file)
+    public static function fromExisting(IFile $file) : File
     {
         if ($file instanceof self) {
             return $file;
@@ -68,7 +68,7 @@ class File extends FileSystemObject implements IFile
     /**
      * @inheritDoc
      */
-    protected function normalizePath($fullPath)
+    protected function normalizePath(string $fullPath) : string
     {
         return str_replace('\\', '/', $fullPath);
     }
@@ -76,7 +76,7 @@ class File extends FileSystemObject implements IFile
     /**
      * @inheritDoc
      */
-    public function getName()
+    public function getName() : string
     {
         return $this->getInfo()->getFilename();
     }
@@ -92,7 +92,7 @@ class File extends FileSystemObject implements IFile
     /**
      * @inheritDoc
      */
-    public function getClientFileNameWithFallback()
+    public function getClientFileNameWithFallback() : string
     {
         return $this->clientFileName ?: $this->getName();
     }
@@ -100,7 +100,7 @@ class File extends FileSystemObject implements IFile
     /**
      * @inheritDoc
      */
-    public function getDirectory()
+    public function getDirectory() : Directory
     {
         return new Directory($this->getInfo()->getPath());
     }
@@ -108,7 +108,7 @@ class File extends FileSystemObject implements IFile
     /**
      * @inheritDoc
      */
-    public function getExtension()
+    public function getExtension() : string
     {
         return $this->getInfo()->getExtension();
     }
@@ -116,7 +116,7 @@ class File extends FileSystemObject implements IFile
     /**
      * @inheritDoc
      */
-    public function getFullPath()
+    public function getFullPath() : string
     {
         return $this->fullPath;
     }
@@ -124,7 +124,7 @@ class File extends FileSystemObject implements IFile
     /**
      * @inheritDoc
      */
-    public function getSize()
+    public function getSize() : int
     {
         if (!$this->exists()) {
             throw InvalidOperationException::format(
@@ -140,7 +140,7 @@ class File extends FileSystemObject implements IFile
     /**
      * @inheritDoc
      */
-    public function exists()
+    public function exists() : bool
     {
         return $this->getInfo()->isFile();
     }

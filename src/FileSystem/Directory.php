@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\FileSystem;
 
@@ -15,7 +15,7 @@ class Directory extends FileSystemObject
     /**
      * @inheritDoc
      */
-    protected function normalizePath($fullPath)
+    protected function normalizePath(string $fullPath) : string
     {
         $fullPath = str_replace('\\', '/', $fullPath);
 
@@ -32,7 +32,7 @@ class Directory extends FileSystemObject
      *
      * @return string
      */
-    public function getName()
+    public function getName() : string
     {
         return $this->getInfo()->getFilename();
     }
@@ -42,7 +42,7 @@ class Directory extends FileSystemObject
      *
      * @return string
      */
-    public function getFullPath()
+    public function getFullPath() : string
     {
         return $this->fullPath;
     }
@@ -52,7 +52,7 @@ class Directory extends FileSystemObject
      *
      * @return bool
      */
-    public function exists()
+    public function exists() : bool
     {
         return $this->getInfo()->isDir();
     }

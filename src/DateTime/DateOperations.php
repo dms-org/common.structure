@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\DateTime;
 
@@ -15,7 +15,7 @@ trait DateOperations
      *
      * @return int
      */
-    public function getYear()
+    public function getYear() : int
     {
         return (int)$this->dateTime->format('Y');
     }
@@ -25,7 +25,7 @@ trait DateOperations
      *
      * @return int
      */
-    public function getMonth()
+    public function getMonth() : int
     {
         return (int)$this->dateTime->format('m');
     }
@@ -35,7 +35,7 @@ trait DateOperations
      *
      * @return int
      */
-    public function getDay()
+    public function getDay() : int
     {
         return (int)$this->dateTime->format('d');
     }
@@ -45,7 +45,7 @@ trait DateOperations
      *
      * @return DayOfWeek
      */
-    public function getDayOfTheWeek()
+    public function getDayOfTheWeek() : DayOfWeek
     {
         return new DayOfWeek((int)$this->dateTime->format('N'));
     }
@@ -57,7 +57,7 @@ trait DateOperations
      *
      * @return static
      */
-    public function addDays($days)
+    public function addDays(int $days)
     {
         return $this->add(\DateInterval::createFromDateString($days . ' days'));
     }
@@ -69,7 +69,7 @@ trait DateOperations
      *
      * @return static
      */
-    public function subDays($days)
+    public function subDays(int $days)
     {
         return $this->addDays(-$days);
     }
@@ -81,7 +81,7 @@ trait DateOperations
      *
      * @return static
      */
-    public function addWeeks($weeks)
+    public function addWeeks(int $weeks)
     {
         return $this->addDays(7 * $weeks);
     }
@@ -93,7 +93,7 @@ trait DateOperations
      *
      * @return static
      */
-    public function subWeeks($weeks)
+    public function subWeeks(int $weeks)
     {
         return $this->addDays(7 * -$weeks);
     }
@@ -105,7 +105,7 @@ trait DateOperations
      *
      * @return static
      */
-    public function addMonths($months)
+    public function addMonths(int $months)
     {
         return $this->add(\DateInterval::createFromDateString($months . ' months'));
     }
@@ -117,7 +117,7 @@ trait DateOperations
      *
      * @return static
      */
-    public function subMonths($months)
+    public function subMonths(int $months)
     {
         return $this->addMonths(-$months);
     }
@@ -129,7 +129,7 @@ trait DateOperations
      *
      * @return static
      */
-    public function addYears($years)
+    public function addYears(int $years)
     {
         return $this->add(\DateInterval::createFromDateString($years . ' years'));
     }
@@ -141,7 +141,7 @@ trait DateOperations
      *
      * @return static
      */
-    public function subYears($years)
+    public function subYears(int $years)
     {
         return $this->addYears(-$years);
     }

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\FileSystem\Form;
 
@@ -25,7 +25,7 @@ class ImageUploadType extends FileUploadType
     /**
      * @return IType
      */
-    protected function processedType()
+    protected function processedType() : \Dms\Core\Model\Type\IType
     {
         return Type::object(IUploadedImage::class);
     }
@@ -35,7 +35,7 @@ class ImageUploadType extends FileUploadType
      *
      * @return FileFieldBuilder
      */
-    protected function fileField(Field $field)
+    protected function fileField(Field $field) : \Dms\Core\Form\Field\Builder\FileFieldBuilder
     {
         return $field->image()->attrs($this->getAll([
                 self::ATTR_MIN_WIDTH,

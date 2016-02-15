@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\Geo;
 
@@ -17,7 +17,7 @@ class StreetAddress extends StringValueObject
     /**
      * @inheritDoc
      */
-    protected function validateString($string)
+    protected function validateString(string $string)
     {
         if (!$string) {
             throw InvalidArgumentException::format(

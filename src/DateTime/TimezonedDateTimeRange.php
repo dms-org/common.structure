@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\DateTime;
 
@@ -33,7 +33,7 @@ class TimezonedDateTimeRange extends DateOrTimeRangeObject
     /**
      * @inheritDoc
      */
-    protected function rangeOfClass()
+    protected function rangeOfClass() : string
     {
         return TimezonedDateTime::class;
     }
@@ -43,7 +43,7 @@ class TimezonedDateTimeRange extends DateOrTimeRangeObject
      *
      * @return TimezonedDateTime
      */
-    public function getStart()
+    public function getStart() : TimezonedDateTime
     {
         return $this->start;
     }
@@ -53,7 +53,7 @@ class TimezonedDateTimeRange extends DateOrTimeRangeObject
      *
      * @return TimezonedDateTime
      */
-    public function getEnd()
+    public function getEnd() : TimezonedDateTime
     {
         return $this->end;
     }
@@ -65,7 +65,7 @@ class TimezonedDateTimeRange extends DateOrTimeRangeObject
      *
      * @return bool
      */
-    public function contains(TimezonedDateTime $timezonedDateTime)
+    public function contains(TimezonedDateTime $timezonedDateTime) : bool
     {
         return $this->start->comesBeforeOrEqual($timezonedDateTime) && $this->end->comesAfterOrEqual($timezonedDateTime);
     }
@@ -77,7 +77,7 @@ class TimezonedDateTimeRange extends DateOrTimeRangeObject
      *
      * @return bool
      */
-    public function containsExclusive(TimezonedDateTime $timezonedDateTime)
+    public function containsExclusive(TimezonedDateTime $timezonedDateTime) : bool
     {
         return $this->start->comesBefore($timezonedDateTime) && $this->end->comesAfter($timezonedDateTime);
     }
@@ -89,7 +89,7 @@ class TimezonedDateTimeRange extends DateOrTimeRangeObject
      *
      * @return bool
      */
-    public function overlaps(TimezonedDateTimeRange $otherRange)
+    public function overlaps(TimezonedDateTimeRange $otherRange) : bool
     {
         return $this->contains($otherRange->getStart()) || $this->contains($otherRange->getEnd());
     }

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\FileSystem\Persistence;
 
@@ -21,9 +21,9 @@ class ImageMapper extends FileOrDirectoryMapper
      * @param RelativePathCalculator|null $relativePathCalculator
      */
     public function __construct(
-            $filePathColumnName = 'image',
-            $clientFileNameColumnName = null,
-            $baseDirectoryPath = null,
+            string $filePathColumnName = 'image',
+            string $clientFileNameColumnName = null,
+            string $baseDirectoryPath = null,
             RelativePathCalculator $relativePathCalculator = null
     ) {
         parent::__construct($filePathColumnName, $clientFileNameColumnName, $baseDirectoryPath, $relativePathCalculator);
@@ -32,7 +32,7 @@ class ImageMapper extends FileOrDirectoryMapper
     /**
      * @return string
      */
-    protected function classType()
+    protected function classType() : string
     {
         return Image::class;
     }
@@ -40,7 +40,7 @@ class ImageMapper extends FileOrDirectoryMapper
     /**
      * @return string
      */
-    protected function fullPathPropertyName()
+    protected function fullPathPropertyName() : string
     {
         return Image::FULL_PATH;
     }

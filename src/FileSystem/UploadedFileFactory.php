@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\FileSystem;
 
@@ -21,7 +21,7 @@ class UploadedFileFactory
      *
      * @return IUploadedFile
      */
-    public static function build($fullPath, $uploadStatus, $clientFileName = null, $clientMimeType = null)
+    public static function build(string $fullPath, int $uploadStatus, string $clientFileName = null, string $clientMimeType = null) : \Dms\Core\File\IUploadedFile
     {
         if ($clientMimeType && stripos($clientMimeType, 'image') === 0) {
             return new UploadedImage(

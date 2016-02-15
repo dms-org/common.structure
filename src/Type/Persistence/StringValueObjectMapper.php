@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\Type\Persistence;
 
@@ -24,7 +24,7 @@ abstract class StringValueObjectMapper extends IndependentValueObjectMapper
      *
      * @param string $columnName
      */
-    public function __construct($columnName)
+    public function __construct(string $columnName)
     {
         $this->columnName = $columnName;
         parent::__construct();
@@ -49,7 +49,7 @@ abstract class StringValueObjectMapper extends IndependentValueObjectMapper
      *
      * @return string
      */
-    abstract protected function classType();
+    abstract protected function classType() : string;
 
     /**
      * Defines the column type for the string property.

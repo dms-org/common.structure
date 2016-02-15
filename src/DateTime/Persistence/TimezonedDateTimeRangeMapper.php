@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\DateTime\Persistence;
 
@@ -31,10 +31,10 @@ class TimezonedDateTimeRangeMapper extends DateOrTimeRangeMapper
      * @param string $endTimezoneName
      */
     public function __construct(
-            $startDateTimeColumnName = 'start_datetime',
-            $startTimezoneName = 'start_timezone',
-            $endDateTimeColumnName = 'end_datetime',
-            $endTimezoneName = 'end_timezone'
+            string $startDateTimeColumnName = 'start_datetime',
+            string $startTimezoneName = 'start_timezone',
+            string $endDateTimeColumnName = 'end_datetime',
+            string $endTimezoneName = 'end_timezone'
     )
     {
         $this->startTimezoneName = $startTimezoneName;

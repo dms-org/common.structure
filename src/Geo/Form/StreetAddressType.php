@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\Geo\Form;
 
@@ -15,7 +15,7 @@ class StreetAddressType extends DomainSpecificStringType
     /**
      * @inheritdoc
      */
-    protected function stringValueObjectType()
+    protected function stringValueObjectType() : string
     {
         return StreetAddress::class;
     }

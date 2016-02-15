@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\Colour;
 
@@ -34,7 +34,7 @@ class TransparentColour extends ValueObject
      *
      * @throws InvalidArgumentException
      */
-    public function __construct(Colour $colour, $alpha)
+    public function __construct(Colour $colour, float $alpha)
     {
         parent::__construct();
 
@@ -71,7 +71,7 @@ class TransparentColour extends ValueObject
      *
      * @return TransparentColour
      */
-    public static function fromRgba($red, $green, $blue, $alpha)
+    public static function fromRgba(int $red, int $green, int $blue, float $alpha) : TransparentColour
     {
         return new self(new Colour($red, $green, $blue), $alpha);
     }
@@ -84,7 +84,7 @@ class TransparentColour extends ValueObject
      * @return TransparentColour
      * @throws InvalidArgumentException
      */
-    public static function fromRgbaString($string)
+    public static function fromRgbaString(string $string) : TransparentColour
     {
         list($r, $g, $b, $a) = ColourStringParser::parseRgbaString($string);
 
@@ -94,7 +94,7 @@ class TransparentColour extends ValueObject
     /**
      * @return int
      */
-    public function getRed()
+    public function getRed() : int
     {
         return $this->colour->getRed();
     }
@@ -102,7 +102,7 @@ class TransparentColour extends ValueObject
     /**
      * @return int
      */
-    public function getGreen()
+    public function getGreen() : int
     {
         return $this->colour->getGreen();
     }
@@ -110,7 +110,7 @@ class TransparentColour extends ValueObject
     /**
      * @return int
      */
-    public function getBlue()
+    public function getBlue() : int
     {
         return $this->colour->getBlue();
     }
@@ -118,7 +118,7 @@ class TransparentColour extends ValueObject
     /**
      * @return float
      */
-    public function getAlpha()
+    public function getAlpha() : float
     {
         return $this->alpha;
     }
@@ -126,7 +126,7 @@ class TransparentColour extends ValueObject
     /**
      * @return Colour
      */
-    public function withoutTransparency()
+    public function withoutTransparency() : Colour
     {
         return $this->colour;
     }
@@ -136,7 +136,7 @@ class TransparentColour extends ValueObject
      *
      * @return string
      */
-    public function toRgbaString()
+    public function toRgbaString() : string
     {
         return "rgba({$this->colour->getRed()}, {$this->colour->getGreen()}, {$this->colour->getBlue()}, {$this->alpha})";
     }

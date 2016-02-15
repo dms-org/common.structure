@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\Colour\Mapper;
 
@@ -42,7 +42,7 @@ class ColourMapper extends IndependentValueObjectMapper
      *
      * @return ColourMapper
      */
-    public static function asRgbString($columnName)
+    public static function asRgbString(string $columnName) : ColourMapper
     {
         return new self(self::MODE_RGB_STRING, $columnName);
     }
@@ -54,7 +54,7 @@ class ColourMapper extends IndependentValueObjectMapper
      *
      * @return ColourMapper
      */
-    public static function asHexString($columnName)
+    public static function asHexString(string $columnName) : ColourMapper
     {
         return new self(self::MODE_HEX_STRING, $columnName);
     }
@@ -66,7 +66,7 @@ class ColourMapper extends IndependentValueObjectMapper
      *
      * @return ColourMapper
      */
-    public static function asChannelColumns($columnPrefix = '')
+    public static function asChannelColumns(string $columnPrefix = '') : ColourMapper
     {
         return (new self(self::MODE_CHANNELS))->withColumnsPrefixedBy($columnPrefix);
     }

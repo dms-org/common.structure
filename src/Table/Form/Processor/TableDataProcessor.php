@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\Table\Form\Processor;
 
@@ -25,7 +25,7 @@ class TableDataProcessor extends FieldProcessor
      *
      * @param string $tableDataCellClass
      */
-    public function __construct($tableDataCellClass)
+    public function __construct(string $tableDataCellClass)
     {
         InvalidArgumentException::verify(is_string($tableDataCellClass), 'class must be a string');
         /** @var string|TableDataCell $tableDataCellClass */
@@ -34,7 +34,7 @@ class TableDataProcessor extends FieldProcessor
     }
 
     /**
-     * @param array $input
+     * @param mixed $input
      * @param array $messages
      *
      * @return mixed

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\Table;
 
@@ -52,7 +52,7 @@ class TableDataRow extends Row implements \ArrayAccess
     /**
      * @return bool
      */
-    public function hasLabel()
+    public function hasLabel() : bool
     {
         return $this->label !== null;
     }

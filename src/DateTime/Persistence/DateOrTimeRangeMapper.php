@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\DateTime\Persistence;
 
@@ -27,7 +27,7 @@ abstract class DateOrTimeRangeMapper extends IndependentValueObjectMapper
      * @param string $startColumnName
      * @param string $endColumnName
      */
-    public function __construct($startColumnName, $endColumnName)
+    public function __construct(string $startColumnName, string $endColumnName)
     {
         $this->startColumnName = $startColumnName;
         $this->endColumnName   = $endColumnName;

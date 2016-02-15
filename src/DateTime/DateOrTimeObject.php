@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\DateTime;
 
@@ -37,7 +37,7 @@ abstract class DateOrTimeObject extends ValueObject implements IComparable, IHas
      *
      * @return string
      */
-    abstract public function debugFormat();
+    abstract public function debugFormat() : string;
 
     /**
      * Gets the date/time format string for use during serialization.
@@ -48,7 +48,7 @@ abstract class DateOrTimeObject extends ValueObject implements IComparable, IHas
      *
      * @return string
      */
-    abstract protected function serializationFormat();
+    abstract protected function serializationFormat() : string;
 
     /**
      * Gets a valid date/time formatting characters.
@@ -57,7 +57,7 @@ abstract class DateOrTimeObject extends ValueObject implements IComparable, IHas
      *
      * @return string[]
      */
-    abstract protected function getValidDateFormatChars();
+    abstract protected function getValidDateFormatChars() : array;
 
     /**
      * {@inheritDoc}
@@ -115,7 +115,7 @@ abstract class DateOrTimeObject extends ValueObject implements IComparable, IHas
      *
      * @return string
      */
-    public function format($format)
+    public function format(string $format) : string
     {
         $format = $this->escapeUnapplicableFormatChars($format);
 
@@ -129,7 +129,7 @@ abstract class DateOrTimeObject extends ValueObject implements IComparable, IHas
      *
      * @return string
      */
-    protected function escapeUnapplicableFormatChars($format)
+    protected function escapeUnapplicableFormatChars(string $format) : string
     {
         $validChars      = $this->getValidDateFormatChars();
         $validCharLookup = array_fill_keys($validChars, true);

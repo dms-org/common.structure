@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\Geo;
 
@@ -34,7 +34,7 @@ class StreetAddressWithLatLng extends ValueObject
      *
      * @throws InvalidArgumentException
      */
-    public function __construct($address, LatLng $latLng)
+    public function __construct(string $address, LatLng $latLng)
     {
         if(!$address) {
             throw InvalidArgumentException::format('Invalid address passed to %s: address cannot be empty', __CLASS__);
@@ -59,7 +59,7 @@ class StreetAddressWithLatLng extends ValueObject
     /**
      * @return string
      */
-    public function getAddress()
+    public function getAddress() : string
     {
         return $this->address;
     }
@@ -67,7 +67,7 @@ class StreetAddressWithLatLng extends ValueObject
     /**
      * @return LatLng
      */
-    public function getLatLng()
+    public function getLatLng() : LatLng
     {
         return $this->latLng;
     }

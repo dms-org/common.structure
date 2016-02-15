@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\DateTime\Form;
 
@@ -19,7 +19,7 @@ class TimeOfDayType extends BaseTimeOfDayType
      *
      * @param string $format
      */
-    public function __construct($format)
+    public function __construct(string $format)
     {
         parent::__construct($format);
     }
@@ -27,7 +27,7 @@ class TimeOfDayType extends BaseTimeOfDayType
     /**
      * @inheritDoc
      */
-    protected function buildProcessors()
+    protected function buildProcessors() : array
     {
         return array_merge(parent::buildProcessors(), [
                 new CustomProcessor(

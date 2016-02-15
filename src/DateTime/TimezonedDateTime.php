@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\DateTime;
 
@@ -31,7 +31,7 @@ class TimezonedDateTime extends DateTimeBase
      *
      * @return TimezonedDateTime
      */
-    public static function fromString($dateTimeString, $timeZoneId)
+    public static function fromString(string $dateTimeString, string $timeZoneId) : TimezonedDateTime
     {
         return new self(new \DateTimeImmutable($dateTimeString, new \DateTimeZone($timeZoneId)));
     }
@@ -45,7 +45,7 @@ class TimezonedDateTime extends DateTimeBase
      *
      * @return TimezonedDateTime
      */
-    public static function fromFormat($format, $dateString, $timeZoneId)
+    public static function fromFormat(string $format, string $dateString, string $timeZoneId) : TimezonedDateTime
     {
         return new self(\DateTimeImmutable::createFromFormat('!' . $format, $dateString, new \DateTimeZone($timeZoneId)));
     }
@@ -53,7 +53,7 @@ class TimezonedDateTime extends DateTimeBase
     /**
      * @inheritDoc
      */
-    public function debugFormat()
+    public function debugFormat() : string
     {
         return $this->dateTime->format('Y-m-d H:i:s (e)');
     }
@@ -61,7 +61,7 @@ class TimezonedDateTime extends DateTimeBase
     /**
      * @inheritDoc
      */
-    protected function serializationFormat()
+    protected function serializationFormat() : string
     {
         return self::DEFAULT_FORMAT;
     }
@@ -78,7 +78,7 @@ class TimezonedDateTime extends DateTimeBase
     /**
      * @inheritDoc
      */
-    protected function getValidDateFormatChars()
+    protected function getValidDateFormatChars() : array
     {
         return [
             // @formatter:off
@@ -106,7 +106,7 @@ class TimezonedDateTime extends DateTimeBase
      *
      * @return bool
      */
-    public function comesAfter(TimezonedDateTime $other)
+    public function comesAfter(TimezonedDateTime $other) : bool
     {
         return $this->dateTime > $other->dateTime;
     }
@@ -118,7 +118,7 @@ class TimezonedDateTime extends DateTimeBase
      *
      * @return bool
      */
-    public function comesAfterOrEqual(TimezonedDateTime $other)
+    public function comesAfterOrEqual(TimezonedDateTime $other) : bool
     {
         return $this->dateTime >= $other->dateTime;
     }
@@ -130,7 +130,7 @@ class TimezonedDateTime extends DateTimeBase
      *
      * @return bool
      */
-    public function comesBefore(TimezonedDateTime $other)
+    public function comesBefore(TimezonedDateTime $other) : bool
     {
         return $this->dateTime < $other->dateTime;
     }
@@ -142,7 +142,7 @@ class TimezonedDateTime extends DateTimeBase
      *
      * @return bool
      */
-    public function comesBeforeOrEqual(TimezonedDateTime $other)
+    public function comesBeforeOrEqual(TimezonedDateTime $other) : bool
     {
         return $this->dateTime <= $other->dateTime;
     }
@@ -163,7 +163,7 @@ class TimezonedDateTime extends DateTimeBase
      *
      * @return DateTime
      */
-    public function regardlessOfTimezone()
+    public function regardlessOfTimezone() : DateTime
     {
         return new DateTime($this->dateTime);
     }
@@ -175,7 +175,7 @@ class TimezonedDateTime extends DateTimeBase
      *
      * @return TimezonedDateTime
      */
-    public function convertTimezone($timezoneId)
+    public function convertTimezone(string $timezoneId) : TimezonedDateTime
     {
         return new TimezonedDateTime(
                 (new \DateTimeImmutable('now', new \DateTimeZone($timezoneId)))

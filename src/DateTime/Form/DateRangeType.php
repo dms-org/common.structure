@@ -1,10 +1,11 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\DateTime\Form;
 
 use Dms\Common\Structure\DateTime\Date;
 use Dms\Common\Structure\DateTime\DateRange;
 use Dms\Core\Form\Field\Builder\Field;
+use Dms\Core\Form\Field\Builder\FieldBuilderBase;
 use Dms\Core\Model\Type\IType;
 
 /**
@@ -18,9 +19,9 @@ class DateRangeType extends DateOrTimeRangeType
      * @param Field  $field
      * @param string $format
      *
-     * @return Field
+     * @return FieldBuilderBase
      */
-    protected function buildRangeInput(Field $field, $format)
+    protected function buildRangeInput(Field $field, string $format) : FieldBuilderBase
     {
         return $field->date($format);
     }
@@ -28,7 +29,7 @@ class DateRangeType extends DateOrTimeRangeType
     /**
      * @return IType
      */
-    protected function processedRangeType()
+    protected function processedRangeType() : IType
     {
         return DateRange::type();
     }
@@ -42,8 +43,8 @@ class DateRangeType extends DateOrTimeRangeType
     protected function buildRangeObject($start, $end)
     {
         return new DateRange(
-                Date::fromNative($start),
-                Date::fromNative($end)
+            Date::fromNative($start),
+            Date::fromNative($end)
         );
     }
 

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure;
 
@@ -65,7 +65,7 @@ class FieldBuilder
      * @param string $name
      * @param string $label
      */
-    public function __construct($name, $label)
+    public function __construct(string $name, string $label)
     {
         $this->field = InnerFieldBuilder::name($name)->label($label);
     }
@@ -77,7 +77,7 @@ class FieldBuilder
      *
      * @return StringFieldBuilder
      */
-    public function string()
+    public function string() : StringFieldBuilder
     {
         return $this->field->string();
     }
@@ -90,7 +90,7 @@ class FieldBuilder
      *
      * @return StringFieldBuilder
      */
-    public function email()
+    public function email() : StringFieldBuilder
     {
         return new StringFieldBuilder($this->field->type(new EmailAddressType()));
     }
@@ -103,7 +103,7 @@ class FieldBuilder
      *
      * @return StringFieldBuilder
      */
-    public function html()
+    public function html() : StringFieldBuilder
     {
         return new StringFieldBuilder($this->field->type(new HtmlType()));
     }
@@ -116,7 +116,7 @@ class FieldBuilder
      *
      * @return StringFieldBuilder
      */
-    public function ipAddress()
+    public function ipAddress() : StringFieldBuilder
     {
         return new StringFieldBuilder($this->field->type(new IpAddressType()));
     }
@@ -129,7 +129,7 @@ class FieldBuilder
      *
      * @return StringFieldBuilder
      */
-    public function url()
+    public function url() : StringFieldBuilder
     {
         return new StringFieldBuilder($this->field->type(new UrlType()));
     }
@@ -142,7 +142,7 @@ class FieldBuilder
      *
      * @return IntFieldBuilder
      */
-    public function int()
+    public function int() : IntFieldBuilder
     {
         return $this->field->int();
     }
@@ -152,7 +152,7 @@ class FieldBuilder
      *
      * @return DecimalFieldBuilder
      */
-    public function decimal()
+    public function decimal() : DecimalFieldBuilder
     {
         return $this->field->decimal();
     }
@@ -165,7 +165,7 @@ class FieldBuilder
      *
      * @return BoolFieldBuilder
      */
-    public function bool()
+    public function bool() : BoolFieldBuilder
     {
         return $this->field->bool();
     }
@@ -184,7 +184,7 @@ class FieldBuilder
      *
      * @return DateFieldBuilder
      */
-    public function date($format = Date::DEFAULT_FORMAT)
+    public function date(string $format = Date::DEFAULT_FORMAT) : DateFieldBuilder
     {
         return new DateFieldBuilder($this->field->type(new DateType($format)));
     }
@@ -199,7 +199,7 @@ class FieldBuilder
      *
      * @return DateTimeFieldBuilder
      */
-    public function datetime($format = DateTime::DEFAULT_FORMAT)
+    public function datetime(string $format = DateTime::DEFAULT_FORMAT) : DateTimeFieldBuilder
     {
         return new DateTimeFieldBuilder($this->field->type(new DateTimeType($format)));
     }
@@ -214,7 +214,7 @@ class FieldBuilder
      *
      * @return TimeOfDayFieldBuilder
      */
-    public function time($format = TimeOfDay::DEFAULT_FORMAT)
+    public function time(string $format = TimeOfDay::DEFAULT_FORMAT) : TimeOfDayFieldBuilder
     {
         return new TimeOfDayFieldBuilder($this->field->type(new TimeOfDayType($format)));
     }
@@ -229,7 +229,7 @@ class FieldBuilder
      *
      * @return TimezonedDateTimeFieldBuilder
      */
-    public function dateTimeWithTimezone($format = TimezonedDateTime::DEFAULT_FORMAT)
+    public function dateTimeWithTimezone(string $format = TimezonedDateTime::DEFAULT_FORMAT) : TimezonedDateTimeFieldBuilder
     {
         return new TimezonedDateTimeFieldBuilder($this->field->type(new TimezonedDateTimeType($format)));
     }
@@ -244,7 +244,7 @@ class FieldBuilder
      *
      * @return FieldBuilderBase
      */
-    public function dateRange($format = Date::DEFAULT_FORMAT)
+    public function dateRange(string $format = Date::DEFAULT_FORMAT) : FieldBuilderBase
     {
         return $this->field->type(new DateRangeType($format));
     }
@@ -259,7 +259,7 @@ class FieldBuilder
      *
      * @return FieldBuilderBase
      */
-    public function datetimeRange($format = DateTime::DEFAULT_FORMAT)
+    public function datetimeRange(string $format = DateTime::DEFAULT_FORMAT) : FieldBuilderBase
     {
         return $this->field->type(new DateTimeRangeType($format));
     }
@@ -274,7 +274,7 @@ class FieldBuilder
      *
      * @return FieldBuilderBase
      */
-    public function timeRange($format = TimeOfDay::DEFAULT_FORMAT)
+    public function timeRange(string $format = TimeOfDay::DEFAULT_FORMAT) : FieldBuilderBase
     {
         return $this->field->type(new TimeRangeType($format));
     }
@@ -289,7 +289,7 @@ class FieldBuilder
      *
      * @return FieldBuilderBase
      */
-    public function dateTimeWithTimezoneRange($format = TimezonedDateTime::DEFAULT_FORMAT)
+    public function dateTimeWithTimezoneRange(string $format = TimezonedDateTime::DEFAULT_FORMAT) : FieldBuilderBase
     {
         return $this->field->type(new TimezonedDateTimeRangeType($format));
     }
@@ -304,7 +304,7 @@ class FieldBuilder
      *
      * @return FileUploadFieldBuilder
      */
-    public function file()
+    public function file() : FileSystem\Form\Builder\FileUploadFieldBuilder
     {
         return new FileUploadFieldBuilder($this->field->type(new FileUploadType()));
     }
@@ -316,7 +316,7 @@ class FieldBuilder
      *
      * @return ImageUploadFieldBuilder
      */
-    public function image()
+    public function image() : FileSystem\Form\Builder\ImageUploadFieldBuilder
     {
         return new ImageUploadFieldBuilder($this->field->type(new ImageUploadType()));
     }
@@ -331,7 +331,7 @@ class FieldBuilder
      *
      * @return FieldBuilderBase
      */
-    public function latLng()
+    public function latLng() : FieldBuilderBase
     {
         return $this->field->type(new LatLngType());
     }
@@ -343,7 +343,7 @@ class FieldBuilder
      *
      * @return FieldBuilderBase
      */
-    public function streetAddress()
+    public function streetAddress() : FieldBuilderBase
     {
         return $this->field->type(new StreetAddressType());
     }
@@ -355,7 +355,7 @@ class FieldBuilder
      *
      * @return FieldBuilderBase
      */
-    public function streetAddressWithLatLng()
+    public function streetAddressWithLatLng() : FieldBuilderBase
     {
         return $this->field->type(new StreetAddressWithLatLngType());
     }
@@ -370,7 +370,7 @@ class FieldBuilder
      *
      * @return TableCellClassDefiner
      */
-    public function table()
+    public function table() : Table\Form\Builder\TableCellClassDefiner
     {
         return new TableCellClassDefiner($this->field);
     }
@@ -385,7 +385,7 @@ class FieldBuilder
      *
      * @return EntityFieldBuilder
      */
-    public function entityFrom(IEntitySet $entities)
+    public function entityFrom(IEntitySet $entities) : EntityFieldBuilder
     {
         return $this->field->entityFrom($entities);
     }
@@ -397,7 +397,7 @@ class FieldBuilder
      *
      * @return EntityFieldBuilder
      */
-    public function entityIdFrom(IEntitySet $entities)
+    public function entityIdFrom(IEntitySet $entities) : EntityFieldBuilder
     {
         return $this->field->entityIdFrom($entities);
     }
@@ -409,7 +409,7 @@ class FieldBuilder
      *
      * @return ArrayOfFieldBuilder
      */
-    public function entityIdsFrom(IEntitySet $entities)
+    public function entityIdsFrom(IEntitySet $entities) : ArrayOfFieldBuilder
     {
         return $this->field->entityIdsFrom($entities);
     }
@@ -422,7 +422,7 @@ class FieldBuilder
      *
      * @return EntityArrayFieldBuilder
      */
-    public function entitiesFrom(IEntitySet $entities)
+    public function entitiesFrom(IEntitySet $entities) : EntityArrayFieldBuilder
     {
         return $this->field->entitiesFrom($entities);
     }
@@ -437,7 +437,7 @@ class FieldBuilder
      *
      * @return ArrayOfFieldBuilder
      */
-    public function arrayOf(FieldBuilderBase $elementField)
+    public function arrayOf(FieldBuilderBase $elementField) : ArrayOfFieldBuilder
     {
         return $this->field->arrayOf($elementField);
     }
@@ -449,7 +449,7 @@ class FieldBuilder
      *
      * @return ArrayOfFieldBuilder
      */
-    public function arrayOfField(IField $elementField)
+    public function arrayOfField(IField $elementField) : ArrayOfFieldBuilder
     {
         return $this->field->arrayOfField($elementField);
     }
@@ -461,7 +461,7 @@ class FieldBuilder
      *
      * @return InnerFormFieldBuilder
      */
-    public function form(IForm $form)
+    public function form(IForm $form) : InnerFormFieldBuilder
     {
         return $this->field->form($form);
     }
@@ -476,7 +476,7 @@ class FieldBuilder
      * @return FieldBuilderBase
      * @throws InvalidArgumentException
      */
-    public function enum($enumClass, array $valueLabelMap)
+    public function enum(string $enumClass, array $valueLabelMap) : FieldBuilderBase
     {
         return $this->field->enum($enumClass, $valueLabelMap);
     }
@@ -489,7 +489,7 @@ class FieldBuilder
      *
      * @return FieldBuilderBase
      */
-    public function custom(IType $inputType, array $processors = [])
+    public function custom(IType $inputType, array $processors = []) : FieldBuilderBase
     {
         return $this->field->custom($inputType, $processors);
     }

@@ -21,11 +21,9 @@ class StreetAddressTest extends CmsTestCase
 
     public function testInvalidType()
     {
-        // Must be string
-
         $this->assertThrows(function () {
-            new StreetAddress(123);
-        }, InvalidPropertyValueException::class);
+            new StreetAddress(null);
+        }, \TypeError::class);
     }
 
     public function testInvalidAddress()

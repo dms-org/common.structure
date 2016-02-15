@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\DateTime;
 
@@ -18,7 +18,7 @@ class Date extends DateOrTimeObject
      * @param int $month
      * @param int $day
      */
-    public function __construct($year, $month, $day)
+    public function __construct(int $year, int $month, int $day)
     {
         $dateTime = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
         $dateTime = $dateTime->setDate($year, $month, $day);
@@ -34,9 +34,9 @@ class Date extends DateOrTimeObject
      *
      * @return Date
      */
-    public static function fromNative(\DateTimeInterface $dateTime)
+    public static function fromNative(\DateTimeInterface $dateTime) : Date
     {
-        return new self($dateTime->format('Y'), $dateTime->format('m'), $dateTime->format('d'));
+        return new self((int)$dateTime->format('Y'), (int)$dateTime->format('m'), (int)$dateTime->format('d'));
     }
 
     /**
@@ -47,7 +47,7 @@ class Date extends DateOrTimeObject
      *
      * @return Date
      */
-    public static function fromFormat($format, $dateString)
+    public static function fromFormat(string $format, string $dateString) : Date
     {
         return self::fromNative(\DateTimeImmutable::createFromFormat($format, $dateString));
     }
@@ -55,7 +55,7 @@ class Date extends DateOrTimeObject
     /**
      * @inheritDoc
      */
-    public function debugFormat()
+    public function debugFormat() : string
     {
         return $this->dateTime->format(self::DEFAULT_FORMAT);
     }
@@ -63,7 +63,7 @@ class Date extends DateOrTimeObject
     /**
      * @inheritDoc
      */
-    protected function serializationFormat()
+    protected function serializationFormat() : string
     {
         return self::DEFAULT_FORMAT;
     }
@@ -71,7 +71,7 @@ class Date extends DateOrTimeObject
     /**
      * @inheritDoc
      */
-    protected function getValidDateFormatChars()
+    protected function getValidDateFormatChars() : array
     {
         return ['d', 'D', 'j', 'l', 'N', 'S', 'w', 'z', 'W', 'F', 'm', 'M', 'n', 't', 'L', 'o', 'Y', 'y', 'U'];
     }
@@ -83,7 +83,7 @@ class Date extends DateOrTimeObject
      *
      * @return bool
      */
-    public function comesAfter(Date $other)
+    public function comesAfter(Date $other) : bool
     {
         return $this->dateTime > $other->dateTime;
     }
@@ -95,7 +95,7 @@ class Date extends DateOrTimeObject
      *
      * @return bool
      */
-    public function comesAfterOrEqual(Date $other)
+    public function comesAfterOrEqual(Date $other) : bool
     {
         return $this->dateTime >= $other->dateTime;
     }
@@ -107,7 +107,7 @@ class Date extends DateOrTimeObject
      *
      * @return bool
      */
-    public function comesBefore(Date $other)
+    public function comesBefore(Date $other) : bool
     {
         return $this->dateTime < $other->dateTime;
     }
@@ -119,7 +119,7 @@ class Date extends DateOrTimeObject
      *
      * @return bool
      */
-    public function comesBeforeOrEqual(Date $other)
+    public function comesBeforeOrEqual(Date $other) : bool
     {
         return $this->dateTime <= $other->dateTime;
     }
@@ -131,7 +131,7 @@ class Date extends DateOrTimeObject
      *
      * @return int
      */
-    public function daysBetween(Date $other)
+    public function daysBetween(Date $other) : int
     {
         return $this->dateTime->diff($other->dateTime, true)->days;
     }
@@ -143,7 +143,7 @@ class Date extends DateOrTimeObject
      *
      * @return bool
      */
-    public function equals(Date $other)
+    public function equals(Date $other) : bool
     {
         return $this->dateTime == $other->dateTime;
     }
@@ -153,7 +153,7 @@ class Date extends DateOrTimeObject
      *
      * @return int
      */
-    public function getTimestamp()
+    public function getTimestamp() : int
     {
         return $this->dateTime->getTimestamp();
     }

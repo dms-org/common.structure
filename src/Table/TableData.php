@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\Table;
 
@@ -54,7 +54,7 @@ class TableData extends ValueObjectCollection
      * @throws InvalidArgumentException
      */
     public function __construct(
-            $cellType,
+            string $cellType,
             array $cells,
             IIteratorScheme $scheme = null,
             Collection $source = null
@@ -92,7 +92,7 @@ class TableData extends ValueObjectCollection
     /**
      * @return TableDataCell[]
      */
-    public function getAll()
+    public function getAll() : array
     {
         return parent::getAll();
     }
@@ -107,7 +107,7 @@ class TableData extends ValueObjectCollection
     }
 
     /**
-     * @return TableDataColumn[]
+     * @return void
      */
     protected function loadColumns()
     {
@@ -127,7 +127,7 @@ class TableData extends ValueObjectCollection
     }
 
     /**
-     * @return TableDataRow[]
+     * @return void
      */
     protected function loadRows()
     {
@@ -177,7 +177,7 @@ class TableData extends ValueObjectCollection
     /**
      * @return TableDataColumn[]
      */
-    public function getColumns()
+    public function getColumns() : array
     {
         $this->loadColumns();
 
@@ -187,7 +187,7 @@ class TableData extends ValueObjectCollection
     /**
      * @return TableDataRow[]
      */
-    public function getRows()
+    public function getRows() : array
     {
         $this->loadRows();
 
@@ -217,12 +217,12 @@ class TableData extends ValueObjectCollection
     /**
      * Returns whether the table data contains a column with the supplied key.
      *
-     * @param string $columnKey
+     * @param mixed $columnKey
      *
      * @return bool
      * @throws TypeMismatchException
      */
-    public function hasColumn($columnKey)
+    public function hasColumn($columnKey) : bool
     {
         $this->validateColumnKey(__METHOD__, $columnKey);
         $this->loadColumns();
@@ -235,13 +235,13 @@ class TableData extends ValueObjectCollection
     /**
      * Gets the table column with the supplied key.
      *
-     * @param string $columnKey
+     * @param mixed $columnKey
      *
      * @return TableDataColumn
      * @throws InvalidArgumentException
      * @throws TypeMismatchException
      */
-    public function getColumn($columnKey)
+    public function getColumn($columnKey) : TableDataColumn
     {
         $this->validateColumnKey(__METHOD__, $columnKey);
         $this->loadColumns();
@@ -261,12 +261,12 @@ class TableData extends ValueObjectCollection
     /**
      * Returns whether the table data contains a row with the supplied key.
      *
-     * @param string $rowKey
+     * @param mixed $rowKey
      *
      * @return bool
      * @throws TypeMismatchException
      */
-    public function hasRow($rowKey)
+    public function hasRow($rowKey) : bool
     {
         $this->validateRowKey(__METHOD__, $rowKey);
         $this->loadRows();
@@ -279,13 +279,13 @@ class TableData extends ValueObjectCollection
     /**
      * Gets the table row with the supplied key.
      *
-     * @param string $rowKey
+     * @param mixed $rowKey
      *
      * @return TableDataRow
      * @throws InvalidArgumentException
      * @throws TypeMismatchException
      */
-    public function getRow($rowKey)
+    public function getRow($rowKey) : TableDataRow
     {
         $this->validateRowKey(__METHOD__, $rowKey);
         $this->loadRows();
@@ -311,7 +311,7 @@ class TableData extends ValueObjectCollection
      * @return bool
      * @throws TypeMismatchException
      */
-    public function hasCell($columnKey, $rowKey)
+    public function hasCell($columnKey, $rowKey) : bool
     {
         $this->validateColumnKey(__METHOD__, $columnKey);
         $this->validateRowKey(__METHOD__, $rowKey);

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\Geo\Persistence;
 
@@ -36,7 +36,7 @@ class StreetAddressWithLatLngMapper extends IndependentValueObjectMapper
      * @param string $latColumnName
      * @param string $lngColumnName
      */
-    public function __construct($addressColumnName = 'address', $latColumnName = 'lat', $lngColumnName = 'lng')
+    public function __construct(string $addressColumnName = 'address', string $latColumnName = 'lat', string $lngColumnName = 'lng')
     {
         $this->addressColumnName = $addressColumnName;
         $this->latColumnName     = $latColumnName;

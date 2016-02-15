@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\DateTime;
 
@@ -15,7 +15,7 @@ trait TimeOfDayOperations
      *
      * @return int
      */
-    public function getHour()
+    public function getHour() : int
     {
         return (int)$this->dateTime->format('H');
     }
@@ -25,7 +25,7 @@ trait TimeOfDayOperations
      *
      * @return int
      */
-    public function getMinute()
+    public function getMinute() : int
     {
         return (int)$this->dateTime->format('i');
     }
@@ -35,7 +35,7 @@ trait TimeOfDayOperations
      *
      * @return int
      */
-    public function getSecond()
+    public function getSecond() : int
     {
         return (int)$this->dateTime->format('s');
     }
@@ -45,7 +45,7 @@ trait TimeOfDayOperations
      *
      * @return bool
      */
-    public function afterNoon()
+    public function afterNoon() : bool
     {
         return $this->getHour() >= 12 && !$this->isNoon();
     }
@@ -55,7 +55,7 @@ trait TimeOfDayOperations
      *
      * @return bool
      */
-    public function isNoon()
+    public function isNoon() : bool
     {
         return $this->getHour() === 12 && $this->getMinute() === 0 && $this->getSecond() === 0;
     }
@@ -65,7 +65,7 @@ trait TimeOfDayOperations
      *
      * @return bool
      */
-    public function beforeNoon()
+    public function beforeNoon() : bool
     {
         return $this->getHour() < 12;
     }
@@ -77,7 +77,7 @@ trait TimeOfDayOperations
      *
      * @return static
      */
-    public function addSeconds($seconds)
+    public function addSeconds(int $seconds)
     {
         return $this->add(\DateInterval::createFromDateString($seconds . ' seconds'));
     }
@@ -89,7 +89,7 @@ trait TimeOfDayOperations
      *
      * @return static
      */
-    public function subSeconds($seconds)
+    public function subSeconds(int $seconds)
     {
         return $this->addSeconds(-$seconds);
     }
@@ -101,7 +101,7 @@ trait TimeOfDayOperations
      *
      * @return static
      */
-    public function addMinutes($minutes)
+    public function addMinutes(int $minutes)
     {
         return $this->add(\DateInterval::createFromDateString($minutes . ' minutes'));
     }
@@ -113,7 +113,7 @@ trait TimeOfDayOperations
      *
      * @return static
      */
-    public function subMinutes($minutes)
+    public function subMinutes(int $minutes)
     {
         return $this->addMinutes(-$minutes);
     }
@@ -125,7 +125,7 @@ trait TimeOfDayOperations
      *
      * @return static
      */
-    public function addHours($hours)
+    public function addHours(int $hours)
     {
         return $this->add(\DateInterval::createFromDateString($hours . ' hours'));
     }
@@ -137,7 +137,7 @@ trait TimeOfDayOperations
      *
      * @return static
      */
-    public function subHours($hours)
+    public function subHours(int $hours)
     {
         return $this->addHours(-$hours);
     }

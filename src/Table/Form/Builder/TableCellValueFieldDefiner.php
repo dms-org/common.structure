@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\Table\Form\Builder;
 
@@ -39,7 +39,7 @@ class TableCellValueFieldDefiner
      * @param IField           $columnField
      * @param IField|null      $rowField
      */
-    public function __construct(FieldBuilderBase $fieldBuilder, $cellClassName, IField $columnField, IField $rowField = null)
+    public function __construct(FieldBuilderBase $fieldBuilder, string $cellClassName, IField $columnField, IField $rowField = null)
     {
         $this->fieldBuilder  = $fieldBuilder;
         $this->cellClassName = $cellClassName;
@@ -54,7 +54,7 @@ class TableCellValueFieldDefiner
      *
      * @return TableFieldBuilder
      */
-    public function withCellValuesAs(FieldBuilderBase $field)
+    public function withCellValuesAs(FieldBuilderBase $field) : TableFieldBuilder
     {
         return $this->withCellValuesAsField($field->build());
     }
@@ -66,7 +66,7 @@ class TableCellValueFieldDefiner
      *
      * @return TableFieldBuilder
      */
-    public function withCellValuesAsField(IField $field)
+    public function withCellValuesAsField(IField $field) : TableFieldBuilder
     {
         return new TableFieldBuilder(
                 $this->fieldBuilder

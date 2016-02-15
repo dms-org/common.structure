@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\Type\Form;
 
@@ -32,7 +32,7 @@ abstract class DomainSpecificStringType extends StringType
      *
      * @return string
      */
-    abstract protected function stringValueObjectType();
+    abstract protected function stringValueObjectType() : string;
 
     /**
      * Gets the string type from the self::TYPE_* constants
@@ -46,7 +46,7 @@ abstract class DomainSpecificStringType extends StringType
     /**
      * @inheritDoc
      */
-    protected function buildProcessors()
+    protected function buildProcessors() : array
     {
         /** @var StringValueObject|string $stringValueObject */
         $stringValueObject = $this->stringValueObjectType();

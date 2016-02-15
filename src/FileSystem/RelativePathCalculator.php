@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\FileSystem;
 
@@ -23,7 +23,7 @@ class RelativePathCalculator
      * @return string
      * @throws InvalidArgumentException
      */
-    public function getRelativePath($fromDir, $to)
+    public function getRelativePath(string $fromDir, string $to) : string
     {
         // some compatibility fixes for Windows paths
         $fromDir = str_replace('\\', '/', $fromDir);
@@ -78,7 +78,7 @@ class RelativePathCalculator
      *
      * @return string
      */
-    public function resolveRelativePath($basePath, $relativePath)
+    public function resolveRelativePath(string $basePath, string $relativePath) : string
     {
         $basePath     = str_replace('\\', '/', $basePath);
         $relativePath = str_replace('\\', '/', $relativePath);

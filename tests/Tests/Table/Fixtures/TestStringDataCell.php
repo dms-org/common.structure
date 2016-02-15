@@ -27,7 +27,7 @@ class TestStringDataCell extends TableDataCell
      *
      * @return string
      */
-    public function getColumnLabel()
+    public function getColumnLabel() : string
     {
         return $this->columnKey;
     }
@@ -37,7 +37,7 @@ class TestStringDataCell extends TableDataCell
      *
      * @return string
      */
-    public function getRowLabel()
+    public function getRowLabel() : string
     {
         return $this->rowKey;
     }

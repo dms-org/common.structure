@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\FileSystem;
 
@@ -19,7 +19,7 @@ class UploadAction extends Enum
     /**
      * @return UploadAction
      */
-    public static function storeNew()
+    public static function storeNew() : UploadAction
     {
         return new self(self::STORE_NEW);
     }
@@ -27,7 +27,7 @@ class UploadAction extends Enum
     /**
      * @return UploadAction
      */
-    public static function keepExisting()
+    public static function keepExisting() : UploadAction
     {
         return new self(self::KEEP_EXISTING);
     }
@@ -35,7 +35,7 @@ class UploadAction extends Enum
     /**
      * @return UploadAction
      */
-    public static function deleteExisting()
+    public static function deleteExisting() : UploadAction
     {
         return new self(self::DELETE_EXISTING);
     }

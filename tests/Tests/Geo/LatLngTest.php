@@ -22,19 +22,9 @@ class LatLngTest extends CmsTestCase
 
     public function testInvalidType()
     {
-        // Must be floats
-
         $this->assertThrows(function () {
-            new LatLng(-10, 20.0);
-        }, InvalidPropertyValueException::class);
-
-        $this->assertThrows(function () {
-            new LatLng(-10.0, 20);
-        }, InvalidPropertyValueException::class);
-
-        $this->assertThrows(function () {
-            new LatLng('-10.0', '20.0');
-        }, InvalidPropertyValueException::class);
+            new LatLng('sfdf', 'sdf');
+        }, \TypeError::class);
     }
 
     public function testInvalidLatitude()

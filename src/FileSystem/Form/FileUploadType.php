@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\FileSystem\Form;
 
@@ -54,7 +54,7 @@ class FileUploadType extends InnerFormType
      *
      * @return IForm
      */
-    protected function form($isRequired = false, $hasExisting = false)
+    protected function form(bool $isRequired = false, bool $hasExisting = false) : \Dms\Core\Form\IForm
     {
         $allowedUploadActions = [UploadAction::STORE_NEW => 'Save New Upload'];
 
@@ -82,7 +82,7 @@ class FileUploadType extends InnerFormType
      *
      * @return FileFieldBuilder
      */
-    protected function fileField(Field $field)
+    protected function fileField(Field $field) : \Dms\Core\Form\Field\Builder\FileFieldBuilder
     {
         return $field->file();
     }
@@ -90,7 +90,7 @@ class FileUploadType extends InnerFormType
     /**
      * @inheritDoc
      */
-    protected function buildProcessors()
+    protected function buildProcessors() : array
     {
         return array_merge(parent::buildProcessors(), [
                 new CustomProcessor(
@@ -111,7 +111,7 @@ class FileUploadType extends InnerFormType
     /**
      * @return IType
      */
-    protected function processedType()
+    protected function processedType() : \Dms\Core\Model\Type\IType
     {
         return Type::object(IUploadedFile::class);
     }

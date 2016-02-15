@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\Web\Persistence;
 
@@ -26,7 +26,7 @@ class HtmlMapper extends StringValueObjectMapper
      *
      * @return string
      */
-    protected function classType()
+    protected function classType() : string
     {
         return Html::class;
     }

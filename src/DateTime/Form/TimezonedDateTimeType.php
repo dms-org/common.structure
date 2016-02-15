@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\DateTime\Form;
 
@@ -18,7 +18,7 @@ class TimezonedDateTimeType extends BaseDateTimeType
      *
      * @param string $format
      */
-    public function __construct($format)
+    public function __construct(string $format)
     {
         parent::__construct($format);
     }
@@ -26,7 +26,7 @@ class TimezonedDateTimeType extends BaseDateTimeType
     /**
      * @inheritDoc
      */
-    protected function buildProcessors()
+    protected function buildProcessors() : array
     {
         return array_merge(parent::buildProcessors(), [
                 new CustomProcessor(

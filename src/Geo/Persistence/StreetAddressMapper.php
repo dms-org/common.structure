@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\Geo\Persistence;
 
@@ -18,7 +18,7 @@ class StreetAddressMapper extends StringValueObjectMapper
      *
      * @param string $addressColumnName
      */
-    public function __construct($addressColumnName = 'address')
+    public function __construct(string $addressColumnName = 'address')
     {
         parent::__construct($addressColumnName);
     }
@@ -28,7 +28,7 @@ class StreetAddressMapper extends StringValueObjectMapper
      *
      * @return string
      */
-    protected function classType()
+    protected function classType() : string
     {
         return StreetAddress::class;
     }

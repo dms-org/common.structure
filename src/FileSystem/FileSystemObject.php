@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\FileSystem;
 
@@ -29,7 +29,7 @@ abstract class FileSystemObject extends ValueObject
      *
      * @param string $fullPath
      */
-    public function __construct($fullPath)
+    public function __construct(string $fullPath)
     {
         parent::__construct();
         $this->fullPath = $this->normalizePath($fullPath);
@@ -40,7 +40,7 @@ abstract class FileSystemObject extends ValueObject
      *
      * @return string
      */
-    abstract protected function normalizePath($fullPath);
+    abstract protected function normalizePath(string $fullPath) : string;
 
 
     /**
@@ -60,7 +60,7 @@ abstract class FileSystemObject extends ValueObject
      *
      * @return string
      */
-    public function getName()
+    public function getName() : string
     {
         return $this->getInfo()->getFilename();
     }

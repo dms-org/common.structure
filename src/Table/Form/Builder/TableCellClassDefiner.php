@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\Table\Form\Builder;
 
@@ -38,7 +38,7 @@ class TableCellClassDefiner
      * @return TableColumnFieldDefiner
      * @throws InvalidArgumentException
      */
-    public function withDataCell($tableDataCellClassName)
+    public function withDataCell(string $tableDataCellClassName) : TableColumnFieldDefiner
     {
         if (!is_subclass_of($tableDataCellClassName, TableDataCell::class, true)) {
             throw InvalidArgumentException::format(

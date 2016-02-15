@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure;
 
@@ -20,7 +20,7 @@ class Field
      *
      * @return FieldBuilder
      */
-    public static function create($name, $label)
+    public static function create(string $name, string $label) : FieldBuilder
     {
         return new FieldBuilder($name, $label);
     }
@@ -31,7 +31,7 @@ class Field
      *
      * @return FieldBuilder
      */
-    public static function element()
+    public static function element() : FieldBuilder
     {
         return self::create('__element', '__element');
     }
@@ -41,7 +41,7 @@ class Field
      *
      * @return FieldBuilder
      */
-    public static function forType()
+    public static function forType() : FieldBuilder
     {
         return self::create('__type', '__type');
     }

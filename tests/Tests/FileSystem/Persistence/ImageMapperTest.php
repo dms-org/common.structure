@@ -26,9 +26,9 @@ class ImageMapperTest extends ValueObjectMapperTest
     public function mapperTests()
     {
         return [
-                [['path' => '/test/abc'], new Image('/test/abc')],
-                [['path' => '/pic.png'], new Image('/pic.png')],
-                [['path' => str_replace('\\', '/', __FILE__)], new Image(__FILE__)],
+                [['path' => '/test/abc', 'client_name' => null], new Image('/test/abc')],
+                [['path' => '/pic.png', 'client_name' => 'foo.png'], new Image('/pic.png', 'foo.png')],
+                [['path' => str_replace('\\', '/', __FILE__), 'client_name' => null], new Image(__FILE__)],
         ];
     }
 }

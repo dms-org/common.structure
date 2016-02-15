@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\Table;
 
@@ -42,7 +42,7 @@ class Row
     /**
      * @return array
      */
-    public function getCellValues()
+    public function getCellValues() : array
     {
         return $this->cellValues;
     }

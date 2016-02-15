@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\DateTime;
 
@@ -32,7 +32,7 @@ class DateTime extends DateTimeBase
      *
      * @return DateTime
      */
-    public static function fromString($dateTimeString)
+    public static function fromString(string $dateTimeString) : DateTime
     {
         return new self(new \DateTimeImmutable(
                 $dateTimeString,
@@ -48,7 +48,7 @@ class DateTime extends DateTimeBase
      *
      * @return DateTime
      */
-    public static function fomFormat($format, $dateString)
+    public static function fomFormat(string $format, string $dateString) : DateTime
     {
         return new self(\DateTimeImmutable::createFromFormat('!' . $format, $dateString));
     }
@@ -66,7 +66,7 @@ class DateTime extends DateTimeBase
     /**
      * @inheritDoc
      */
-    public function debugFormat()
+    public function debugFormat() : string
     {
         return $this->dateTime->format(self::DEFAULT_FORMAT);
     }
@@ -74,7 +74,7 @@ class DateTime extends DateTimeBase
     /**
      * @inheritDoc
      */
-    protected function serializationFormat()
+    protected function serializationFormat() : string
     {
         return self::DEFAULT_FORMAT;
     }
@@ -82,7 +82,7 @@ class DateTime extends DateTimeBase
     /**
      * @inheritDoc
      */
-    protected function getValidDateFormatChars()
+    protected function getValidDateFormatChars() : array
     {
         return [
             // @formatter:off
@@ -100,7 +100,7 @@ class DateTime extends DateTimeBase
      *
      * @return bool
      */
-    public function comesAfter(DateTime $other)
+    public function comesAfter(DateTime $other) : bool
     {
         return $this->dateTime > $other->dateTime;
     }
@@ -112,7 +112,7 @@ class DateTime extends DateTimeBase
      *
      * @return bool
      */
-    public function comesAfterOrEqual(DateTime $other)
+    public function comesAfterOrEqual(DateTime $other) : bool
     {
         return $this->dateTime >= $other->dateTime;
     }
@@ -124,7 +124,7 @@ class DateTime extends DateTimeBase
      *
      * @return bool
      */
-    public function comesBefore(DateTime $other)
+    public function comesBefore(DateTime $other) : bool
     {
         return $this->dateTime < $other->dateTime;
     }
@@ -136,7 +136,7 @@ class DateTime extends DateTimeBase
      *
      * @return bool
      */
-    public function comesBeforeOrEqual(DateTime $other)
+    public function comesBeforeOrEqual(DateTime $other) : bool
     {
         return $this->dateTime <= $other->dateTime;
     }
@@ -148,7 +148,7 @@ class DateTime extends DateTimeBase
      *
      * @return TimezonedDateTime
      */
-    public function inTimezone($timeZoneId)
+    public function inTimezone(string $timeZoneId) : TimezonedDateTime
     {
         return new TimezonedDateTime(
                 \DateTimeImmutable::createFromFormat(

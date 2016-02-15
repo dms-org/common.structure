@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\Table\Form\Builder;
 
@@ -29,7 +29,7 @@ class TableColumnFieldDefiner
      * @param FieldBuilderBase $fieldBuilder
      * @param string           $cellClassName
      */
-    public function __construct(FieldBuilderBase $fieldBuilder, $cellClassName)
+    public function __construct(FieldBuilderBase $fieldBuilder, string $cellClassName)
     {
         $this->fieldBuilder  = $fieldBuilder;
         $this->cellClassName = $cellClassName;
@@ -42,7 +42,7 @@ class TableColumnFieldDefiner
      *
      * @return TableRowFieldDefiner
      */
-    public function withPredefinedColumnValues(array $columnValues)
+    public function withPredefinedColumnValues(array $columnValues) : TableRowFieldDefiner
     {
         $this->fieldBuilder->attr(TableType::ATTR_PREDEFINED_COLUMNS, array_values($columnValues));
         return $this->withColumnKeyAs(Field::forType()->custom(Type::mixed(), []));
@@ -55,7 +55,7 @@ class TableColumnFieldDefiner
      *
      * @return TableRowFieldDefiner
      */
-    public function withColumnKeyAs(FieldBuilderBase $field)
+    public function withColumnKeyAs(FieldBuilderBase $field) : TableRowFieldDefiner
     {
         return $this->withColumnKeyAsField($field->build());
     }
@@ -67,7 +67,7 @@ class TableColumnFieldDefiner
      *
      * @return TableRowFieldDefiner
      */
-    public function withColumnKeyAsField(IField $field)
+    public function withColumnKeyAsField(IField $field) : TableRowFieldDefiner
     {
         return new TableRowFieldDefiner($this->fieldBuilder, $this->cellClassName, $field);
     }

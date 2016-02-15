@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Dms\Common\Structure\Table\Timetable;
 
@@ -60,7 +60,7 @@ abstract class TimetableDataCell extends TableDataCell
     /**
      * @inheritDoc
      */
-    public function getColumnLabel()
+    public function getColumnLabel() : string
     {
         return $this->columnKey->getShortName();
     }
@@ -68,7 +68,7 @@ abstract class TimetableDataCell extends TableDataCell
     /**
      * @inheritDoc
      */
-    public function getRowLabel()
+    public function getRowLabel() : string
     {
         return $this->rowKey->format('g:i A');
     }
