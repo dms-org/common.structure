@@ -26,6 +26,7 @@ class MultipleFromFieldTest extends CmsTestCase
 
         $this->assertInstanceOf(ArrayOfType::class, $type);
         $this->assertInstanceOf(StringType::class, $type->getElementType());
+        $this->assertSame(true, $type->get(ArrayOfType::ATTR_UNIQUE_ELEMENTS));
         $this->assertSame(true, $type->getElementType()->get(StringType::ATTR_REQUIRED));
         $this->assertSame(['a', 'b', 'c',], $type->getElementType()->get(StringType::ATTR_OPTIONS)->getAllValues());
 
@@ -35,6 +36,10 @@ class MultipleFromFieldTest extends CmsTestCase
 
         $this->assertThrows(function () use ($field) {
             $field->process(['a', 'b', 'd']);
+        }, InvalidInputException::class);
+
+        $this->assertThrows(function () use ($field) {
+            $field->process(['a', 'a']);
         }, InvalidInputException::class);
     }
 }

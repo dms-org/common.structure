@@ -474,7 +474,7 @@ class FieldBuilder
     {
         return $this->arrayOf(
             Field::element()->string()->oneOf($valueLabelMap)->required()
-        );
+        )->containsNoDuplicates();
     }
 
     /**
