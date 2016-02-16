@@ -407,9 +407,9 @@ class FieldBuilder
      *
      * @param IEntitySet $entities
      *
-     * @return ArrayOfFieldBuilder
+     * @return EntityArrayFieldBuilder
      */
-    public function entityIdsFrom(IEntitySet $entities) : ArrayOfFieldBuilder
+    public function entityIdsFrom(IEntitySet $entities) : EntityArrayFieldBuilder
     {
         return $this->field->entityIdsFrom($entities);
     }
