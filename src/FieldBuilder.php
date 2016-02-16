@@ -304,7 +304,7 @@ class FieldBuilder
      *
      * @return FileUploadFieldBuilder
      */
-    public function file() : FileSystem\Form\Builder\FileUploadFieldBuilder
+    public function file() : FileUploadFieldBuilder
     {
         return new FileUploadFieldBuilder($this->field->type(new FileUploadType()));
     }
@@ -316,7 +316,7 @@ class FieldBuilder
      *
      * @return ImageUploadFieldBuilder
      */
-    public function image() : FileSystem\Form\Builder\ImageUploadFieldBuilder
+    public function image() : ImageUploadFieldBuilder
     {
         return new ImageUploadFieldBuilder($this->field->type(new ImageUploadType()));
     }
@@ -370,7 +370,7 @@ class FieldBuilder
      *
      * @return TableCellClassDefiner
      */
-    public function table() : Table\Form\Builder\TableCellClassDefiner
+    public function table() : TableCellClassDefiner
     {
         return new TableCellClassDefiner($this->field);
     }
@@ -452,6 +452,29 @@ class FieldBuilder
     public function arrayOfField(IField $elementField) : ArrayOfFieldBuilder
     {
         return $this->field->arrayOfField($elementField);
+    }
+
+    /**
+     * Validates the input as an an array only containing elements which
+     * are in the supplied value map
+     *
+     * Example
+     * <code>
+     * ->multipleFrom([
+     *      'value'         => 'Label',
+     *      'another-value' => 'Another Label',
+     * ])
+     * </code>
+     *
+     * @param array $valueLabelMap
+     *
+     * @return ArrayOfFieldBuilder
+     */
+    public function multipleFrom(array $valueLabelMap) : ArrayOfFieldBuilder
+    {
+        return $this->arrayOf(
+            Field::element()->string()->oneOf($valueLabelMap)->required()
+        );
     }
 
     /**
