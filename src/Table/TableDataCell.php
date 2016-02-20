@@ -4,6 +4,7 @@ namespace Dms\Common\Structure\Table;
 
 use Dms\Core\Model\Object\ValueObject;
 use Dms\Core\Model\Type\Builder\Type;
+use Dms\Core\Model\Type\CollectionType;
 use Dms\Core\Model\Type\IType;
 
 /**
@@ -62,9 +63,9 @@ abstract class TableDataCell extends ValueObject
     /**
      * Gets the type of the of table data collection.
      *
-     * @return IType
+     * @return CollectionType
      */
-    public static function collectionType() : IType
+    public static function collectionType() : CollectionType
     {
         return Type::collectionOf(static::type(), TableData::class);
     }
