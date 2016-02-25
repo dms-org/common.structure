@@ -3,10 +3,12 @@
 namespace Dms\Common\Structure\FileSystem\Form;
 
 use Dms\Common\Structure\FileSystem\UploadAction;
-use Dms\Common\Structure\FileSystem\UploadedFile;
 use Dms\Core\Exception\NotImplementedException;
 use Dms\Core\File\IFile;
+use Dms\Core\File\IImage;
 use Dms\Core\File\IUploadedFile;
+use Dms\Core\File\UploadedFileProxy;
+use Dms\Core\File\UploadedImageProxy;
 use Dms\Core\Form\Builder\Form;
 use Dms\Core\Form\Field\Builder\Field;
 use Dms\Core\Form\Field\Builder\FileFieldBuilder;
@@ -42,8 +44,8 @@ class FileUploadType extends InnerFormType
     protected function initializeFromCurrentAttributes()
     {
         $this->attributes[self::ATTR_FORM] = $this->form(
-                (bool)$this->get(self::ATTR_REQUIRED),
-                $this->has(self::ATTR_INITIAL_VALUE)
+            (bool)$this->get(self::ATTR_REQUIRED),
+            $this->has(self::ATTR_INITIAL_VALUE)
         );
 
         parent::initializeFromCurrentAttributes();
@@ -68,14 +70,14 @@ class FileUploadType extends InnerFormType
         }
 
         return Form::create()
-                ->section('File Upload', [
-                        $this->fileField(Field::name('file')->label('File'))
-                                ->attrs($this->getAll([self::ATTR_EXTENSIONS, self::ATTR_MAX_SIZE, self::ATTR_MIN_SIZE])),
-                        Field::name('action')->label('Action')
-                                ->enum(UploadAction::class, $allowedUploadActions)
-                                ->required(),
-                ])
-                ->build();
+            ->section('File Upload', [
+                $this->fileField(Field::name('file')->label('File'))
+                    ->attrs($this->getAll([self::ATTR_EXTENSIONS, self::ATTR_MAX_SIZE, self::ATTR_MIN_SIZE])),
+                Field::name('action')->label('Action')
+                    ->enum(UploadAction::class, $allowedUploadActions)
+                    ->required(),
+            ])
+            ->build();
     }
 
     /**
@@ -94,19 +96,26 @@ class FileUploadType extends InnerFormType
     protected function buildProcessors() : array
     {
         return array_merge(parent::buildProcessors(), [
-                new CustomProcessor(
-                        $this->processedType(),
-                        function ($input, array &$messages) {
-                            return $this->performUploadAction($input, $messages);
-                        },
-                        function (IFile $file) {
-                            return [
-                                    'file'   => $file,
-                                    'action' => UploadAction::storeNew(),
-                            ];
-                        }
-                )
+            new CustomProcessor(
+                $this->processedType(),
+                function ($input, array &$messages) {
+                    return $this->performUploadAction($input, $messages);
+                },
+                function (IFile $file) {
+                    return [
+                        'file'   => $this->makeUploadedFileProxy($file),
+                        'action' => UploadAction::storeNew(),
+                    ];
+                }
+            ),
         ]);
+    }
+
+    protected function makeUploadedFileProxy(IFile $file) : IUploadedFile
+    {
+        return $file instanceof IImage
+            ? new UploadedImageProxy($file)
+            : new UploadedFileProxy($file);
     }
 
     /**
@@ -140,7 +149,9 @@ class FileUploadType extends InnerFormType
                 return $input['file'];
 
             case UploadAction::KEEP_EXISTING:
-                return $this->get(self::ATTR_INITIAL_VALUE);
+                return $this->has(self::ATTR_INITIAL_VALUE)
+                    ? $this->makeUploadedFileProxy($this->get(self::ATTR_INITIAL_VALUE))
+                    : null;
 
             case UploadAction::DELETE_EXISTING:
                 return null;
