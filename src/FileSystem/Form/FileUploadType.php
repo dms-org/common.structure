@@ -3,6 +3,7 @@
 namespace Dms\Common\Structure\FileSystem\Form;
 
 use Dms\Common\Structure\FileSystem\UploadAction;
+use Dms\Common\Structure\FileSystem\UploadedFile;
 use Dms\Core\Exception\NotImplementedException;
 use Dms\Core\File\IFile;
 use Dms\Core\File\IUploadedFile;
@@ -54,7 +55,7 @@ class FileUploadType extends InnerFormType
      *
      * @return IForm
      */
-    protected function form(bool $isRequired = false, bool $hasExisting = false) : \Dms\Core\Form\IForm
+    protected function form(bool $isRequired = false, bool $hasExisting = false) : IForm
     {
         $allowedUploadActions = [UploadAction::STORE_NEW => 'Save New Upload'];
 
@@ -82,7 +83,7 @@ class FileUploadType extends InnerFormType
      *
      * @return FileFieldBuilder
      */
-    protected function fileField(Field $field) : \Dms\Core\Form\Field\Builder\FileFieldBuilder
+    protected function fileField(Field $field) : FileFieldBuilder
     {
         return $field->file();
     }
@@ -111,7 +112,7 @@ class FileUploadType extends InnerFormType
     /**
      * @return IType
      */
-    protected function processedType() : \Dms\Core\Model\Type\IType
+    protected function processedType() : IType
     {
         return Type::object(IUploadedFile::class);
     }

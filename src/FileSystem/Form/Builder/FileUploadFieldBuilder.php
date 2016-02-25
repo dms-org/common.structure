@@ -2,6 +2,7 @@
 
 namespace Dms\Common\Structure\FileSystem\Form\Builder;
 
+use Dms\Common\Structure\FileSystem\File;
 use Dms\Core\Form\Field\Builder\FileFieldBuilder;
 
 /**
@@ -9,5 +10,8 @@ use Dms\Core\Form\Field\Builder\FileFieldBuilder;
  */
 class FileUploadFieldBuilder extends FileFieldBuilder
 {
-
+    protected function movedClassName() : string
+    {
+        return File::class;
+    }
 }

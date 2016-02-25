@@ -2,6 +2,7 @@
 
 namespace Dms\Common\Structure\FileSystem\Form;
 
+use Dms\Common\Structure\FileSystem\UploadedImage;
 use Dms\Core\File\IUploadedImage;
 use Dms\Core\Form\Field\Builder\Field;
 use Dms\Core\Form\Field\Builder\FileFieldBuilder;
@@ -25,7 +26,7 @@ class ImageUploadType extends FileUploadType
     /**
      * @return IType
      */
-    protected function processedType() : \Dms\Core\Model\Type\IType
+    protected function processedType() : IType
     {
         return Type::object(IUploadedImage::class);
     }
@@ -35,13 +36,13 @@ class ImageUploadType extends FileUploadType
      *
      * @return FileFieldBuilder
      */
-    protected function fileField(Field $field) : \Dms\Core\Form\Field\Builder\FileFieldBuilder
+    protected function fileField(Field $field) : FileFieldBuilder
     {
         return $field->image()->attrs($this->getAll([
-                self::ATTR_MIN_WIDTH,
-                self::ATTR_MAX_WIDTH,
-                self::ATTR_MIN_HEIGHT,
-                self::ATTR_MAX_HEIGHT,
+            self::ATTR_MIN_WIDTH,
+            self::ATTR_MAX_WIDTH,
+            self::ATTR_MIN_HEIGHT,
+            self::ATTR_MAX_HEIGHT,
         ]));
     }
 }

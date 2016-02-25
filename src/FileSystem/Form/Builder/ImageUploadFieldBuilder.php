@@ -2,6 +2,7 @@
 
 namespace Dms\Common\Structure\FileSystem\Form\Builder;
 
+use Dms\Common\Structure\FileSystem\Image;
 use Dms\Core\Form\Field\Builder\ImageFieldBuilder;
 
 /**
@@ -9,5 +10,8 @@ use Dms\Core\Form\Field\Builder\ImageFieldBuilder;
  */
 class ImageUploadFieldBuilder extends ImageFieldBuilder
 {
-
+    protected function movedClassName() : string
+    {
+        return Image::class;
+    }
 }

@@ -89,6 +89,11 @@ trait UploadedFileTrait
             );
         }
 
+        $dirName = dirname($fullPath);
+        if (!@is_dir($dirName)) {
+            @mkdir($dirName, 0777, true);
+        }
+
         if (!move_uploaded_file($this->fullPath, $fullPath)) {
             throw CouldNotMoveUploadedFileException::format(
                     'An error occurred while moving the uploaded file \'%s\' to \'%s\'',
