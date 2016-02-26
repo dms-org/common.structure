@@ -89,23 +89,28 @@ trait UploadedFileTrait
             );
         }
 
-        $dirName = dirname($fullPath);
-        if (!@is_dir($dirName)) {
-            @mkdir($dirName, 0777, true);
-        }
+        $this->createDirectoryIfNotExists($fullPath);
 
-        if (!move_uploaded_file($this->fullPath, $fullPath)) {
+        if (!@move_uploaded_file($this->fullPath, $fullPath)) {
             throw CouldNotMoveUploadedFileException::format(
                     'An error occurred while moving the uploaded file \'%s\' to \'%s\'',
                     $this->fullPath, $fullPath
             );
         }
 
-        if ($this instanceof IUploadedImage) {
-            return new Image($fullPath, $this->getClientFileName());
-        } else {
-            /** @var IUploadedFile $this */
-            return new File($fullPath, $this->getClientFileName());
-        }
+        return $this->buildNewFile($fullPath);
     }
+    /**
+     * @param string $fullPath
+     *
+     * @return void
+     */
+    abstract protected function createDirectoryIfNotExists(string $fullPath);
+
+    /**
+     * @param string $fullPath
+     *
+     * @return IFile
+     */
+    abstract protected function buildNewFile(string $fullPath) : IFile;
 }

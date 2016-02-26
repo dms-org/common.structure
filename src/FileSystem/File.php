@@ -150,29 +150,76 @@ class File extends FileSystemObject implements IFile
      */
     public function moveTo(string $fullPath) : IFile
     {
-        if (!$this->exists()) {
-            throw InvalidOperationException::format(
-                'Invalid call to %s: file does not exist',
-                __METHOD__
-            );
-        }
+        $this->verifyFileExists(__METHOD__);
+        $this->createDirectoryIfNotExists($fullPath);
 
-        $dirName = dirname($fullPath);
-        if (!@is_dir($dirName)) {
-            @mkdir($dirName, 0777, true);
-        }
-
-        if (!rename($this->fullPath, $fullPath)) {
+        if (!@rename($this->fullPath, $fullPath)) {
             throw CouldNotMoveFileException::format(
                 'An error occurred while moving the file \'%s\' to \'%s\'',
                 $this->fullPath, $fullPath
             );
         }
 
+        return $this->buildNewFile($fullPath);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function copyTo(string $fullPath) : IFile
+    {
+        $this->verifyFileExists(__METHOD__);
+
+        $this->createDirectoryIfNotExists($fullPath);
+
+        if (!@copy($this->fullPath, $fullPath)) {
+            throw CouldNotCopyFileException::format(
+                'An error occurred while copying the file \'%s\' to \'%s\'',
+                $this->fullPath, $fullPath
+            );
+        }
+
+        return $this->buildNewFile($fullPath);
+    }
+
+    /**
+     * @param string $method
+     *
+     * @throws InvalidOperationException
+     */
+    protected function verifyFileExists(string $method)
+    {
+        if (!$this->exists()) {
+            throw InvalidOperationException::format(
+                'Invalid call to %s: file does not exist',
+                $method
+            );
+        }
+    }
+
+    /**
+     * @param string $fullPath
+     *
+     * @return void
+     */
+    protected function createDirectoryIfNotExists(string $fullPath)
+    {
+        $dirName = dirname($fullPath);
+        if (!@is_dir($dirName)) {
+            @mkdir($dirName, 0777, true);
+        }
+    }
+
+    /**
+     * @param string $fullPath
+     *
+     * @return IFile
+     */
+    protected function buildNewFile(string $fullPath) : IFile
+    {
         if ($this instanceof IImage) {
             return new Image($fullPath, $this->getClientFileName());
         } else {
-            /** @var IUploadedFile $this */
             return new File($fullPath, $this->getClientFileName());
         }
     }
