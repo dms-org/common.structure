@@ -13,6 +13,7 @@ use Dms\Core\Form\Builder\Form;
 use Dms\Core\Form\Field\Builder\Field;
 use Dms\Core\Form\Field\Builder\FileFieldBuilder;
 use Dms\Core\Form\Field\Processor\CustomProcessor;
+use Dms\Core\Form\Field\Processor\Validator\OneOfValidator;
 use Dms\Core\Form\Field\Processor\Validator\RequiredValidator;
 use Dms\Core\Form\Field\Type\FileType;
 use Dms\Core\Form\Field\Type\InnerFormType;
@@ -65,7 +66,7 @@ class FileUploadType extends InnerFormType
             $allowedUploadActions[UploadAction::KEEP_EXISTING] = 'Keep Existing File';
         }
 
-        if (!$isRequired && $hasExisting) {
+        if (!$isRequired) {
             $allowedUploadActions[UploadAction::DELETE_EXISTING] = 'Delete Existing File';
         }
 
@@ -113,6 +114,10 @@ class FileUploadType extends InnerFormType
 
     protected function makeUploadedFileProxy(IFile $file) : IUploadedFile
     {
+        if ($file instanceof UploadedFileProxy) {
+            return $file;
+        }
+
         return $file instanceof IImage
             ? new UploadedImageProxy($file)
             : new UploadedFileProxy($file);
@@ -151,6 +156,12 @@ class FileUploadType extends InnerFormType
                 return $input['file'];
 
             case UploadAction::KEEP_EXISTING:
+                if (!$this->has(self::ATTR_INITIAL_VALUE) && $this->get(self::ATTR_REQUIRED)) {
+                    $messages[] = new Message(OneOfValidator::MESSAGE, ['field' => 'Action', 'options' => UploadAction::STORE_NEW]);
+
+                    return null;
+                }
+
                 return $this->has(self::ATTR_INITIAL_VALUE)
                     ? $this->makeUploadedFileProxy($this->get(self::ATTR_INITIAL_VALUE))
                     : null;

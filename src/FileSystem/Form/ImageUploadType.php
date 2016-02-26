@@ -2,7 +2,6 @@
 
 namespace Dms\Common\Structure\FileSystem\Form;
 
-use Dms\Common\Structure\FileSystem\UploadedImage;
 use Dms\Core\File\IUploadedImage;
 use Dms\Core\Form\Field\Builder\Field;
 use Dms\Core\Form\Field\Builder\FileFieldBuilder;
