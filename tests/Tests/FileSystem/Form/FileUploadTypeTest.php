@@ -29,7 +29,13 @@ class FileUploadTypeTest extends FieldTypeTest
      */
     protected function buildFieldType()
     {
-        return (new FileUploadType())->with(FileUploadType::ATTR_INITIAL_VALUE, $this->mockUploadedFile('existing'));
+        return new FileUploadType();
+    }
+
+    public function setUp()
+    {
+        parent::setUp();
+        $this->field = $this->field->withInitialValue($this->mockUploadedFile('existing'));
     }
 
     /**
@@ -160,8 +166,8 @@ class FileUploadTypeTest extends FieldTypeTest
     {
         $this->loadFieldType((new FileUploadType())->withAll([
             FileUploadType::ATTR_REQUIRED      => true,
-            FileUploadType::ATTR_INITIAL_VALUE => $this->mockUploadedFile('existing'),
         ]));
+        $this->field = $this->field->withInitialValue($this->mockUploadedFile('existing'));
 
         $existingFile = $this->mockUploadedFile('existing');
         $this->testProcess(
