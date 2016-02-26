@@ -6,7 +6,11 @@ use Dms\Common\Structure\FileSystem\Form\FileUploadType;
 use Dms\Common\Structure\FileSystem\UploadAction;
 use Dms\Common\Structure\FileSystem\UploadedFile;
 use Dms\Common\Structure\Tests\Form\FieldTypeTest;
+use Dms\Core\File\IFile;
+use Dms\Core\File\IImage;
 use Dms\Core\File\IUploadedFile;
+use Dms\Core\File\UploadedFileProxy;
+use Dms\Core\File\UploadedImageProxy;
 use Dms\Core\Form\Field\Processor\Validator\FileSizeValidator;
 use Dms\Core\Form\Field\Processor\Validator\OneOfValidator;
 use Dms\Core\Form\Field\Processor\Validator\RequiredValidator;
@@ -42,23 +46,23 @@ class FileUploadTypeTest extends FieldTypeTest
     public function validationTests()
     {
         return [
-                ['agds', [new Message(TypeValidator::MESSAGE, ['type' => 'array<mixed>|null'])]],
+            ['agds', [new Message(TypeValidator::MESSAGE, ['type' => 'array<mixed>|null'])]],
+            [
+                [],
+                [new Message(RequiredValidator::MESSAGE, ['field' => 'Action', 'input' => null]),],
+            ],
+            [
+                ['file' => '123', 'action' => []],
                 [
-                        [],
-                        [new Message(RequiredValidator::MESSAGE, ['field' => 'Action', 'input' => null]),]
+                    new Message(TypeValidator::MESSAGE,
+                        ['field' => 'File', 'input' => '123', 'type' => $this->uploadClass() . '|null']),
+                    new Message(TypeValidator::MESSAGE, ['field' => 'Action', 'input' => [], 'type' => 'string']),
                 ],
-                [
-                        ['file' => '123', 'action' => []],
-                        [
-                                new Message(TypeValidator::MESSAGE,
-                                        ['field' => 'File', 'input' => '123', 'type' => $this->uploadClass() . '|null']),
-                                new Message(TypeValidator::MESSAGE, ['field' => 'Action', 'input' => [], 'type' => 'string']),
-                        ],
-                ],
-                [
-                        ['action' => UploadAction::STORE_NEW],
-                        [new Message(RequiredValidator::MESSAGE),],
-                ],
+            ],
+            [
+                ['action' => UploadAction::STORE_NEW],
+                [new Message(RequiredValidator::MESSAGE),],
+            ],
         ];
     }
 
@@ -68,18 +72,18 @@ class FileUploadTypeTest extends FieldTypeTest
     public function processTests()
     {
         return [
-                [
-                        ['file' => $this->mockUploadedFile('file'), 'action' => UploadAction::STORE_NEW],
-                        $this->mockUploadedFile('file'),
-                ],
-                [
-                        ['file' => null, 'action' => UploadAction::KEEP_EXISTING],
-                        $this->mockUploadedFile('existing'),
-                ],
-                [
-                        ['file' => null, 'action' => UploadAction::DELETE_EXISTING],
-                        null,
-                ],
+            [
+                ['file' => $this->mockUploadedFile('file'), 'action' => UploadAction::STORE_NEW],
+                $this->mockUploadedFile('file'),
+            ],
+            [
+                ['file' => null, 'action' => UploadAction::KEEP_EXISTING],
+                $this->mockProxyFile($this->mockUploadedFile('existing')),
+            ],
+            [
+                ['file' => null, 'action' => UploadAction::DELETE_EXISTING],
+                null,
+            ],
         ];
     }
 
@@ -89,8 +93,8 @@ class FileUploadTypeTest extends FieldTypeTest
     public function unprocessTests()
     {
         return [
-                [$this->mockUploadedFile('file'), ['file' => $this->mockUploadedFile('file'), 'action' => UploadAction::STORE_NEW]],
-                [null, null],
+            [$this->mockUploadedFile('file'), ['file' => $this->mockProxyFile($this->mockUploadedFile('file')), 'action' => UploadAction::STORE_NEW]],
+            [null, null],
         ];
     }
 
@@ -99,6 +103,7 @@ class FileUploadTypeTest extends FieldTypeTest
         $mock = $this->getMock(UploadedFile::class, ['getSize'], ['somepath/' . $name, UPLOAD_ERR_OK]);
 
         $mock->method('getSize')->willReturn($fileSize);
+        $mock->method('moveTo')->willReturnSelf();
 
         return $mock;
     }
@@ -123,57 +128,70 @@ class FileUploadTypeTest extends FieldTypeTest
         $this->loadFieldType((new FileUploadType())->with(FileUploadType::ATTR_REQUIRED, true));
 
         $this->testValidation(
-                ['action' => UploadAction::KEEP_EXISTING],
-                [
-                        new Message(OneOfValidator::MESSAGE,
-                                ['field' => 'Action', 'input' => UploadAction::KEEP_EXISTING, 'options' => 'store-new'])
-                ]
+            ['action' => UploadAction::KEEP_EXISTING],
+            [
+                new Message(OneOfValidator::MESSAGE,
+                    ['field' => 'Action', 'input' => UploadAction::KEEP_EXISTING, 'options' => 'store-new']),
+            ]
         );
 
         $this->testValidation(
-                ['action' => UploadAction::DELETE_EXISTING],
-                [
-                        new Message(OneOfValidator::MESSAGE,
-                                ['field' => 'Action', 'input' => UploadAction::DELETE_EXISTING, 'options' => 'store-new'])
-                ]
+            ['action' => UploadAction::DELETE_EXISTING],
+            [
+                new Message(OneOfValidator::MESSAGE,
+                    ['field' => 'Action', 'input' => UploadAction::DELETE_EXISTING, 'options' => 'store-new']),
+            ]
         );
+    }
+
+    /**
+     * @param $existingFile
+     *
+     * @return UploadedFileProxy|UploadedImageProxy
+     */
+    protected function mockProxyFile(IFile $existingFile)
+    {
+        return $existingFile instanceof IImage
+            ? new UploadedImageProxy($existingFile)
+            : new UploadedFileProxy($existingFile);
     }
 
     public function testRequiredWithExistingFile()
     {
         $this->loadFieldType((new FileUploadType())->withAll([
-                FileUploadType::ATTR_REQUIRED      => true,
-                FileUploadType::ATTR_INITIAL_VALUE => $this->mockUploadedFile('existing')
+            FileUploadType::ATTR_REQUIRED      => true,
+            FileUploadType::ATTR_INITIAL_VALUE => $this->mockUploadedFile('existing'),
         ]));
 
+        $existingFile = $this->mockUploadedFile('existing');
         $this->testProcess(
-                ['action' => UploadAction::KEEP_EXISTING],
-                $this->mockUploadedFile('existing')
+            ['action' => UploadAction::KEEP_EXISTING],
+            $this->mockProxyFile($existingFile)
         );
 
         $this->testValidation(
-                ['action' => UploadAction::DELETE_EXISTING],
-                [
-                        new Message(OneOfValidator::MESSAGE,
-                                ['field' => 'Action', 'input' => UploadAction::DELETE_EXISTING, 'options' => 'store-new, keep-existing'])
-                ]
+            ['action' => UploadAction::DELETE_EXISTING],
+            [
+                new Message(OneOfValidator::MESSAGE,
+                    ['field' => 'Action', 'input' => UploadAction::DELETE_EXISTING, 'options' => 'store-new, keep-existing']),
+            ]
         );
     }
 
     public function testMaxSize()
     {
         $this->loadFieldType((new FileUploadType())->withAll([
-                FileUploadType::ATTR_MAX_SIZE => 1024,
+            FileUploadType::ATTR_MAX_SIZE => 1024,
         ]));
 
         $this->testProcess(
-                ['action' => UploadAction::STORE_NEW, 'file' => $file = $this->mockUploadedFile('new', 1024)],
-                $file
+            ['action' => UploadAction::STORE_NEW, 'file' => $file = $this->mockUploadedFile('new', 1024)],
+            $file
         );
 
         $this->testValidation(
-                ['action' => UploadAction::STORE_NEW, 'file' => $file = $this->mockUploadedFile('new', 1025)],
-                [new Message(FileSizeValidator::MESSAGE_MAX, ['field' => 'File', 'input' => $file, 'max_size' => 1024])]
+            ['action' => UploadAction::STORE_NEW, 'file' => $file = $this->mockUploadedFile('new', 1025)],
+            [new Message(FileSizeValidator::MESSAGE_MAX, ['field' => 'File', 'input' => $file, 'max_size' => 1024])]
         );
     }
 }

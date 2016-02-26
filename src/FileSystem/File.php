@@ -144,4 +144,36 @@ class File extends FileSystemObject implements IFile
     {
         return $this->getInfo()->isFile();
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function moveTo(string $fullPath) : IFile
+    {
+        if (!$this->exists()) {
+            throw InvalidOperationException::format(
+                'Invalid call to %s: file does not exist',
+                __METHOD__
+            );
+        }
+
+        $dirName = dirname($fullPath);
+        if (!@is_dir($dirName)) {
+            @mkdir($dirName, 0777, true);
+        }
+
+        if (!rename($this->fullPath, $fullPath)) {
+            throw CouldNotMoveFileException::format(
+                'An error occurred while moving the file \'%s\' to \'%s\'',
+                $this->fullPath, $fullPath
+            );
+        }
+
+        if ($this instanceof IImage) {
+            return new Image($fullPath, $this->getClientFileName());
+        } else {
+            /** @var IUploadedFile $this */
+            return new File($fullPath, $this->getClientFileName());
+        }
+    }
 }

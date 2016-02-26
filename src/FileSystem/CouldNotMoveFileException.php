@@ -7,7 +7,7 @@ use Dms\Core\Exception\BaseException;
 /**
  * @author Elliot Levin <elliotlevin@hotmail.com>
  */
-class CouldNotMoveUploadedFileException extends CouldNotMoveFileException
+class CouldNotMoveFileException extends BaseException
 {
 
 }

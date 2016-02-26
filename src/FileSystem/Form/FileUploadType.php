@@ -141,6 +141,8 @@ class FileUploadType extends InnerFormType
         switch ($action->getValue()) {
             case UploadAction::STORE_NEW:
                 if (!isset($input['file'])) {
+                    $this->deleteExistingFile();
+
                     $messages[] = new Message(RequiredValidator::MESSAGE, ['field' => 'File']);
 
                     return null;
@@ -154,9 +156,22 @@ class FileUploadType extends InnerFormType
                     : null;
 
             case UploadAction::DELETE_EXISTING:
+                $this->deleteExistingFile();
                 return null;
         }
 
         throw NotImplementedException::format('Unknown upload action: %s', $action->getValue());
+    }
+
+    /**
+     * @return void
+     */
+    protected function deleteExistingFile()
+    {
+        /** @var IFile $file */
+        $file = $this->get(self::ATTR_INITIAL_VALUE);
+        if ($file && $file->exists()) {
+            @unlink($file->getFullPath());
+        }
     }
 }
