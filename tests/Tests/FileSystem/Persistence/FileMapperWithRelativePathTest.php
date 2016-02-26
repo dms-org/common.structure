@@ -3,6 +3,7 @@
 namespace Dms\Common\Structure\Tests\FileSystem\Persistence;
 
 use Dms\Common\Structure\FileSystem\File;
+use Dms\Common\Structure\FileSystem\PathHelper;
 use Dms\Common\Structure\FileSystem\Persistence\FileMapper;
 use Dms\Core\Persistence\Db\Mapping\IEmbeddedObjectMapper;
 use Dms\Core\Tests\Persistence\Db\Mapper\ValueObjectMapperTest;
@@ -26,10 +27,10 @@ class FileMapperWithRelativePathTest extends ValueObjectMapperTest
     public function mapperTests()
     {
         return [
-                [['path' => 'file'], new File('/storage/path/file')],
-                [['path' => 'file/in/sub/dir.txt'], new File('/storage/path/file/in/sub/dir.txt')],
-                [['path' => '../parent.pdf'], new File('/storage/parent.pdf')],
-                [['path' => '../parent/sub/dir.pdf'], new File('/storage/parent/sub/dir.pdf')],
+                [['path' => PathHelper::normalize('file')], new File('/storage/path/file')],
+                [['path' => PathHelper::normalize('file/in/sub/dir.txt')], new File('/storage/path/file/in/sub/dir.txt')],
+                [['path' => PathHelper::normalize('../parent.pdf')], new File('/storage/parent.pdf')],
+                [['path' => PathHelper::normalize('../parent/sub/dir.pdf')], new File('/storage/parent/sub/dir.pdf')],
         ];
     }
 }

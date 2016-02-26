@@ -2,6 +2,7 @@
 
 namespace Dms\Common\Structure\FileSystem\Persistence;
 
+use Dms\Common\Structure\FileSystem\Directory;
 use Dms\Common\Structure\FileSystem\RelativePathCalculator;
 use Dms\Core\Persistence\Db\Mapping\Definition\MapperDefinition;
 use Dms\Core\Persistence\Db\Mapping\IndependentValueObjectMapper;
@@ -54,11 +55,7 @@ abstract class FileOrDirectoryMapper extends IndependentValueObjectMapper
             RelativePathCalculator $relativePathCalculator = null
     ) {
         if ($baseDirectoryPath) {
-            $baseDirectoryPath = str_replace('\\', '/', $baseDirectoryPath);
-
-            if (substr($baseDirectoryPath, -1) !== '/') {
-                $baseDirectoryPath .= '/';
-            }
+            $baseDirectoryPath = (new Directory($baseDirectoryPath))->getFullPath();
         }
 
         $this->pathColumnName         = $pathColumnName;

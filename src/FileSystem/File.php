@@ -26,7 +26,7 @@ class File extends FileSystemObject implements IFile
     /**
      * File constructor.
      *
-     * @param string      $fullPath
+     * @param string $fullPath
      * @param string|null $clientFileName
      */
     public function __construct(string $fullPath, string $clientFileName = null)
@@ -70,7 +70,7 @@ class File extends FileSystemObject implements IFile
      */
     protected function normalizePath(string $fullPath) : string
     {
-        return str_replace('\\', '/', $fullPath);
+        return PathHelper::normalize($fullPath);
     }
 
     /**
@@ -128,9 +128,9 @@ class File extends FileSystemObject implements IFile
     {
         if (!$this->exists()) {
             throw InvalidOperationException::format(
-                    'Invalid call to %s: file \'%s\' does not exist',
-                    __METHOD__,
-                    $this->fullPath
+                'Invalid call to %s: file \'%s\' does not exist',
+                __METHOD__,
+                $this->fullPath
             );
         }
 
@@ -151,6 +151,8 @@ class File extends FileSystemObject implements IFile
     public function moveTo(string $fullPath) : IFile
     {
         $this->verifyFileExists(__METHOD__);
+
+        $fullPath = PathHelper::normalize($fullPath);
         $this->createDirectoryIfNotExists($fullPath);
 
         if (!@rename($this->fullPath, $fullPath)) {

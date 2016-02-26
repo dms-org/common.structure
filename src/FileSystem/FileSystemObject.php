@@ -42,7 +42,6 @@ abstract class FileSystemObject extends ValueObject
      */
     abstract protected function normalizePath(string $fullPath) : string;
 
-
     /**
      * Defines the structure of this class.
      *

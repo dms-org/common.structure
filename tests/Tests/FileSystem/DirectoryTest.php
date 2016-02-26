@@ -3,6 +3,7 @@
 namespace Dms\Common\Structure\Tests\FileSystem;
 
 use Dms\Common\Structure\FileSystem\Directory;
+use Dms\Common\Structure\FileSystem\PathHelper;
 use Dms\Common\Testing\CmsTestCase;
 
 /**
@@ -14,7 +15,7 @@ class DirectoryTest extends CmsTestCase
     {
         $dir = new Directory(__DIR__);
 
-        $this->assertSame(str_replace('\\', '/', __DIR__) . '/', $dir->getFullPath());
+        $this->assertSame(PathHelper::normalize(__DIR__) . DIRECTORY_SEPARATOR, $dir->getFullPath());
         $this->assertSame(basename(__DIR__), $dir->getName());
         $this->assertSame(__DIR__, $dir->getInfo()->getRealPath());
         $this->assertSame(true, $dir->exists());
@@ -24,7 +25,7 @@ class DirectoryTest extends CmsTestCase
     {
         $dir = new Directory(__DIR__ . '/abc');
 
-        $this->assertSame(str_replace('\\', '/', __DIR__) . '/abc/', $dir->getFullPath());
+        $this->assertSame(PathHelper::combine(__DIR__, 'abc/'), $dir->getFullPath());
         $this->assertSame('abc', $dir->getName());
         $this->assertSame(false, $dir->exists());
     }

@@ -2,6 +2,7 @@
 
 namespace Dms\Common\Structure\Tests\FileSystem;
 
+use Dms\Common\Structure\FileSystem\PathHelper;
 use Dms\Common\Structure\FileSystem\RelativePathCalculator;
 use Dms\Common\Testing\CmsTestCase;
 
@@ -55,7 +56,7 @@ class RelativePathCalculatorTest extends CmsTestCase
     public function testRelativePathCalculator($from, $to, $relative)
     {
         $this->assertSame(
-                $relative,
+                PathHelper::normalize($relative),
                 $this->calculator->getRelativePath($from, $to)
         );
     }
@@ -66,7 +67,7 @@ class RelativePathCalculatorTest extends CmsTestCase
     public function testResolveRelativePath($from, $to, $relative, $resolveTo = null)
     {
         $this->assertSame(
-                $resolveTo ?: $to,
+            PathHelper::normalize($resolveTo ?: $to),
                 $this->calculator->resolveRelativePath($from, $relative)
         );
     }
@@ -74,7 +75,7 @@ class RelativePathCalculatorTest extends CmsTestCase
     public function testRelativeParentOfRoot()
     {
         $this->assertSame(
-                '/',
+                PathHelper::normalize('/'),
                 $this->calculator->resolveRelativePath('/', '../../')
         );
     }

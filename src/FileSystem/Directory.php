@@ -2,9 +2,6 @@
 
 namespace Dms\Common\Structure\FileSystem;
 
-use Dms\Core\Model\Object\ClassDefinition;
-use Dms\Core\Model\Object\ValueObject;
-
 /**
  * The directory value object class.
  *
@@ -17,10 +14,10 @@ class Directory extends FileSystemObject
      */
     protected function normalizePath(string $fullPath) : string
     {
-        $fullPath = str_replace('\\', '/', $fullPath);
+        $fullPath = PathHelper::normalize($fullPath);
 
-        if (substr($fullPath, -1) !== '/') {
-            $fullPath .= '/';
+        if (substr($fullPath, -1) !== DIRECTORY_SEPARATOR) {
+            $fullPath .= DIRECTORY_SEPARATOR;
         }
 
         return $fullPath;

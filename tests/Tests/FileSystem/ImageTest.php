@@ -3,6 +3,7 @@
 namespace Dms\Common\Structure\Tests\ImageSystem;
 
 use Dms\Common\Structure\FileSystem\Image;
+use Dms\Common\Structure\FileSystem\PathHelper;
 use Dms\Common\Testing\CmsTestCase;
 use Dms\Core\Exception\InvalidOperationException;
 
@@ -15,7 +16,7 @@ class ImageTest extends CmsTestCase
     {
         $image = new Image(__DIR__ . '/Fixtures/picture.png');
 
-        $this->assertSame(str_replace('\\', '/', __DIR__) . '/Fixtures/picture.png', $image->getFullPath());
+        $this->assertSame(PathHelper::combine(__DIR__, 'Fixtures/picture.png'), $image->getFullPath());
         $this->assertSame('picture.png', $image->getName());
         $this->assertSame(true, $image->exists());
         $this->assertSame('png', $image->getExtension());
@@ -26,7 +27,7 @@ class ImageTest extends CmsTestCase
     {
         $image = new Image(__FILE__);
 
-        $this->assertSame(str_replace('\\', '/', __FILE__), $image->getFullPath());
+        $this->assertSame(PathHelper::normalize(__FILE__), $image->getFullPath());
         $this->assertSame(basename(__FILE__), $image->getName());
         $this->assertSame(true, $image->exists());
         $this->assertSame(false, $image->isValidImage());
@@ -45,7 +46,7 @@ class ImageTest extends CmsTestCase
     {
         $image = new Image(__DIR__ . '/non-existent.png');
 
-        $this->assertSame(str_replace('\\', '/', __DIR__) . '/non-existent.png', $image->getFullPath());
+        $this->assertSame(PathHelper::combine(__DIR__, 'non-existent.png'), $image->getFullPath());
         $this->assertSame('non-existent.png', $image->getName());
         $this->assertSame(false, $image->exists());
         $this->assertSame(false, $image->isValidImage());

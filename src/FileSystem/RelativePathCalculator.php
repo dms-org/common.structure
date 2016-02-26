@@ -35,7 +35,7 @@ class RelativePathCalculator
 
         // Optimize common case where $to is a sub path of $from
         if (strpos($to, $fromDir) === 0) {
-            return substr($to, strlen($fromDir)) ?: './';
+            return PathHelper::normalize(substr($to, strlen($fromDir)) ?: './');
         }
 
         $fromDir = explode('/', $fromDir);
@@ -63,11 +63,11 @@ class RelativePathCalculator
 
         $relPath = implode('/', $relPath);
 
-        if ($relPath === '..' || $relPath === '.') {
-            return $relPath . '/';
-        } else {
-            return $relPath;
-        }
+        return PathHelper::normalize(
+            $relPath === '..' || $relPath === '.'
+                ? $relPath . '/'
+                : $relPath
+        );
     }
 
     /**
@@ -88,7 +88,7 @@ class RelativePathCalculator
         }
 
         if (strpos($relativePath, '.') === false) {
-            return str_replace('//', '/', $basePath . '/' . $relativePath);
+            return PathHelper::normalize(str_replace('//', '/', $basePath . '/' . $relativePath));
         }
 
         $parts         = explode('/', $basePath);
@@ -111,6 +111,6 @@ class RelativePathCalculator
             }
         }
 
-        return '/' . implode('/', $parts) . ($parts ? $trailingSlash : '');
+        return PathHelper::normalize('/' . implode('/', $parts) . ($parts ? $trailingSlash : ''));
     }
 }

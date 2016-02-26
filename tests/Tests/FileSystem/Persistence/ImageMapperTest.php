@@ -3,6 +3,7 @@
 namespace Dms\Common\Structure\Tests\ImageSystem\Persistence;
 
 use Dms\Common\Structure\FileSystem\Image;
+use Dms\Common\Structure\FileSystem\PathHelper;
 use Dms\Common\Structure\FileSystem\Persistence\ImageMapper;
 use Dms\Core\Persistence\Db\Mapping\IEmbeddedObjectMapper;
 use Dms\Core\Tests\Persistence\Db\Mapper\ValueObjectMapperTest;
@@ -26,9 +27,9 @@ class ImageMapperTest extends ValueObjectMapperTest
     public function mapperTests()
     {
         return [
-                [['path' => '/test/abc', 'client_name' => null], new Image('/test/abc')],
-                [['path' => '/pic.png', 'client_name' => 'foo.png'], new Image('/pic.png', 'foo.png')],
-                [['path' => str_replace('\\', '/', __FILE__), 'client_name' => null], new Image(__FILE__)],
+                [['path' => PathHelper::normalize('/test/abc'), 'client_name' => null], new Image('/test/abc')],
+                [['path' => PathHelper::normalize('/pic.png'), 'client_name' => 'foo.png'], new Image('/pic.png', 'foo.png')],
+                [['path' => PathHelper::normalize(__FILE__), 'client_name' => null], new Image(__FILE__)],
         ];
     }
 }

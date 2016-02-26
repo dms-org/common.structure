@@ -3,6 +3,7 @@
 namespace Dms\Common\Structure\Tests\FileSystem\Persistence;
 
 use Dms\Common\Structure\FileSystem\Directory;
+use Dms\Common\Structure\FileSystem\PathHelper;
 use Dms\Common\Structure\FileSystem\Persistence\DirectoryMapper;
 use Dms\Core\Persistence\Db\Mapping\IEmbeddedObjectMapper;
 use Dms\Core\Tests\Persistence\Db\Mapper\ValueObjectMapperTest;
@@ -26,8 +27,8 @@ class DirectoryMapperTest extends ValueObjectMapperTest
     public function mapperTests()
     {
         return [
-                [['path' => '/test/abc/'], new Directory('/test/abc')],
-                [['path' => '/'], new Directory('/')],
+                [['path' => PathHelper::normalize('/test/abc/')], new Directory('/test/abc')],
+                [['path' => PathHelper::normalize('/')], new Directory('/')],
         ];
     }
 }

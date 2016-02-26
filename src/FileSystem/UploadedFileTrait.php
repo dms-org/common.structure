@@ -89,9 +89,10 @@ trait UploadedFileTrait
             );
         }
 
+        $fullPath = PathHelper::normalize($fullPath);
         $this->createDirectoryIfNotExists($fullPath);
 
-        if (!@move_uploaded_file($this->fullPath, $fullPath)) {
+        if (!move_uploaded_file($this->fullPath, $fullPath)) {
             throw CouldNotMoveUploadedFileException::format(
                     'An error occurred while moving the uploaded file \'%s\' to \'%s\'',
                     $this->fullPath, $fullPath
