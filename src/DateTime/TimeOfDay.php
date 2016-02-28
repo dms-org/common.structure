@@ -11,7 +11,7 @@ use Dms\Core\Exception\InvalidArgumentException;
  */
 class TimeOfDay extends DateOrTimeObject
 {
-    const DEFAULT_FORMAT = 'H:i:s';
+    const DEFAULT_FORMAT = 'g:i:s A';
 
     use TimeOfDayOperations;
 

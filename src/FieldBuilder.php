@@ -186,7 +186,7 @@ class FieldBuilder
      *
      * @return DateFieldBuilder
      */
-    public function date(string $format = Date::DEFAULT_FORMAT) : DateFieldBuilder
+    public function date(string $format = Date::DISPLAY_FORMAT) : DateFieldBuilder
     {
         return new DateFieldBuilder($this->field->type(new DateType($format)));
     }
@@ -201,7 +201,7 @@ class FieldBuilder
      *
      * @return DateTimeFieldBuilder
      */
-    public function dateTime(string $format = DateTime::DEFAULT_FORMAT) : DateTimeFieldBuilder
+    public function dateTime(string $format = DateTime::DISPLAY_FORMAT) : DateTimeFieldBuilder
     {
         return new DateTimeFieldBuilder($this->field->type(new DateTimeType($format)));
     }
@@ -231,7 +231,7 @@ class FieldBuilder
      *
      * @return TimezonedDateTimeFieldBuilder
      */
-    public function dateTimeWithTimezone(string $format = TimezonedDateTime::DEFAULT_FORMAT) : TimezonedDateTimeFieldBuilder
+    public function dateTimeWithTimezone(string $format = TimezonedDateTime::DISPLAY_FORMAT) : TimezonedDateTimeFieldBuilder
     {
         return new TimezonedDateTimeFieldBuilder($this->field->type(new TimezonedDateTimeType($format)));
     }
@@ -246,7 +246,7 @@ class FieldBuilder
      *
      * @return FieldBuilderBase
      */
-    public function dateRange(string $format = Date::DEFAULT_FORMAT) : FieldBuilderBase
+    public function dateRange(string $format = Date::DISPLAY_FORMAT) : FieldBuilderBase
     {
         return $this->field->type(new DateRangeType($format));
     }
@@ -261,7 +261,7 @@ class FieldBuilder
      *
      * @return FieldBuilderBase
      */
-    public function dateTimeRange(string $format = DateTime::DEFAULT_FORMAT) : FieldBuilderBase
+    public function dateTimeRange(string $format = DateTime::DISPLAY_FORMAT) : FieldBuilderBase
     {
         return $this->field->type(new DateTimeRangeType($format));
     }
@@ -291,7 +291,7 @@ class FieldBuilder
      *
      * @return FieldBuilderBase
      */
-    public function dateTimeWithTimezoneRange(string $format = TimezonedDateTime::DEFAULT_FORMAT) : FieldBuilderBase
+    public function dateTimeWithTimezoneRange(string $format = TimezonedDateTime::DISPLAY_FORMAT) : FieldBuilderBase
     {
         return $this->field->type(new TimezonedDateTimeRangeType($format));
     }

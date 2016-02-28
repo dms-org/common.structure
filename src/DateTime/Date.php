@@ -9,7 +9,8 @@ namespace Dms\Common\Structure\DateTime;
  */
 class Date extends DateOrTimeObject
 {
-    const DEFAULT_FORMAT = 'Y-m-d';
+    const DISPLAY_FORMAT = 'M jS Y';
+    const SERIALIZE_FORMAT = 'Y-m-d';
 
     use DateOperations;
 
@@ -57,7 +58,7 @@ class Date extends DateOrTimeObject
      */
     public function debugFormat() : string
     {
-        return $this->dateTime->format(self::DEFAULT_FORMAT);
+        return $this->dateTime->format(self::DISPLAY_FORMAT);
     }
 
     /**
@@ -65,7 +66,7 @@ class Date extends DateOrTimeObject
      */
     protected function serializationFormat() : string
     {
-        return self::DEFAULT_FORMAT;
+        return self::SERIALIZE_FORMAT;
     }
 
     /**

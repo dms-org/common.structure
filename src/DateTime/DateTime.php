@@ -9,7 +9,8 @@ namespace Dms\Common\Structure\DateTime;
  */
 class DateTime extends DateTimeBase
 {
-    const DEFAULT_FORMAT = 'Y-m-d H:i:s';
+    const DISPLAY_FORMAT = Date::DISPLAY_FORMAT . ' ' . TimeOfDay::DEFAULT_FORMAT;
+    const SERIALIZE_FORMAT = 'Y-m-d H:i:s';
 
     /**
      * @param \DateTimeInterface $dateTime
@@ -18,8 +19,8 @@ class DateTime extends DateTimeBase
     {
         parent::__construct(
                 \DateTimeImmutable::createFromFormat(
-                        self::DEFAULT_FORMAT,
-                        $dateTime->format(self::DEFAULT_FORMAT),
+                        self::SERIALIZE_FORMAT,
+                        $dateTime->format(self::SERIALIZE_FORMAT),
                         new \DateTimeZone('UTC')
                 )
         );
@@ -68,7 +69,7 @@ class DateTime extends DateTimeBase
      */
     public function debugFormat() : string
     {
-        return $this->dateTime->format(self::DEFAULT_FORMAT);
+        return $this->dateTime->format(self::DISPLAY_FORMAT);
     }
 
     /**
@@ -76,7 +77,7 @@ class DateTime extends DateTimeBase
      */
     protected function serializationFormat() : string
     {
-        return self::DEFAULT_FORMAT;
+        return self::SERIALIZE_FORMAT;
     }
 
     /**
@@ -152,8 +153,8 @@ class DateTime extends DateTimeBase
     {
         return new TimezonedDateTime(
                 \DateTimeImmutable::createFromFormat(
-                        self::DEFAULT_FORMAT,
-                        $this->format(self::DEFAULT_FORMAT),
+                        self::DISPLAY_FORMAT,
+                        $this->format(self::DISPLAY_FORMAT),
                         new \DateTimeZone($timeZoneId)
                 )
         );
