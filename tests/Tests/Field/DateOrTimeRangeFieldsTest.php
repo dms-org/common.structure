@@ -34,7 +34,7 @@ class DateOrTimeRangeFieldsTest extends CmsTestCase
 
     public function testDateTimeRange()
     {
-        $type = Field::forType()->datetimeRange()
+        $type = Field::forType()->dateTimeRange()
                 ->build()
                 ->getType();
 

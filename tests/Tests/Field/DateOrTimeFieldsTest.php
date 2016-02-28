@@ -53,7 +53,7 @@ class DateOrTimeFieldsTest extends CmsTestCase
 
     public function testDateTime()
     {
-        $type = Field::forType()->datetime()
+        $type = Field::forType()->dateTime()
                 ->min(DateTime::fromString('2000-01-01 00:00:00'))
                 ->greaterThan(DateTime::fromString('1999-01-01 00:00:00'))
                 ->max(DateTime::fromString('2010-01-01 00:00:00'))

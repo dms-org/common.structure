@@ -201,7 +201,7 @@ class FieldBuilder
      *
      * @return DateTimeFieldBuilder
      */
-    public function datetime(string $format = DateTime::DEFAULT_FORMAT) : DateTimeFieldBuilder
+    public function dateTime(string $format = DateTime::DEFAULT_FORMAT) : DateTimeFieldBuilder
     {
         return new DateTimeFieldBuilder($this->field->type(new DateTimeType($format)));
     }
@@ -261,7 +261,7 @@ class FieldBuilder
      *
      * @return FieldBuilderBase
      */
-    public function datetimeRange(string $format = DateTime::DEFAULT_FORMAT) : FieldBuilderBase
+    public function dateTimeRange(string $format = DateTime::DEFAULT_FORMAT) : FieldBuilderBase
     {
         return $this->field->type(new DateTimeRangeType($format));
     }
