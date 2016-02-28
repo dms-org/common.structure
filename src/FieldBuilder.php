@@ -2,6 +2,8 @@
 
 namespace Dms\Common\Structure;
 
+use Dms\Common\Structure\Colour\Form\ColourType;
+use Dms\Common\Structure\Colour\Form\TransparentColourType;
 use Dms\Common\Structure\DateTime\Date;
 use Dms\Common\Structure\DateTime\DateTime;
 use Dms\Common\Structure\DateTime\Form\Builder\DateFieldBuilder;
@@ -322,6 +324,34 @@ class FieldBuilder
     }
     //endregion
 
+    //region Colour Fields
+
+    /**
+     * Defines a field that will map to Colour type
+     *
+     * @see Dms\Common\Structure\Colour\Colour
+     *
+     * @return FieldBuilderBase
+     */
+    public function colour() : FieldBuilderBase
+    {
+        return $this->field->type(new ColourType());
+    }
+
+    /**
+     * Defines a field that will map to TransparentColour type
+     *
+     * @see Dms\Common\Structure\Colour\TransparentColour
+     *
+     * @return FieldBuilderBase
+     */
+    public function colourWithTransparency() : FieldBuilderBase
+    {
+        return $this->field->type(new TransparentColourType());
+    }
+
+    //endregion
+
     //region Geo Fields
 
     /**
@@ -493,7 +523,7 @@ class FieldBuilder
      * Validates the input as one of the enum options maps the
      * value to an instance of the supplied enum class.
      *
-     * @param string   $enumClass
+     * @param string $enumClass
      * @param string[] $valueLabelMap
      *
      * @return FieldBuilderBase
@@ -507,7 +537,7 @@ class FieldBuilder
     /**
      * Sets the form as a custom object type.
      *
-     * @param IType             $inputType
+     * @param IType $inputType
      * @param IFieldProcessor[] $processors
      *
      * @return FieldBuilderBase

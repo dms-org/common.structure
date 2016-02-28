@@ -2,9 +2,6 @@
 
 namespace Dms\Common\Structure;
 
-use Dms\Common\Structure\DateTime\DayOfWeek;
-use Dms\Common\Structure\Table\Timetable\TimetableDataCell;
-
 /**
  * The field builder class.
  *
