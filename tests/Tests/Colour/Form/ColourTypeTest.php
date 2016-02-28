@@ -27,7 +27,7 @@ class ColourTypeTest extends FieldTypeTest
      */
     public function processedType()
     {
-        return Colour::type();
+        return Colour::type()->nullable();
     }
 
     /**

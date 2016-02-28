@@ -29,7 +29,7 @@ class TimezonedDateTimeRangeTypeTest extends FieldTypeTest
      */
     public function processedType()
     {
-        return TimezonedDateTimeRange::type();
+        return TimezonedDateTimeRange::type()->nullable();
     }
 
     /**

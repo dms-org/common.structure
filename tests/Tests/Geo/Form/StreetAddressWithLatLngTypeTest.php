@@ -31,7 +31,7 @@ class StreetAddressWithLatLngTypeTest extends FieldTypeTest
      */
     public function processedType()
     {
-        return StreetAddressWithLatLng::type();
+        return StreetAddressWithLatLng::type()->nullable();
     }
 
     /**

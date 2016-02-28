@@ -43,7 +43,7 @@ class FileUploadTypeTest extends FieldTypeTest
      */
     public function processedType()
     {
-        return Type::object(IUploadedFile::class);
+        return Type::object(IUploadedFile::class)->nullable();
     }
 
     /**

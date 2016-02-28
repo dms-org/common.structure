@@ -32,7 +32,7 @@ class LatLngTypeTest extends FieldTypeTest
      */
     public function processedType()
     {
-        return LatLng::type();
+        return LatLng::type()->nullable();
     }
 
     /**

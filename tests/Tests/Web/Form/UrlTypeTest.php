@@ -28,7 +28,7 @@ class UrlTypeTest extends FieldTypeTest
      */
     public function processedType()
     {
-        return Url::type();
+        return Url::type()->nullable();
     }
 
     /**

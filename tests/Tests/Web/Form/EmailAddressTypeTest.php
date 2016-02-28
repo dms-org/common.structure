@@ -28,7 +28,7 @@ class EmailAddressTypeTest extends FieldTypeTest
      */
     public function processedType()
     {
-        return EmailAddress::type();
+        return EmailAddress::type()->nullable();
     }
 
     /**

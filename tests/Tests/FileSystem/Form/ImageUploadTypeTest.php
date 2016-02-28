@@ -32,7 +32,7 @@ class ImageUploadTypeTest extends FileUploadTypeTest
      */
     public function processedType()
     {
-        return Type::object(IUploadedImage::class);
+        return Type::object(IUploadedImage::class)->nullable();
     }
 
     /**

@@ -28,7 +28,7 @@ class IpAddressTypeTest extends FieldTypeTest
      */
     public function processedType()
     {
-        return IpAddress::type();
+        return IpAddress::type()->nullable();
     }
 
     /**

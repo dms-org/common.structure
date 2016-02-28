@@ -27,7 +27,7 @@ class TimezonedDateTimeTypeTest extends FieldTypeTest
      */
     public function processedType()
     {
-        return TimezonedDateTime::type();
+        return TimezonedDateTime::type()->nullable();
     }
 
     /**

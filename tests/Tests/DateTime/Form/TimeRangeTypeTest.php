@@ -30,7 +30,7 @@ class TimeRangeTypeTest extends FieldTypeTest
      */
     public function processedType()
     {
-        return TimeRange::type();
+        return TimeRange::type()->nullable();
     }
 
     /**

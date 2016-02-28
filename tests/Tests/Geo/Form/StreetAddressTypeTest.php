@@ -27,7 +27,7 @@ class StreetAddressTypeTest extends FieldTypeTest
      */
     public function processedType()
     {
-        return StreetAddress::type();
+        return StreetAddress::type()->nullable();
     }
 
     /**

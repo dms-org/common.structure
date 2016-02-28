@@ -27,7 +27,7 @@ class DateTypeTest extends FieldTypeTest
      */
     public function processedType()
     {
-        return Date::type();
+        return Date::type()->nullable();
     }
 
     /**

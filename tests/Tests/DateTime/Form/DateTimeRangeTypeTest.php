@@ -30,7 +30,7 @@ class DateTimeRangeTypeTest extends FieldTypeTest
      */
     public function processedType()
     {
-        return DateTimeRange::type();
+        return DateTimeRange::type()->nullable();
     }
 
     /**

@@ -27,7 +27,7 @@ class TimeOfDayTypeTest extends FieldTypeTest
      */
     public function processedType()
     {
-        return TimeOfDay::type();
+        return TimeOfDay::type()->nullable();
     }
 
     /**

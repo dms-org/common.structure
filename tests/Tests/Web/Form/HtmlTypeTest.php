@@ -28,7 +28,7 @@ class HtmlTypeTest extends FieldTypeTest
      */
     public function processedType()
     {
-        return Html::type();
+        return Html::type()->nullable();
     }
 
     /**
