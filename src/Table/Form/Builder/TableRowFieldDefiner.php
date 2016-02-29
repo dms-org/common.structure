@@ -45,14 +45,15 @@ class TableRowFieldDefiner
     /**
      * Defines the rows as predefined set of values.
      *
-     * @param array $rowValues
+     * @param FieldBuilderBase $field
+     * @param array            $rowValues
      *
      * @return TableCellValueFieldDefiner
      */
-    public function withPredefinedRowValues(array $rowValues) : TableCellValueFieldDefiner
+    public function withPredefinedRowValues(FieldBuilderBase $field, array $rowValues) : TableCellValueFieldDefiner
     {
         $this->fieldBuilder->attr(TableType::ATTR_PREDEFINED_ROWS, array_values($rowValues));
-        return $this->withRowKeyAs(Field::forType()->custom(Type::mixed(), []));
+        return $this->withRowKeyAs($field);
     }
 
     /**

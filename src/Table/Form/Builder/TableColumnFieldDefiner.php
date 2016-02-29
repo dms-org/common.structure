@@ -38,14 +38,15 @@ class TableColumnFieldDefiner
     /**
      * Defines the columns as predefined set of values.
      *
-     * @param array $columnValues
+     * @param FieldBuilderBase $field
+     * @param array            $columnValues
      *
      * @return TableRowFieldDefiner
      */
-    public function withPredefinedColumnValues(array $columnValues) : TableRowFieldDefiner
+    public function withPredefinedColumnValues(FieldBuilderBase $field, array $columnValues) : TableRowFieldDefiner
     {
         $this->fieldBuilder->attr(TableType::ATTR_PREDEFINED_COLUMNS, array_values($columnValues));
-        return $this->withColumnKeyAs(Field::forType()->custom(Type::mixed(), []));
+        return $this->withColumnKeyAs($field);
     }
 
     /**
