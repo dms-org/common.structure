@@ -22,6 +22,8 @@ abstract class DomainSpecificStringType extends StringType
             $this->attributes[self::ATTR_STRING_TYPE] = $stringType;
         }
 
+        $this->attributes[self::ATTR_EMPTY_STRING_AS_NULL] = true;
+
         parent::__construct();
     }
 

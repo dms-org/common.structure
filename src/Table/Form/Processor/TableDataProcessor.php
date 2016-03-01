@@ -21,16 +21,23 @@ class TableDataProcessor extends FieldProcessor
     private $tableDataCellClass;
 
     /**
+     * @var bool
+     */
+    private $includeRows;
+
+    /**
      * TableDataProcessor constructor.
      *
      * @param string $tableDataCellClass
+     * @param bool   $includeRows
      */
-    public function __construct(string $tableDataCellClass)
+    public function __construct(string $tableDataCellClass, bool $includeRows = true)
     {
         InvalidArgumentException::verify(is_string($tableDataCellClass), 'class must be a string');
         /** @var string|TableDataCell $tableDataCellClass */
         parent::__construct($tableDataCellClass::collectionType());
         $this->tableDataCellClass = $tableDataCellClass;
+        $this->includeRows        = $includeRows;
     }
 
     /**
@@ -98,10 +105,16 @@ class TableDataProcessor extends FieldProcessor
             $rowKey++;
         }
 
-        return [
-                TableType::COLUMNS_FIELD => $columns,
-                TableType::ROWS_FIELD    => $rows,
-                TableType::CELLS_FIELD   => $cells,
-        ];
+        $data                           = [];
+        $data[TableType::COLUMNS_FIELD] = $columns;
+
+        if ($this->includeRows) {
+            $data[TableType::ROWS_FIELD] = $rows;
+        }
+
+        $data[TableType::CELLS_FIELD] = $cells;
+
+
+        return $data;
     }
 }

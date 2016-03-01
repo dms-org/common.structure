@@ -187,7 +187,7 @@ class TableType extends InnerFormType
     {
         return array_merge(parent::buildProcessors(), [
             new TableStructureValidator(Type::arrayOf(Type::arrayOf(Type::mixed()))),
-            new TableDataProcessor($this->tableDataCellClass),
+            new TableDataProcessor($this->tableDataCellClass, $this->rowField !== null),
         ]);
     }
 }
