@@ -203,10 +203,8 @@ class TableTypeTest extends FieldTypeTest
                         ],
                 ],
                 [
-                        new Message(MinArrayLengthValidator::MESSAGE,
-                                ['field' => 'Columns', 'input' => ['1'], 'length' => 2]),
-                        new Message(MinArrayLengthValidator::MESSAGE,
-                                ['field' => 'Cells', 'input' => [['open']], 'length' => 2, 'key' => 0]),
+                        new Message(RequiredValidator::MESSAGE,
+                                ['field' => 'Columns', 'input' => ['1'], 'key' => 1]),
                 ]
         );
 
@@ -265,10 +263,10 @@ class TableTypeTest extends FieldTypeTest
                         ],
                 ],
                 [
-                        new Message(MinArrayLengthValidator::MESSAGE,
-                                ['field' => 'Rows', 'input' => ['9:00'], 'length' => 2]),
-                        new Message(MinArrayLengthValidator::MESSAGE,
-                                ['field' => 'Cells', 'input' => [['open']], 'length' => 2]),
+                    new Message(RequiredValidator::MESSAGE,
+                        ['field' => 'Rows', 'input' => ['9:00'], 'key' => 1]),
+                    new Message(RequiredValidator::MESSAGE,
+                        ['field' => 'Cells', 'input' => [['open']], 'key' => 1]),
                 ]
         );
 
