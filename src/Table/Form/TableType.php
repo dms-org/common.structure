@@ -134,6 +134,27 @@ class TableType extends InnerFormType
             ArrayOfType::ATTR_EXACT_ELEMENTS => $this->get(self::ATTR_EXACT_ROWS),
         ];
 
+
+        foreach ([&$rowValidation, &$columnValidation] as &$validation) {
+            if ($validation[ArrayOfType::ATTR_EXACT_ELEMENTS] ?? $validation[ArrayOfType::ATTR_MIN_ELEMENTS] ?? false) {
+                $validation[ArrayOfType::ATTR_FILL_KEYS_WITH_NULLS] = range(
+                    0,
+                    count($validation[ArrayOfType::ATTR_EXACT_ELEMENTS] ?? $validation[ArrayOfType::ATTR_MIN_ELEMENTS])
+                );
+            }
+        }
+        unset($validation);
+
+        if ($this->has(self::ATTR_PREDEFINED_COLUMNS)) {
+            $columnValidation[ArrayOfType::ATTR_EXACT_ELEMENTS]       = count($this->get(self::ATTR_PREDEFINED_COLUMNS));
+            $columnValidation[ArrayOfType::ATTR_FILL_KEYS_WITH_NULLS] = array_keys($this->get(self::ATTR_PREDEFINED_COLUMNS));
+        }
+
+        if ($this->has(self::ATTR_PREDEFINED_ROWS)) {
+            $rowValidation[ArrayOfType::ATTR_EXACT_ELEMENTS]       = count($this->get(self::ATTR_PREDEFINED_ROWS));
+            $rowValidation[ArrayOfType::ATTR_FILL_KEYS_WITH_NULLS] = array_keys($this->get(self::ATTR_PREDEFINED_ROWS));
+        }
+
         $columnArrayField = Field::name(self::COLUMNS_FIELD)->label('Columns')
             ->arrayOfField($this->columnField)
             ->required()
@@ -147,7 +168,6 @@ class TableType extends InnerFormType
         }
 
         $tableFields[] = $columnArrayField->build();
-
 
         if ($this->rowField) {
             $rowArrayField = Field::name(self::ROWS_FIELD)->label('Rows')
@@ -164,6 +184,7 @@ class TableType extends InnerFormType
 
             $tableFields[] = $rowArrayField->build();
         }
+
         $tableFields[] = Field::name(self::CELLS_FIELD)->label('Cells')
             ->arrayOf(
                 Field::element()
