@@ -29,6 +29,6 @@ class PathHelper
      */
     public static function combine(string ... $paths) : string
     {
-        return implode(DIRECTORY_SEPARATOR, array_map([__CLASS__, 'normalize'], $paths));
+        return str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, implode(DIRECTORY_SEPARATOR, array_map([__CLASS__, 'normalize'], $paths)));
     }
 }
