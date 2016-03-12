@@ -11,7 +11,6 @@ use Dms\Common\Structure\Tests\Table\Fixtures\TestBusinessAvailability;
 use Dms\Common\Structure\Tests\Table\Fixtures\TestBusinessHoursTimetableCell;
 use Dms\Core\Form\Field\Processor\Validator\DateFormatValidator;
 use Dms\Core\Form\Field\Processor\Validator\MaxArrayLengthValidator;
-use Dms\Core\Form\Field\Processor\Validator\MinArrayLengthValidator;
 use Dms\Core\Form\Field\Processor\Validator\OneOfValidator;
 use Dms\Core\Form\Field\Processor\Validator\RequiredValidator;
 use Dms\Core\Form\Field\Processor\Validator\TypeValidator;

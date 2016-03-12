@@ -77,4 +77,21 @@ class FileTest extends CmsTestCase
         $this->assertEquals(new UploadedFile(__FILE__, UPLOAD_ERR_OK, 'abc'), File::fromExisting($mockUploadedFile));
         $this->assertEquals(new UploadedImage(__FILE__, UPLOAD_ERR_NO_TMP_DIR, 'abc'), File::fromExisting($mockUploadedImage));
     }
+
+    public function testInMemory()
+    {
+        $file = File::createInMemory('some-string', 'name.txt');
+
+        $this->assertStringStartsWith('data://text/plain', $file->getFullPath());
+        $this->assertSame('some-string', file_get_contents($file->getFullPath()));
+    }
+
+    public function testCreateTemporary()
+    {
+        $file = File::createTemporary('some-string', 'name.txt');
+
+        $this->assertStringStartsWith(PathHelper::normalize(sys_get_temp_dir()), $file->getFullPath());
+        $this->assertStringStartsWith('dms', $file->getName());
+        $this->assertSame('some-string', file_get_contents($file->getFullPath()));
+    }
 }

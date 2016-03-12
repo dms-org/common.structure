@@ -17,6 +17,10 @@ class PathHelper
      */
     public static function normalize(string $path) : string
     {
+        if (strpos($path, 'data://') === 0) {
+            return $path;
+        }
+
         return str_replace(['\\\\', '//', '\\', '/'], DIRECTORY_SEPARATOR, $path);
     }
 
