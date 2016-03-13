@@ -4,6 +4,7 @@ namespace Dms\Common\Structure\Tests\Geo;
 
 use Dms\Common\Structure\Geo\Country;
 use Dms\Common\Testing\CmsTestCase;
+use Dms\Core\Exception\InvalidArgumentException;
 use Dms\Core\Model\Object\InvalidEnumValueException;
 
 /**
@@ -36,5 +37,16 @@ class CountryTest extends CmsTestCase
 
         $this->assertSame(array_values(Country::getOptions()), array_keys($shortNameMap));
         $this->assertContainsOnly('string', $shortNameMap);
+    }
+
+    public function testFromShortName()
+    {
+        $enum = Country::fromShortName('Australia');
+
+        $this->assertSame(Country::AU, $enum->getValue());
+
+        $this->assertThrows(function () {
+            Country::fromShortName('Not a valid country');
+        }, InvalidArgumentException::class);
     }
 }

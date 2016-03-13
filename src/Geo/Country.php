@@ -2,7 +2,9 @@
 
 namespace Dms\Common\Structure\Geo;
 
+use Dms\Core\Exception\InvalidArgumentException;
 use Dms\Core\Model\Object\Enum;
+use Dms\Core\Model\Object\InvalidEnumValueException;
 use Dms\Core\Model\Object\PropertyTypeDefiner;
 use Phine\Country\CountryInterface;
 use Phine\Country\Loader\Loader;
@@ -279,6 +281,11 @@ class Country extends Enum
     protected static $shortNameMap;
 
     /**
+     * @var string[]|null
+     */
+    protected static $alpha2CodeMap;
+
+    /**
      * @var CountryInterface[]
      */
     protected static $countries = [];
@@ -296,6 +303,28 @@ class Country extends Enum
     }
 
     /**
+     * Builds a country enum from the supplied country short name.
+     *
+     * @param string $countryShortName
+     *
+     * @return Country
+     * @throws InvalidArgumentException
+     */
+    public static function fromShortName(string $countryShortName) : Country
+    {
+        self::getShortNameMap();
+
+        if (!isset(self::$alpha2CodeMap[$countryShortName])) {
+            throw InvalidArgumentException::format(
+                'Invalid country short name supplied to %s: country \'%s\' is not a valid option',
+                __METHOD__, $countryShortName
+            );
+        }
+
+        return new self(self::$alpha2CodeMap[$countryShortName]);
+    }
+
+    /**
      * Returns an array the country short names indexed by
      * their respective ISO 3166-1 alpha-2 country code.
      *
@@ -310,6 +339,8 @@ class Country extends Enum
             foreach ($countries as $country) {
                 self::$shortNameMap[$country->getAlpha2Code()] = $country->getShortName();
             }
+
+            self::$alpha2CodeMap = array_flip(self::$shortNameMap);
         }
 
         return self::$shortNameMap;
