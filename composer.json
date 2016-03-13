@@ -18,7 +18,8 @@
     },
     "require": {
         "php": ">=7.0.0",
-        "dms/core": "dev-master"
+        "dms/core": "dev-master",
+        "phine/country": "^1.1"
     },
     "autoload-dev": {
         "psr-4": {
