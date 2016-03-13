@@ -22,7 +22,7 @@ abstract class DateOrTimeObject extends ValueObject implements IComparable, IHas
     protected $dateTime;
 
     /**
-     * DateTimeObject constructor.
+     * DateOrTimeObject constructor.
      *
      * @param \DateTimeImmutable $dateTime
      */
