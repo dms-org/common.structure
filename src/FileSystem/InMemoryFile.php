@@ -2,11 +2,6 @@
 
 namespace Dms\Common\Structure\FileSystem;
 
-use Dms\Core\Exception\InvalidOperationException;
-use Dms\Core\File\IFile;
-use Dms\Core\File\IImage;
-use Dms\Core\File\IUploadedFile;
-use Dms\Core\File\IUploadedImage;
 use Dms\Core\Model\Object\ClassDefinition;
 
 /**
@@ -16,6 +11,11 @@ use Dms\Core\Model\Object\ClassDefinition;
  */
 class InMemoryFile extends File
 {
+    /**
+     * @var int
+     */
+    protected $size;
+
     /**
      * File constructor.
      *
@@ -27,6 +27,18 @@ class InMemoryFile extends File
         $path = 'data://text/plain;base64,' . base64_encode($data);
 
         parent::__construct($path, $clientFileName);
+
+        $this->size = strlen($data);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function define(ClassDefinition $class)
+    {
+        parent::define($class);
+
+        $class->property($this->size)->asInt();
     }
 
     /**
@@ -53,5 +65,21 @@ class InMemoryFile extends File
         $name = $this->getClientFileName();
 
         return strpos($name, '.') === false ? '' : substr($name, strrpos($name, '.') + 1);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getSize() : int
+    {
+        return $this->size;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function exists() : bool
+    {
+        return true;
     }
 }

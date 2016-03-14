@@ -88,6 +88,8 @@ class FileTest extends CmsTestCase
         $this->assertSame('name.txt', $file->getClientFileName());
         $this->assertSame('name.txt', $file->getName());
         $this->assertSame('txt', $file->getExtension());
+        $this->assertSame(true, $file->exists());
+        $this->assertSame(strlen('some-string'), $file->getSize());
     }
 
     public function testCreateTemporary()
