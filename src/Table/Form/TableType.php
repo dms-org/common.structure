@@ -7,6 +7,7 @@ use Dms\Common\Structure\Table\Form\Processor\TableStructureValidator;
 use Dms\Core\Form\Builder\Form;
 use Dms\Core\Form\Field\Builder\Field;
 use Dms\Core\Form\Field\Type\ArrayOfType;
+use Dms\Core\Form\Field\Type\FieldType;
 use Dms\Core\Form\Field\Type\InnerFormType;
 use Dms\Core\Form\IField;
 use Dms\Core\Form\IForm;
@@ -111,9 +112,8 @@ class TableType extends InnerFormType
     {
         $this->attributes[self::ATTR_FORM] = $this->form();
 
-        parent::initializeFromCurrentAttributes();
+        FieldType::initializeFromCurrentAttributes();
     }
-
 
     /**
      * @return IForm

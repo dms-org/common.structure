@@ -16,7 +16,6 @@ class TableStructureValidator extends FieldValidator
 {
     const MESSAGE_INVALID_STRUCTURE = 'validation.table.invalid-structure';
 
-
     /**
      * TableStructureValidator constructor.
      *
