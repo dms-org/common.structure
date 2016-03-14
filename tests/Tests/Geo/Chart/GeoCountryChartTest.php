@@ -4,6 +4,7 @@ namespace Dms\Common\Structure\Tests\Geo\Chart;
 
 use Dms\Common\Structure\Field;
 use Dms\Common\Structure\Geo\Chart\GeoChart;
+use Dms\Common\Structure\Geo\Chart\GeoCountryChart;
 use Dms\Common\Structure\Geo\Country;
 use Dms\Common\Testing\CmsTestCase;
 use Dms\Core\Exception\InvalidArgumentException;
@@ -12,11 +13,11 @@ use Dms\Core\Table\Chart\Structure\ChartAxis;
 /**
  * @author Elliot Levin <elliotlevin@hotmail.com>
  */
-class GeoChartTest extends CmsTestCase
+class GeoCountryChartTest extends CmsTestCase
 {
     public function testNew()
     {
-        $chart = new GeoChart(
+        $chart = new GeoCountryChart(
             $country = ChartAxis::forField(Field::create('country', 'Country')->enum(Country::class, Country::getShortNameMap())->required()->build()),
             $amount = ChartAxis::forField(Field::create('amount', 'Amount')->int()->build())
         );
@@ -27,7 +28,7 @@ class GeoChartTest extends CmsTestCase
         $this->assertSame(false, $chart->hasAxis('other'));
         $this->assertSame($country, $chart->getAxis('country'));
         $this->assertSame($amount, $chart->getAxis('amount'));
-        $this->assertSame($country, $chart->getTypeAxis());
+        $this->assertSame($country, $chart->getLocationAxis());
         $this->assertSame($amount, $chart->getValueAxis());
 
         $this->assertThrows(function () use ($chart) {
@@ -39,7 +40,7 @@ class GeoChartTest extends CmsTestCase
     {
         $this->setExpectedException(InvalidArgumentException::class);
 
-        new GeoChart(
+        new GeoCountryChart(
             $country = ChartAxis::forField(Field::create('address', 'Address')->string()->build()),
             $amount = ChartAxis::forField(Field::create('amount', 'Amount')->int()->build())
         );
