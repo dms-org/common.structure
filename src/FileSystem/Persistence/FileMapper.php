@@ -19,14 +19,16 @@ class FileMapper extends FileOrDirectoryMapper
      * @param string|null                 $clientFileNameColumnName
      * @param string|null                 $baseDirectoryPath
      * @param RelativePathCalculator|null $relativePathCalculator
+     * @param bool                        $allowInMemoryFiles
      */
     public function __construct(
-            string $filePathColumnName = 'file',
-            string $clientFileNameColumnName = null,
-            string $baseDirectoryPath = null,
-            RelativePathCalculator $relativePathCalculator = null
+        string $filePathColumnName = 'file',
+        string $clientFileNameColumnName = null,
+        string $baseDirectoryPath = null,
+        RelativePathCalculator $relativePathCalculator = null,
+        bool $allowInMemoryFiles = false
     ) {
-        parent::__construct($filePathColumnName, $clientFileNameColumnName, $baseDirectoryPath, $relativePathCalculator);
+        parent::__construct($filePathColumnName, $clientFileNameColumnName, $baseDirectoryPath, $relativePathCalculator, $allowInMemoryFiles);
     }
 
     /**

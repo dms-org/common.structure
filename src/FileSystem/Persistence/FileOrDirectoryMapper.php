@@ -39,6 +39,10 @@ abstract class FileOrDirectoryMapper extends IndependentValueObjectMapper
      * @var RelativePathCalculator
      */
     protected $relativePathCalculator;
+    /**
+     * @var bool
+     */
+    private $allowInMemoryFiles;
 
     /**
      * FileOrDirectoryMapper constructor.
@@ -47,12 +51,14 @@ abstract class FileOrDirectoryMapper extends IndependentValueObjectMapper
      * @param string|null                 $clientNameColumnName
      * @param string|null                 $baseDirectoryPath
      * @param RelativePathCalculator|null $relativePathCalculator
+     * @param bool                        $allowInMemoryFiles
      */
     public function __construct(
-            string $pathColumnName,
-            string $clientNameColumnName = null,
-            string $baseDirectoryPath = null,
-            RelativePathCalculator $relativePathCalculator = null
+        string $pathColumnName,
+        string $clientNameColumnName = null,
+        string $baseDirectoryPath = null,
+        RelativePathCalculator $relativePathCalculator = null,
+        bool $allowInMemoryFiles = false
     ) {
         if ($baseDirectoryPath) {
             $baseDirectoryPath = (new Directory($baseDirectoryPath))->getFullPath();
@@ -62,6 +68,7 @@ abstract class FileOrDirectoryMapper extends IndependentValueObjectMapper
         $this->clientNameColumnName   = $clientNameColumnName;
         $this->basePath               = $baseDirectoryPath;
         $this->relativePathCalculator = $relativePathCalculator ?: new RelativePathCalculator();
+        $this->allowInMemoryFiles     = $allowInMemoryFiles;
 
         parent::__construct();
     }
@@ -95,25 +102,29 @@ abstract class FileOrDirectoryMapper extends IndependentValueObjectMapper
         $map->ignoreUnmappedProperties();
 
         if ($this->basePath) {
-            $map->property($this->fullPathPropertyName())
-                    ->mappedVia(function ($fullPath) {
-                        return $this->relativePathCalculator->getRelativePath($this->basePath, $fullPath);
-                    }, function ($relativePath) {
-                        return $this->relativePathCalculator->resolveRelativePath($this->basePath, $relativePath);
-                    })
-                    ->to($this->pathColumnName)
-                    ->asVarchar(self::MAX_PATH_LENGTH);
+            $pathColumn = $map->property($this->fullPathPropertyName())
+                ->mappedVia(function ($fullPath) {
+                    return $this->relativePathCalculator->getRelativePath($this->basePath, $fullPath);
+                }, function ($relativePath) {
+                    return $this->relativePathCalculator->resolveRelativePath($this->basePath, $relativePath);
+                })
+                ->to($this->pathColumnName);
         } else {
-            $map->property($this->fullPathPropertyName())
-                    ->to($this->pathColumnName)
-                    ->asVarchar(self::MAX_PATH_LENGTH);
+            $pathColumn = $map->property($this->fullPathPropertyName())
+                ->to($this->pathColumnName);
+        }
+
+        if ($this->allowInMemoryFiles) {
+            $pathColumn->asText();
+        } else {
+            $pathColumn->asVarchar(self::MAX_PATH_LENGTH);
         }
 
         if ($this->clientNameColumnName) {
             $map->property($this->clientFileNamePropertyName())
-                    ->to($this->clientNameColumnName)
-                    ->nullable()
-                    ->asVarchar(self::MAX_CLIENT_FILE_NAME_LENGTH);
+                ->to($this->clientNameColumnName)
+                ->nullable()
+                ->asVarchar(self::MAX_CLIENT_FILE_NAME_LENGTH);
         }
     }
 }

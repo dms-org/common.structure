@@ -25,6 +25,10 @@ class RelativePathCalculator
      */
     public function getRelativePath(string $fromDir, string $to) : string
     {
+        if (strpos($to, 'data://') === 0) {
+            return $to;
+        }
+
         // some compatibility fixes for Windows paths
         $fromDir = str_replace('\\', '/', $fromDir);
         $to      = str_replace('\\', '/', $to);
@@ -80,6 +84,10 @@ class RelativePathCalculator
      */
     public function resolveRelativePath(string $basePath, string $relativePath) : string
     {
+        if (strpos($relativePath, 'data://') === 0) {
+            return $relativePath;
+        }
+
         $basePath     = str_replace('\\', '/', $basePath);
         $relativePath = str_replace('\\', '/', $relativePath);
 
