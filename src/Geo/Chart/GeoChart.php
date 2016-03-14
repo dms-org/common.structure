@@ -27,7 +27,7 @@ abstract class GeoChart extends ChartStructure
     /**
      * @inheritDoc
      */
-    public function __construct(IChartAxis $locationAxis, IChartAxis $valueAxis)
+    public function __construct(IChartAxis $locationAxis, IChartAxis $valueAxis, array $extraAxes = [])
     {
         InvalidArgumentException::verify(
             count($locationAxis->getComponents()) === 1,
@@ -35,7 +35,7 @@ abstract class GeoChart extends ChartStructure
             count($locationAxis->getComponents())
         );
 
-        parent::__construct([$locationAxis, $valueAxis]);
+        parent::__construct(array_merge([$locationAxis, $valueAxis], $extraAxes));
 
         $this->locationAxis = $locationAxis;
         $this->valueAxis    = $valueAxis;

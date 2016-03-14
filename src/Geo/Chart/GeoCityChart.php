@@ -3,6 +3,7 @@
 namespace Dms\Common\Structure\Geo\Chart;
 
 use Dms\Common\Structure\Geo\Country;
+use Dms\Common\Structure\Geo\LatLng;
 use Dms\Core\Exception\InvalidArgumentException;
 use Dms\Core\Model\Type\Builder\Type;
 use Dms\Core\Table\Chart\IChartAxis;
@@ -20,9 +21,14 @@ class GeoCityChart extends GeoChart
     private $mapCountry;
 
     /**
+     * @var IChartAxis|null
+     */
+    private $cityLatLngAxis;
+
+    /**
      * @inheritDoc
      */
-    public function __construct(IChartAxis $cityAxis, IChartAxis $valueAxis, Country $mapCountry = null)
+    public function __construct(IChartAxis $cityAxis, IChartAxis $cityLatLngAxis = null, IChartAxis $valueAxis, Country $mapCountry = null)
     {
         $cityAxisType = $cityAxis->getComponent()->getType()->getPhpType();
 
@@ -32,8 +38,27 @@ class GeoCityChart extends GeoChart
             $cityAxis->getName(), 'string', $cityAxisType->asTypeString()
         );
 
-        parent::__construct($cityAxis, $valueAxis);
-        $this->mapCountry = $mapCountry;
+        if ($cityLatLngAxis) {
+            $cityLatLngAxisType = $cityLatLngAxis->getComponent()->getType()->getPhpType();
+
+            InvalidArgumentException::verify(
+                $cityLatLngAxisType->equals(LatLng::type()),
+                'The city lat/lng axis \'%s\' is incompatible: expecting type %s, %s given',
+                $cityLatLngAxis->getName(), LatLng::class, $cityLatLngAxisType->asTypeString()
+            );
+        }
+
+        parent::__construct($cityAxis, $valueAxis, $cityLatLngAxis ? [$cityLatLngAxis] : []);
+        $this->mapCountry     = $mapCountry;
+        $this->cityLatLngAxis = $cityLatLngAxis;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasMapCountry() : bool
+    {
+        return $this->mapCountry !== null;
     }
 
     /**
@@ -45,5 +70,21 @@ class GeoCityChart extends GeoChart
     public function getMapCountry()
     {
         return $this->mapCountry;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasCityLatLngAxis() : bool
+    {
+        return $this->cityLatLngAxis !== null;
+    }
+
+    /**
+     * @return IChartAxis|null
+     */
+    public function getCityLatLngAxis()
+    {
+        return $this->cityLatLngAxis;
     }
 }
