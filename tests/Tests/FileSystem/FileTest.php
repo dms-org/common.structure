@@ -4,6 +4,7 @@ namespace Dms\Common\Structure\Tests\FileSystem;
 
 use Dms\Common\Structure\FileSystem\Directory;
 use Dms\Common\Structure\FileSystem\File;
+use Dms\Common\Structure\FileSystem\InMemoryFile;
 use Dms\Common\Structure\FileSystem\PathHelper;
 use Dms\Common\Structure\FileSystem\UploadedFile;
 use Dms\Common\Structure\FileSystem\UploadedImage;
@@ -80,10 +81,13 @@ class FileTest extends CmsTestCase
 
     public function testInMemory()
     {
-        $file = File::createInMemory('some-string', 'name.txt');
+        $file = new InMemoryFile('some-string', 'name.txt');
 
         $this->assertStringStartsWith('data://text/plain', $file->getFullPath());
         $this->assertSame('some-string', file_get_contents($file->getFullPath()));
+        $this->assertSame('name.txt', $file->getClientFileName());
+        $this->assertSame('name.txt', $file->getName());
+        $this->assertSame('txt', $file->getExtension());
     }
 
     public function testCreateTemporary()

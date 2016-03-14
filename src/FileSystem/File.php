@@ -66,21 +66,6 @@ class File extends FileSystemObject implements IFile
     }
 
     /**
-     * Creates an in-memory file.
-     *
-     * @param string      $data
-     * @param string|null $clientFileName
-     *
-     * @return File
-     */
-    public static function createInMemory(string $data, string $clientFileName = null) : File
-    {
-        $path = 'data://text/plain;base64,' . base64_encode($data);
-
-        return new self($path, $clientFileName);
-    }
-
-    /**
      * Create a temporary temporary file.
      *
      * @param string      $data
