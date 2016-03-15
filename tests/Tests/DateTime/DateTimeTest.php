@@ -51,7 +51,7 @@ class DateTimeTest extends DateOrTimeObjectTest
 
     public function testFromFormat()
     {
-        $dateTime = DateTime::fomFormat('d/m/Y', '21/8/2001');
+        $dateTime = DateTime::fromFormat('d/m/Y', '21/8/2001');
 
         $this->assertSame(2001, $dateTime->getYear());
         $this->assertSame(8, $dateTime->getMonth());
@@ -63,7 +63,7 @@ class DateTimeTest extends DateOrTimeObjectTest
 
     public function testAddingAndSubtracting()
     {
-        $dateTime = DateTime::fomFormat('Y-m-d H:i:s', '2001-01-01 12:00:00');
+        $dateTime = DateTime::fromFormat('Y-m-d H:i:s', '2001-01-01 12:00:00');
 
         $otherTime = $dateTime
                 ->addYears(10)
@@ -80,7 +80,7 @@ class DateTimeTest extends DateOrTimeObjectTest
 
     public function testComparisons()
     {
-        $dateTime = DateTime::fomFormat('Y-m-d H:i:s', '2001-01-01 12:00:00');
+        $dateTime = DateTime::fromFormat('Y-m-d H:i:s', '2001-01-01 12:00:00');
 
         $this->assertFalse($dateTime->comesBefore($dateTime));
         $this->assertFalse($dateTime->comesBefore($dateTime->subSeconds(1)));
@@ -101,7 +101,7 @@ class DateTimeTest extends DateOrTimeObjectTest
 
     public function testGetDateParts()
     {
-        $dateTime = DateTime::fomFormat('Y-m-d H:i:s', '2001-01-01 12:00:00');
+        $dateTime = DateTime::fromFormat('Y-m-d H:i:s', '2001-01-01 12:00:00');
 
         $date = $dateTime->getDate();
         $this->assertInstanceOf(Date::class, $date);
@@ -112,7 +112,7 @@ class DateTimeTest extends DateOrTimeObjectTest
 
     public function testGetTimeParts()
     {
-        $dateTime = DateTime::fomFormat('Y-m-d H:i:s', '2001-01-01 12:00:00');
+        $dateTime = DateTime::fromFormat('Y-m-d H:i:s', '2001-01-01 12:00:00');
 
         $time = $dateTime->getTimeOfDay();
         $this->assertInstanceOf(TimeOfDay::class, $time);
@@ -123,7 +123,7 @@ class DateTimeTest extends DateOrTimeObjectTest
 
     public function testInTimezone()
     {
-        $dateTime = DateTime::fomFormat('Y-m-d H:i:s', '2001-01-01 12:00:00');
+        $dateTime = DateTime::fromFormat('Y-m-d H:i:s', '2001-01-01 12:00:00');
 
         $timezoned = $dateTime->inTimezone('Australia/Melbourne');
         $this->assertInstanceOf(TimezonedDateTime::class, $timezoned);

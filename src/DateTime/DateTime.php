@@ -49,7 +49,7 @@ class DateTime extends DateTimeBase
      *
      * @return DateTime
      */
-    public static function fomFormat(string $format, string $dateString) : DateTime
+    public static function fromFormat(string $format, string $dateString) : DateTime
     {
         return new self(\DateTimeImmutable::createFromFormat('!' . $format, $dateString));
     }
