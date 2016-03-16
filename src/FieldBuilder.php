@@ -27,6 +27,7 @@ use Dms\Common\Structure\FileSystem\Form\ImageUploadType;
 use Dms\Common\Structure\Geo\Form\LatLngType;
 use Dms\Common\Structure\Geo\Form\StreetAddressType;
 use Dms\Common\Structure\Geo\Form\StreetAddressWithLatLngType;
+use Dms\Common\Structure\Money\Form\MoneyType;
 use Dms\Common\Structure\Table\Form\Builder\TableCellClassDefiner;
 use Dms\Common\Structure\Web\Form\EmailAddressType;
 use Dms\Common\Structure\Web\Form\HtmlType;
@@ -391,6 +392,22 @@ class FieldBuilder
     {
         return $this->field->type(new StreetAddressWithLatLngType());
     }
+    //endregion
+
+    //region Money Fields
+
+    /**
+     * Defines a field that will map to a Money value object.
+     *
+     * @see Dms\Common\Structure\Money\Money
+     *
+     * @return FieldBuilderBase
+     */
+    public function money() : FieldBuilderBase
+    {
+        return $this->field->type(new MoneyType());
+    }
+
     //endregion
 
     //region Table Fields

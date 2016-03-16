@@ -6,6 +6,7 @@ use Dms\Common\Structure\Colour\Mapper\ColourOrm;
 use Dms\Common\Structure\DateTime\Persistence\DateTimeOrm;
 use Dms\Common\Structure\FileSystem\Persistence\FileSystemOrm;
 use Dms\Common\Structure\Geo\Persistence\GeoOrm;
+use Dms\Common\Structure\Money\Persistence\MoneyOrm;
 use Dms\Common\Structure\Web\Persistence\WebOrm;
 use Dms\Core\Persistence\Db\Mapping\Definition\Orm\OrmDefinition;
 use Dms\Core\Persistence\Db\Mapping\Orm;
@@ -31,6 +32,7 @@ class CommonOrm extends Orm
                 new DateTimeOrm(),
                 new GeoOrm(),
                 new FileSystemOrm(),
+                new MoneyOrm(),
                 new WebOrm(),
         ]);
     }

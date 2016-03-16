@@ -96,7 +96,7 @@ class FileTest extends CmsTestCase
     {
         $file = File::createTemporary('some-string', 'name.txt');
 
-        $this->assertStringStartsWith(PathHelper::normalize(sys_get_temp_dir()), $file->getFullPath());
+        $this->assertStringStartsWith(PathHelper::normalize(realpath(sys_get_temp_dir())), $file->getFullPath());
         $this->assertStringStartsWith('dms', $file->getName());
         $this->assertSame('some-string', file_get_contents($file->getFullPath()));
     }
