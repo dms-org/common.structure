@@ -52,12 +52,7 @@ class MoneyMapper extends IndependentValueObjectMapper
 
         // We don't use the typical enum mapper as their are too many
         // currency codes to reasonably map to an enum column
-        $map->property(Money::CURRENCY)
-            ->mappedVia(function (Currency $currency) : string {
-                return $currency->getValue();
-            }, function (string $code) : Currency {
-                return new Currency($code);
-            })
+        $map->enum(Money::CURRENCY)
             ->to($this->currencyColumnName)
             ->asVarchar(5);
     }
