@@ -65,6 +65,34 @@ class DateTimeRangeTest extends DateOrTimeRangeTest
         $this->assertSame(false, $range->containsExclusive(DateTime::fromString('2012-03-20')));
     }
 
+    public function testEncompasses()
+    {
+        $range1 = new DateTimeRange(
+            $start = DateTime::fromString('2015-01-05'),
+            $end = DateTime::fromString('2015-06-05')
+        );
+
+        $range2 = new DateTimeRange(
+            $start = DateTime::fromString('2015-03-30'),
+            $end = DateTime::fromString('2015-08-30')
+        );
+
+        $range3 = new DateTimeRange(
+            $start = DateTime::fromString('2015-03-20'),
+            $end = DateTime::fromString('2015-04-20')
+        );
+
+        $this->assertSame(true, $range1->encompasses($range1));
+        $this->assertSame(true, $range2->encompasses($range2));
+        $this->assertSame(true, $range3->encompasses($range3));
+
+        $this->assertSame(true, $range1->encompasses($range3));
+
+        $this->assertSame(false, $range1->encompasses($range2));
+        $this->assertSame(false, $range3->encompasses($range1));
+        $this->assertSame(false, $range2->encompasses($range1));
+    }
+
     public function testOverlaps()
     {
         $range1 = new DateTimeRange(

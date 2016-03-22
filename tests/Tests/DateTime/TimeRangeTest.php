@@ -66,21 +66,49 @@ class TimeRangeTest extends DateOrTimeRangeTest
         $this->assertSame(false, $range->containsExclusive(new TimeOfDay(03, 03, 20)));
     }
 
-    public function testOverlaps()
+    public function testEncompasses()
     {
         $range1 = new TimeRange(
-                $start = new TimeOfDay(06, 03, 05),
-                $end = new TimeOfDay(06, 04, 05)
+            $start = new TimeOfDay(01, 00, 00),
+            $end = new TimeOfDay(12, 00, 00)
         );
 
         $range2 = new TimeRange(
-                $start = new TimeOfDay(06, 03, 30),
-                $end = new TimeOfDay(06, 05, 30)
+            $start = new TimeOfDay(06, 00, 00),
+            $end = new TimeOfDay(18, 00, 00)
         );
 
         $range3 = new TimeRange(
-                $start = new TimeOfDay(06, 05, 20),
-                $end = new TimeOfDay(06, 06, 20)
+            $start = new TimeOfDay(03, 00, 00),
+            $end = new TimeOfDay(04, 00, 00)
+        );
+
+        $this->assertSame(true, $range1->encompasses($range1));
+        $this->assertSame(true, $range2->encompasses($range2));
+        $this->assertSame(true, $range3->encompasses($range3));
+
+        $this->assertSame(true, $range1->encompasses($range3));
+
+        $this->assertSame(false, $range1->encompasses($range2));
+        $this->assertSame(false, $range3->encompasses($range1));
+        $this->assertSame(false, $range2->encompasses($range1));
+    }
+
+    public function testOverlaps()
+    {
+        $range1 = new TimeRange(
+            $start = new TimeOfDay(06, 03, 05),
+            $end = new TimeOfDay(06, 04, 05)
+        );
+
+        $range2 = new TimeRange(
+            $start = new TimeOfDay(06, 03, 30),
+            $end = new TimeOfDay(06, 05, 30)
+        );
+
+        $range3 = new TimeRange(
+            $start = new TimeOfDay(06, 05, 20),
+            $end = new TimeOfDay(06, 06, 20)
         );
 
         $this->assertSame(true, $range1->overlaps($range1));

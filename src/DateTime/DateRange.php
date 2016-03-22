@@ -83,6 +83,19 @@ class DateRange extends DateOrTimeRangeObject
     }
 
     /**
+     * Returns whether the supplied date range is encompassed by this
+     * date range.
+     *
+     * @param DateRange $otherRange
+     *
+     * @return bool
+     */
+    public function encompasses(DateRange $otherRange) : bool
+    {
+        return $this->start->comesBeforeOrEqual($otherRange->start) && $this->end->comesAfterOrEqual($otherRange->end);
+    }
+
+    /**
      * Returns whether the supplied date range overlaps this date range.
      *
      * @param DateRange $otherRange
@@ -91,6 +104,8 @@ class DateRange extends DateOrTimeRangeObject
      */
     public function overlaps(DateRange $otherRange) : bool
     {
-        return $this->contains($otherRange->getStart()) || $this->contains($otherRange->getEnd());
+        return $this->contains($otherRange->start) || $this->contains($otherRange->end)
+        || $this->encompasses($otherRange)
+        || $otherRange->encompasses($this);
     }
 }

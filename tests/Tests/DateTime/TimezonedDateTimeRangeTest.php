@@ -65,6 +65,34 @@ class TimezonedDateTimeRangeTest extends DateOrTimeRangeTest
         $this->assertSame(false, $range->containsExclusive(TimezonedDateTime::fromString('2012-03-20', 'UTC')));
     }
 
+    public function testEncompasses()
+    {
+        $range1 = new TimezonedDateTimeRange(
+            $start = TimezonedDateTime::fromString('2015-01-05', 'UTC'),
+            $end = TimezonedDateTime::fromString('2015-06-05', 'UTC')
+        );
+
+        $range2 = new TimezonedDateTimeRange(
+            $start = TimezonedDateTime::fromString('2015-03-30', 'UTC'),
+            $end = TimezonedDateTime::fromString('2015-08-30', 'UTC')
+        );
+
+        $range3 = new TimezonedDateTimeRange(
+            $start = TimezonedDateTime::fromString('2015-3-20', 'UTC'),
+            $end = TimezonedDateTime::fromString('2015-04-20', 'UTC')
+        );
+
+        $this->assertSame(true, $range1->encompasses($range1));
+        $this->assertSame(true, $range2->encompasses($range2));
+        $this->assertSame(true, $range3->encompasses($range3));
+
+        $this->assertSame(true, $range1->encompasses($range3));
+
+        $this->assertSame(false, $range1->encompasses($range2));
+        $this->assertSame(false, $range3->encompasses($range1));
+        $this->assertSame(false, $range2->encompasses($range1));
+    }
+
     public function testOverlaps()
     {
         $range1 = new TimezonedDateTimeRange(

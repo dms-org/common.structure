@@ -83,6 +83,19 @@ class TimezonedDateTimeRange extends DateOrTimeRangeObject
     }
 
     /**
+     * Returns whether the supplied timezoned date time range is encompassed by this
+     * timezoned date time range.
+     *
+     * @param TimezonedDateTimeRange $otherRange
+     *
+     * @return bool
+     */
+    public function encompasses(TimezonedDateTimeRange $otherRange) : bool
+    {
+        return $this->start->comesBeforeOrEqual($otherRange->start) && $this->end->comesAfterOrEqual($otherRange->end);
+    }
+
+    /**
      * Returns whether the supplied timezoned date time range overlaps this date time range.
      *
      * @param TimezonedDateTimeRange $otherRange
@@ -91,6 +104,8 @@ class TimezonedDateTimeRange extends DateOrTimeRangeObject
      */
     public function overlaps(TimezonedDateTimeRange $otherRange) : bool
     {
-        return $this->contains($otherRange->getStart()) || $this->contains($otherRange->getEnd());
+        return $this->contains($otherRange->start) || $this->contains($otherRange->end)
+        || $this->encompasses($otherRange)
+        || $otherRange->encompasses($this);
     }
 }
