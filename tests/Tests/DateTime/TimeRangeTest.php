@@ -121,4 +121,32 @@ class TimeRangeTest extends DateOrTimeRangeTest
         $this->assertSame(false, $range1->overlaps($range3));
         $this->assertSame(false, $range3->overlaps($range1));
     }
+
+    public function testOverlapsExclusive()
+    {
+        $range1 = new TimeRange(
+            $start = new TimeOfDay(06, 03, 05),
+            $end = new TimeOfDay(06, 04, 05)
+        );
+
+        $range2 = new TimeRange(
+            $start = new TimeOfDay(06, 03, 30),
+            $end = new TimeOfDay(06, 05, 30)
+        );
+
+        $range3 = new TimeRange(
+            $start = new TimeOfDay(06, 05, 30),
+            $end = new TimeOfDay(06, 06, 20)
+        );
+
+        $this->assertSame(true, $range1->overlapsExclusive($range1));
+        $this->assertSame(true, $range1->overlapsExclusive($range2));
+
+        $this->assertSame(true, $range2->overlapsExclusive($range1));
+        
+        $this->assertSame(false, $range3->overlapsExclusive($range2));
+        $this->assertSame(false, $range2->overlapsExclusive($range3));
+        $this->assertSame(false, $range1->overlapsExclusive($range3));
+        $this->assertSame(false, $range3->overlapsExclusive($range1));
+    }
 }

@@ -108,4 +108,18 @@ class TimeRange extends DateOrTimeRangeObject
         || $this->encompasses($otherRange)
         || $otherRange->encompasses($this);
     }
+
+    /**
+     * Returns whether the supplied time range overlaps (exclusive) this time range.
+     *
+     * @param TimeRange $otherRange
+     *
+     * @return bool
+     */
+    public function overlapsExclusive(TimeRange $otherRange) : bool
+    {
+        return $this->containsExclusive($otherRange->start) || $this->containsExclusive($otherRange->end)
+        || $this->encompasses($otherRange)
+        || $otherRange->encompasses($this);
+    }
 }

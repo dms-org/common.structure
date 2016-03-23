@@ -108,4 +108,18 @@ class TimezonedDateTimeRange extends DateOrTimeRangeObject
         || $this->encompasses($otherRange)
         || $otherRange->encompasses($this);
     }
+
+    /**
+     * Returns whether the supplied timezoned date time range overlaps (exclusive) this date time range.
+     *
+     * @param TimezonedDateTimeRange $otherRange
+     *
+     * @return bool
+     */
+    public function overlapsExclusive(TimezonedDateTimeRange $otherRange) : bool
+    {
+        return $this->containsExclusive($otherRange->start) || $this->containsExclusive($otherRange->end)
+        || $this->encompasses($otherRange)
+        || $otherRange->encompasses($this);
+    }
 }

@@ -108,4 +108,18 @@ class DateTimeRange extends DateOrTimeRangeObject
         || $this->encompasses($otherRange)
         || $otherRange->encompasses($this);
     }
+
+    /**
+     * Returns whether the supplied date time range overlaps (exclusive) this date time range.
+     *
+     * @param DateTimeRange $otherRange
+     *
+     * @return bool
+     */
+    public function overlapsExclusive(DateTimeRange $otherRange) : bool
+    {
+        return $this->containsExclusive($otherRange->start) || $this->containsExclusive($otherRange->end)
+        || $this->encompasses($otherRange)
+        || $otherRange->encompasses($this);
+    }
 }

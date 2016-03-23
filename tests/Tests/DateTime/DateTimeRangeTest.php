@@ -96,18 +96,18 @@ class DateTimeRangeTest extends DateOrTimeRangeTest
     public function testOverlaps()
     {
         $range1 = new DateTimeRange(
-                $start = DateTime::fromString('2015-03-05'),
-                $end = DateTime::fromString('2015-04-05')
+            $start = DateTime::fromString('2015-03-05'),
+            $end = DateTime::fromString('2015-04-05')
         );
 
         $range2 = new DateTimeRange(
-                $start = DateTime::fromString('2015-03-30'),
-                $end = DateTime::fromString('2015-05-30')
+            $start = DateTime::fromString('2015-03-30'),
+            $end = DateTime::fromString('2015-05-30')
         );
 
         $range3 = new DateTimeRange(
-                $start = DateTime::fromString('2015-05-20'),
-                $end = DateTime::fromString('2015-06-20')
+            $start = DateTime::fromString('2015-05-20'),
+            $end = DateTime::fromString('2015-06-20')
         );
 
         $this->assertSame(true, $range1->overlaps($range1));
@@ -119,5 +119,33 @@ class DateTimeRangeTest extends DateOrTimeRangeTest
 
         $this->assertSame(false, $range1->overlaps($range3));
         $this->assertSame(false, $range3->overlaps($range1));
+    }
+
+    public function testOverlapsExclusive()
+    {
+        $range1 = new DateTimeRange(
+            $start = DateTime::fromString('2015-03-05'),
+            $end = DateTime::fromString('2015-04-05')
+        );
+
+        $range2 = new DateTimeRange(
+            $start = DateTime::fromString('2015-03-30'),
+            $end = DateTime::fromString('2015-05-30')
+        );
+
+        $range3 = new DateTimeRange(
+            $start = DateTime::fromString('2015-05-30'),
+            $end = DateTime::fromString('2015-06-20')
+        );
+
+        $this->assertSame(true, $range1->overlapsExclusive($range1));
+        $this->assertSame(true, $range1->overlapsExclusive($range2));
+
+        $this->assertSame(true, $range2->overlapsExclusive($range1));
+
+        $this->assertSame(false, $range3->overlapsExclusive($range2));
+        $this->assertSame(false, $range2->overlapsExclusive($range3));
+        $this->assertSame(false, $range1->overlapsExclusive($range3));
+        $this->assertSame(false, $range3->overlapsExclusive($range1));
     }
 }
