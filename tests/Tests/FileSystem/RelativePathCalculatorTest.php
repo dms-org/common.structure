@@ -47,6 +47,8 @@ class RelativePathCalculatorTest extends CmsTestCase
                 ['from' => '/media/dev/some-project/resources/', 'to' => '/media/dev/some-project/resources/doc.pdf', 'relative' => 'doc.pdf'],
                 ['from' => '/media/dev/some-project/resources', 'to' => '/media/dev/doc.pdf', 'relative' => '../../doc.pdf'],
                 ['from' => '/media/dev/some-project/resources/', 'to' => '/media/dev/doc.pdf', 'relative' => '../../doc.pdf'],
+                //
+                ['from' => 'C:\\abc\\foo\\', 'to' => 'C:\\def', 'relative' => '..\\..\\def'],
         ];
     }
 

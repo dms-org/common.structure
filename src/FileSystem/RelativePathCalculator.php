@@ -8,6 +8,7 @@ use Dms\Core\Exception\InvalidArgumentException;
  * Calculates the relative path between two absolute paths.
  *
  * Majority of the code sourced from:
+ *
  * @see    http://stackoverflow.com/questions/2637945/getting-relative-path-from-absolute-path-in-php
  *
  * @author Elliot Levin <elliotlevin@hotmail.com>
@@ -99,9 +100,11 @@ class RelativePathCalculator
             return PathHelper::normalize(str_replace('//', '/', $basePath . '/' . $relativePath));
         }
 
-        $parts         = explode('/', $basePath);
-        $relativeParts = explode('/', trim($relativePath, '/'));
-        $trailingSlash = substr($relativePath, -1) === '/' ? '/' : '';
+        $parts          = explode('/', $basePath);
+        $relativeParts  = explode('/', trim($relativePath, '/'));
+        $isDrivePath    = substr($basePath, 1, 1) === ':';
+        $precedingSlash = $isDrivePath ? '' : '/';
+        $trailingSlash  = substr($relativePath, -1) === '/' ? '/' : '';
 
         foreach ($parts as $key => $part) {
             if ($part === '') {
@@ -119,6 +122,6 @@ class RelativePathCalculator
             }
         }
 
-        return PathHelper::normalize('/' . implode('/', $parts) . ($parts ? $trailingSlash : ''));
+        return PathHelper::normalize($precedingSlash . implode('/', $parts) . ($parts ? $trailingSlash : ''));
     }
 }
