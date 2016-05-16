@@ -1313,8 +1313,10 @@ class Currency extends Enum
         $map = [];
 
         foreach (self::$currencies as $code => $data) {
-            $map[$code] = $data['display_name'];
+            $map[$code] = $code . ' (' . $data['display_name'] . ')';
         }
+
+        ksort($map, SORT_STRING);
 
         return $map;
     }
