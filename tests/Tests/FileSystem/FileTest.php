@@ -100,4 +100,16 @@ class FileTest extends CmsTestCase
         $this->assertStringStartsWith('dms', $file->getName());
         $this->assertSame('some-string', file_get_contents($file->getFullPath()));
     }
+
+    public function testCanBeSerialized()
+    {
+        $file = new File(__FILE__);
+        $file->getInfo();
+        
+        /** @var File $unserialized */
+        $unserialized = unserialize(serialize($file));
+        $unserialized->getInfo();
+
+        $this->assertEquals($file, $unserialized);
+    }
 }

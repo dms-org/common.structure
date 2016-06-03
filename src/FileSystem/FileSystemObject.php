@@ -77,4 +77,17 @@ abstract class FileSystemObject extends ValueObject
 
         return $this->info;
     }
+
+    protected function dataToSerialize()
+    {
+        $data = parent::dataToSerialize();
+        $data['info'] = null;
+
+        return $data;
+    }
+
+    protected function hydrateFromSerializedData($deserializedData)
+    {
+        parent::hydrateFromSerializedData($deserializedData);
+    }
 }
