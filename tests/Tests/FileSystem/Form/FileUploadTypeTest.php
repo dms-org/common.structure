@@ -106,8 +106,11 @@ class FileUploadTypeTest extends FieldTypeTest
 
     protected function mockUploadedFile($name, $fileSize = 10)
     {
-        $mock = $this->getMock(UploadedFile::class, ['getSize'], ['somepath/' . $name, UPLOAD_ERR_OK]);
+        $mock = $this->getMockForAbstractClass(IUploadedFile::class);
 
+        $mock->method('getFullPath')->willReturn('somepath/' . $name);
+        $mock->method('hasUploadedSuccessfully')->willReturn(true);
+        $mock->method('getUploadError')->willReturn(UPLOAD_ERR_OK);
         $mock->method('getSize')->willReturn($fileSize);
         $mock->method('moveTo')->willReturnSelf();
 
