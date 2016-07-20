@@ -17,24 +17,51 @@ use Dms\Core\Form\IForm;
  */
 class MoneyType extends InnerFormType
 {
+    const ATTR_VALID_CURRENCIES = 'validCurrencies';
+
     public function __construct()
     {
         parent::__construct(self::form());
     }
 
-    /**
-     * @return IForm
-     */
-    public static function form() : IForm
+    protected function initializeFromCurrentAttributes()
     {
+        $this->attributes[self::ATTR_FORM] = self::form($this->get(self::ATTR_VALID_CURRENCIES));
+        
+        parent::initializeFromCurrentAttributes();
+    }
+
+
+    /**
+     * @param Currency[]|null $currencies
+     *
+     * @return IForm
+     * @throws \Dms\Core\Form\ConflictingFieldNameException
+     */
+    public static function form(array $currencies = null) : IForm
+    {
+        if ($currencies === null) {
+            $currencies = Currency::getAll();
+        }
+
+        $nameMap = Currency::getNameMap();
+        $filteredNameMap = [];
+
+        foreach ($currencies as $currency) {
+            $filteredNameMap[$currency->getValue()] = $nameMap[$currency->getValue()];
+        }
+
+
+        $currencyField = Field::name('currency')->label('Currency')
+            ->enum(Currency::class, $filteredNameMap)
+            ->required();
+
         return Form::create()
             ->section('Money', [
                 Field::name('amount')->label('Amount')
                     ->decimal()
                     ->required(),
-                Field::name('currency')->label('Currency')
-                    ->enum(Currency::class, Currency::getNameMap())
-                    ->required(),
+                $currencyField,
             ])
             ->build();
     }

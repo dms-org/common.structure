@@ -27,6 +27,7 @@ use Dms\Common\Structure\FileSystem\Form\ImageUploadType;
 use Dms\Common\Structure\Geo\Form\LatLngType;
 use Dms\Common\Structure\Geo\Form\StreetAddressType;
 use Dms\Common\Structure\Geo\Form\StreetAddressWithLatLngType;
+use Dms\Common\Structure\Money\Form\Builder\MoneyFieldBuilder;
 use Dms\Common\Structure\Money\Form\MoneyType;
 use Dms\Common\Structure\Table\Form\Builder\TableCellClassDefiner;
 use Dms\Common\Structure\Web\Form\EmailAddressType;
@@ -401,11 +402,11 @@ class FieldBuilder
      *
      * @see Dms\Common\Structure\Money\Money
      *
-     * @return FieldBuilderBase
+     * @return MoneyFieldBuilder
      */
-    public function money() : FieldBuilderBase
+    public function money() : MoneyFieldBuilder
     {
-        return $this->field->type(new MoneyType());
+        return new MoneyFieldBuilder($this->field->type(new MoneyType()));
     }
 
     //endregion
