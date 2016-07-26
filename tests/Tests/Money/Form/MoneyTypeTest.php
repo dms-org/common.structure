@@ -49,6 +49,7 @@ class MoneyTypeTest extends FieldTypeTest
                 [
                         [],
                         [
+                                new Message(RequiredValidator::MESSAGE, ['field' => 'Amount', 'input' => null]),
                                 new Message(RequiredValidator::MESSAGE, ['field' => 'Currency', 'input' => null]),
                         ],
                 ],

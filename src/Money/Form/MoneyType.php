@@ -26,10 +26,7 @@ class MoneyType extends InnerFormType
 
     protected function initializeFromCurrentAttributes()
     {
-        $this->attributes[self::ATTR_FORM] = self::form(
-            $this->get(self::ATTR_VALID_CURRENCIES),
-            $this->get(self::ATTR_REQUIRED) ?? false
-        );
+        $this->attributes[self::ATTR_FORM] = self::form($this->get(self::ATTR_VALID_CURRENCIES));
         
         parent::initializeFromCurrentAttributes();
     }
@@ -37,12 +34,11 @@ class MoneyType extends InnerFormType
 
     /**
      * @param Currency[]|null $currencies
-     * @param bool            $required
      *
      * @return IForm
      * @throws \Dms\Core\Form\ConflictingFieldNameException
      */
-    public static function form(array $currencies = null, bool $required = false) : IForm
+    public static function form(array $currencies = null) : IForm
     {
         if ($currencies === null) {
             $currencies = Currency::getAll();
@@ -60,16 +56,11 @@ class MoneyType extends InnerFormType
             ->enum(Currency::class, $filteredNameMap)
             ->required();
 
-        $amountField = Field::name('amount')->label('Amount')
-            ->decimal();
-
-        if ($required) {
-            $amountField->required();
-        }
-
         return Form::create()
             ->section('Money', [
-                $amountField,
+                Field::name('amount')->label('Amount')
+                    ->decimal()
+                    ->required(),
                 $currencyField,
             ])
             ->build();
@@ -84,7 +75,7 @@ class MoneyType extends InnerFormType
             new CustomProcessor(
                 Money::type(),
                 function ($input) {
-                    return $input['amount'] === '' ? null : Money::fromString((string)$input['amount'], $input['currency']);
+                    return Money::fromString((string)$input['amount'], $input['currency']);
                 },
                 function (Money $money) {
                     return [
