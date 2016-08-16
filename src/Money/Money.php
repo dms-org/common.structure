@@ -191,11 +191,7 @@ class Money extends ValueObject
     {
         $fractionDigits = $this->currency->getDefaultFractionDigits();
 
-        if ($this->amount === 0) {
-            $wholePart = '0';
-        } else {
-            $wholePart = substr((string)$this->amount, 0, -$fractionDigits);
-        }
+        $wholePart = substr((string)$this->amount, 0, -$fractionDigits) ?: '0';
 
         $fractionalPart = str_pad(substr((string)$this->amount, -$fractionDigits), $fractionDigits, '0', STR_PAD_RIGHT);
 

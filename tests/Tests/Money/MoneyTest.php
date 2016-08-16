@@ -116,5 +116,8 @@ class MoneyTest extends CmsTestCase
 
         $money = new Money(0, new Currency(Currency::AUD));
         $this->assertSame('0.00', $money->asString());
+
+        $money = new Money(10, new Currency(Currency::AUD));
+        $this->assertSame('0.10', $money->asString());
     }
 }
