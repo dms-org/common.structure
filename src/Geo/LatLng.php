@@ -38,15 +38,15 @@ class LatLng extends ValueObject
     {
         if ($lat < -90 || $lat > 90) {
             throw InvalidArgumentException::format(
-                    'Invalid latitude supplied to %s: must between -90 and 90, %d given',
-                    __METHOD__, $lat
+                'Invalid latitude supplied to %s: must between -90 and 90, %d given',
+                __METHOD__, $lat
             );
         }
 
         if ($lng < -180 || $lng > 180) {
             throw InvalidArgumentException::format(
-                    'Invalid longitude supplied to %s: must between -180 and 180, %d given',
-                    __METHOD__, $lng
+                'Invalid longitude supplied to %s: must between -180 and 180, %d given',
+                __METHOD__, $lng
             );
         }
 
@@ -80,5 +80,36 @@ class LatLng extends ValueObject
     public function getLng() : float
     {
         return $this->lng;
+    }
+
+    /**
+     * @param LatLng $latLng
+     *
+     * @return float
+     */
+    public function getDistanceFromInKm(LatLng $latLng) : float
+    {
+        $latitudeFrom = $this->lat;
+        $latitudeTo   = $latLng->lat;
+
+        $longitudeFrom = $this->lng;
+        $longitudeTo   = $latLng->lng;
+
+        $earthRadius = 6371;
+
+        $latFrom = deg2rad($latitudeFrom);
+        $lonFrom = deg2rad($longitudeFrom);
+        $latTo   = deg2rad($latitudeTo);
+        $lonTo   = deg2rad($longitudeTo);
+
+        $lonDelta = $lonTo - $lonFrom;
+        $a        = pow(cos($latTo) * sin($lonDelta), 2) +
+            pow(cos($latFrom) * sin($latTo) - sin($latFrom) * cos($latTo) * cos($lonDelta), 2);
+        $b        = sin($latFrom) * sin($latTo) + cos($latFrom) * cos($latTo) * cos($lonDelta);
+
+        $angle = atan2(sqrt($a), $b);
+
+        return $angle * $earthRadius;
+
     }
 }
