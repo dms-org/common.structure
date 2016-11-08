@@ -25,7 +25,9 @@ class PathHelper
 
         $path = self::stringReplaceIgnoringStreamWrapper(['\\', '/'], DIRECTORY_SEPARATOR, $path);
 
-        while (strpos($path, DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR) !== false) {
+        $startOfPath = strpos($path, '://') === false ? 0 : strpos($path, '://') + strlen('://');
+
+        while (strpos($path, DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, $startOfPath) !== false) {
             $path = self::stringReplaceIgnoringStreamWrapper(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $path);
         }
 
