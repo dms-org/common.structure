@@ -13,6 +13,7 @@ class PathHelper
      * Normalizes the supplied path
      *
      * @param string $path
+     *
      * @return string
      */
     public static function normalize(string $path) : string
@@ -21,7 +22,14 @@ class PathHelper
             return $path;
         }
 
-        return str_replace(['\\\\', '//', '\\', '/'], DIRECTORY_SEPARATOR, $path);
+
+        $path = self::stringReplaceIgnoringStreamWrapper(['\\', '/'], DIRECTORY_SEPARATOR, $path);
+
+        while (strpos($path, DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR) !== false) {
+            $path = self::stringReplaceIgnoringStreamWrapper(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $path);
+        }
+
+        return $path;
     }
 
     /**
@@ -33,6 +41,40 @@ class PathHelper
      */
     public static function combine(string ... $paths) : string
     {
-        return str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, implode(DIRECTORY_SEPARATOR, array_map([__CLASS__, 'normalize'], $paths)));
+        $paths = array_map([__CLASS__, 'normalize'], $paths);
+
+        $paths = array_filter($paths, function ($path) {
+            return trim($path, DIRECTORY_SEPARATOR) !== '.';
+        });
+
+        $combinedPath = implode(DIRECTORY_SEPARATOR, $paths);
+
+        return self::stringReplaceIgnoringStreamWrapper(
+            DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR,
+            DIRECTORY_SEPARATOR,
+            $combinedPath
+        );
+    }
+
+    /**
+     * @param string|array $toReplace
+     * @param string|array $replacement
+     * @param string       $fullPath
+     *
+     * @return string
+     */
+    protected static function stringReplaceIgnoringStreamWrapper($toReplace, $replacement, string $fullPath):string
+    {
+        if (strpos($fullPath, '://') !== false) {
+            list($streamWrapper, $path) = explode('://', $fullPath, 2);
+
+            return $streamWrapper . '://' . ltrim(str_replace(
+                $toReplace,
+                $replacement,
+                $path
+            ), DIRECTORY_SEPARATOR);
+        } else {
+            return str_replace($toReplace, $replacement, $fullPath);
+        }
     }
 }
