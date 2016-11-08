@@ -30,31 +30,38 @@ class RelativePathCalculator
             return $to;
         }
 
-        // some compatibility fixes for Windows paths
-        $fromDir = str_replace('\\', '/', $fromDir);
-        $to      = str_replace('\\', '/', $to);
+        list($fromStreamWrapper, $fromDirPath) = $this->splitStreamWrapperAndPath($fromDir);
+        list($toStreamWrapper, $toPath) = $this->splitStreamWrapperAndPath($to);
 
-        if (substr($fromDir, -1) !== '/') {
-            $fromDir .= '/';
+        if ($fromStreamWrapper !== $toStreamWrapper) {
+            return $to;
+        }
+
+        // some compatibility fixes for Windows paths
+        $fromDirPath = str_replace('\\', '/', $fromDirPath);
+        $toPath      = str_replace('\\', '/', $toPath);
+
+        if (substr($fromDirPath, -1) !== '/') {
+            $fromDirPath .= '/';
         }
 
         // Optimize common case where $to is a sub path of $from
-        if (strpos($to, $fromDir) === 0) {
-            return PathHelper::normalize(substr($to, strlen($fromDir)) ?: './');
+        if (strpos($toPath, $fromDirPath) === 0) {
+            return PathHelper::normalize(substr($toPath, strlen($fromDirPath)) ?: './');
         }
 
-        $fromDir = explode('/', $fromDir);
-        $to      = explode('/', $to);
-        $relPath = $to;
+        $fromDirPath = explode('/', $fromDirPath);
+        $toPath      = explode('/', $toPath);
+        $relPath     = $toPath;
 
-        foreach ($fromDir as $depth => $dir) {
+        foreach ($fromDirPath as $depth => $dir) {
             // find first non-matching dir
-            if (isset($to[$depth]) && $dir === $to[$depth]) {
+            if (isset($toPath[$depth]) && $dir === $toPath[$depth]) {
                 // ignore this directory
                 array_shift($relPath);
             } else {
                 // get number of remaining dirs to $from
-                $remaining = count($fromDir) - $depth;
+                $remaining = count($fromDirPath) - $depth;
                 if ($remaining > 1) {
                     // add traversals up to first matching dir
                     $padLength = (count($relPath) + $remaining - 1) * -1;
@@ -89,6 +96,17 @@ class RelativePathCalculator
             return $relativePath;
         }
 
+        list($basePathStreamWrapper, $basePath) = $this->splitStreamWrapperAndPath($basePath);
+        list($relativeStreamWrapper, $relativePathWithoutStreamWrapper) = $this->splitStreamWrapperAndPath($relativePath);
+
+        $isAbsolutePath = $relativeStreamWrapper !== null;
+
+        if ($isAbsolutePath) {
+            return $relativePath;
+        } else {
+            $relativePath = $relativePathWithoutStreamWrapper;
+        }
+
         $basePath     = str_replace('\\', '/', $basePath);
         $relativePath = str_replace('\\', '/', $relativePath);
 
@@ -97,14 +115,15 @@ class RelativePathCalculator
         }
 
         if (strpos($relativePath, '.') === false) {
-            return PathHelper::normalize(str_replace('//', '/', $basePath . '/' . $relativePath));
+            return ($basePathStreamWrapper ? $basePathStreamWrapper . '://' : '')
+            . PathHelper::normalize(str_replace('//', '/', $basePath . '/' . $relativePath));
         }
 
         $parts          = explode('/', $basePath);
         $relativeParts  = explode('/', trim($relativePath, '/'));
         $isDrivePath    = substr($basePath, 1, 1) === ':';
-        $precedingSlash = $isDrivePath ? '' : '/';
-        $trailingSlash  = substr($relativePath, -1) === '/' ? '/' : '';
+        $precedingSlash = $basePathStreamWrapper || $isDrivePath ? '' : '/';
+        $trailingSlash  = !$basePathStreamWrapper && substr($relativePath, -1) === '/' ? '/' : '';
 
         foreach ($parts as $key => $part) {
             if ($part === '') {
@@ -122,6 +141,22 @@ class RelativePathCalculator
             }
         }
 
-        return PathHelper::normalize($precedingSlash . implode('/', $parts) . ($parts ? $trailingSlash : ''));
+        return ($basePathStreamWrapper ? $basePathStreamWrapper . '://' : '')
+        . PathHelper::normalize($precedingSlash . implode('/', $parts) . ($parts ? $trailingSlash : ''));
+    }
+
+    /**
+     * @param string $path
+     *
+     * @return array
+     */
+    protected function splitStreamWrapperAndPath(string $path) : array
+    {
+        if (strpos($path, '://') !== false) {
+            list($streamWrapper, $path) = explode('://', $path, 2);
+            return [$streamWrapper, $path];
+        } else {
+            return [null, $path];
+        }
     }
 }

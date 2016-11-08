@@ -27,28 +27,33 @@ class RelativePathCalculatorTest extends CmsTestCase
     public function pathTests()
     {
         return [
-                ['from' => '/', 'to' => '/', 'relative' => './'],
-                ['from' => '/abc', 'to' => '/abc', 'relative' => './', 'resolve-to' => '/abc/'],
-                ['from' => '/abc/', 'to' => '/abc/', 'relative' => './'],
-                //
-                ['from' => '/abc', 'to' => '/', 'relative' => '../'],
-                ['from' => '/abc/', 'to' => '/', 'relative' => '../'],
-                ['from' => '/abc/def', 'to' => '/', 'relative' => '../../'],
-                ['from' => '/abc/def/', 'to' => '/', 'relative' => '../../'],
-                ['from' => '/abc/def/', 'to' => '/abc', 'relative' => '../', 'resolve-to' => '/abc/'],
-                //
-                ['from' => '/', 'to' => '/abc', 'relative' => 'abc'],
-                ['from' => '/', 'to' => '/abc/def', 'relative' => 'abc/def'],
-                ['from' => '/abc', 'to' => '/abc/def', 'relative' => 'def'],
-                ['from' => '/abc/', 'to' => '/abc/def', 'relative' => 'def'],
-                ['from' => '/abc/def', 'to' => '/123', 'relative' => '../../123'],
-                //
-                ['from' => '/media/dev/some-project/resources', 'to' => '/media/dev/some-project/resources/doc.pdf', 'relative' => 'doc.pdf'],
-                ['from' => '/media/dev/some-project/resources/', 'to' => '/media/dev/some-project/resources/doc.pdf', 'relative' => 'doc.pdf'],
-                ['from' => '/media/dev/some-project/resources', 'to' => '/media/dev/doc.pdf', 'relative' => '../../doc.pdf'],
-                ['from' => '/media/dev/some-project/resources/', 'to' => '/media/dev/doc.pdf', 'relative' => '../../doc.pdf'],
-                //
-                ['from' => 'C:\\abc\\foo\\', 'to' => 'C:\\def', 'relative' => '..\\..\\def'],
+            ['from' => '/', 'to' => '/', 'relative' => './'],
+            ['from' => '/abc', 'to' => '/abc', 'relative' => './', 'resolve-to' => '/abc/'],
+            ['from' => '/abc/', 'to' => '/abc/', 'relative' => './'],
+            //
+            ['from' => '/abc', 'to' => '/', 'relative' => '../'],
+            ['from' => '/abc/', 'to' => '/', 'relative' => '../'],
+            ['from' => '/abc/def', 'to' => '/', 'relative' => '../../'],
+            ['from' => '/abc/def/', 'to' => '/', 'relative' => '../../'],
+            ['from' => '/abc/def/', 'to' => '/abc', 'relative' => '../', 'resolve-to' => '/abc/'],
+            //
+            ['from' => '/', 'to' => '/abc', 'relative' => 'abc'],
+            ['from' => '/', 'to' => '/abc/def', 'relative' => 'abc/def'],
+            ['from' => '/abc', 'to' => '/abc/def', 'relative' => 'def'],
+            ['from' => '/abc/', 'to' => '/abc/def', 'relative' => 'def'],
+            ['from' => '/abc/def', 'to' => '/123', 'relative' => '../../123'],
+            //
+            ['from' => '/media/dev/some-project/resources', 'to' => '/media/dev/some-project/resources/doc.pdf', 'relative' => 'doc.pdf'],
+            ['from' => '/media/dev/some-project/resources/', 'to' => '/media/dev/some-project/resources/doc.pdf', 'relative' => 'doc.pdf'],
+            ['from' => '/media/dev/some-project/resources', 'to' => '/media/dev/doc.pdf', 'relative' => '../../doc.pdf'],
+            ['from' => '/media/dev/some-project/resources/', 'to' => '/media/dev/doc.pdf', 'relative' => '../../doc.pdf'],
+            //
+            ['from' => 'C:\\abc\\foo\\', 'to' => 'C:\\def', 'relative' => '..\\..\\def'],
+            //
+            ['from' => 's3://some-bucket', 'to' => 's3://some-bucket', 'relative' => './'],
+            ['from' => 's3://some-bucket', 'to' => 's3://some-bucket/some/sub/folder', 'relative' => 'some/sub/folder'],
+            ['from' => 's3://some-bucket/other', 'to' => 's3://some-bucket/some/sub/folder', 'relative' => '../some/sub/folder'],
+            ['from' => 's3://some-bucket/other', 'to' => 'http://some-other-url', 'relative' => 'http://some-other-url'],
         ];
     }
 
@@ -58,8 +63,8 @@ class RelativePathCalculatorTest extends CmsTestCase
     public function testRelativePathCalculator($from, $to, $relative)
     {
         $this->assertSame(
-                PathHelper::normalize($relative),
-                $this->calculator->getRelativePath($from, $to)
+            PathHelper::normalize($relative),
+            $this->calculator->getRelativePath($from, $to)
         );
     }
 
@@ -70,15 +75,15 @@ class RelativePathCalculatorTest extends CmsTestCase
     {
         $this->assertSame(
             PathHelper::normalize($resolveTo ?: $to),
-                $this->calculator->resolveRelativePath($from, $relative)
+            $this->calculator->resolveRelativePath($from, $relative)
         );
     }
 
     public function testRelativeParentOfRoot()
     {
         $this->assertSame(
-                PathHelper::normalize('/'),
-                $this->calculator->resolveRelativePath('/', '../../')
+            PathHelper::normalize('/'),
+            $this->calculator->resolveRelativePath('/', '../../')
         );
     }
 }
