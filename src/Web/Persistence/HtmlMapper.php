@@ -14,11 +14,27 @@ use Dms\Core\Persistence\Db\Mapping\Definition\Column\ColumnTypeDefiner;
 class HtmlMapper extends StringValueObjectMapper
 {
     /**
+     * @var bool
+     */
+    protected $longText = false;
+
+    /**
      * @inheritDoc
      */
-    public function __construct($columnName = 'html')
+    public function __construct(string $columnName = 'html', bool $longText = false)
     {
+        $this->longText = $longText;
         parent::__construct($columnName);
+    }
+
+    /**
+     * @param string $columnName
+     *
+     * @return HtmlMapper
+     */
+    public static function withLongText(string $columnName): self
+    {
+        return new self($columnName, true);
     }
 
     /**
@@ -26,7 +42,7 @@ class HtmlMapper extends StringValueObjectMapper
      *
      * @return string
      */
-    protected function classType() : string
+    protected function classType(): string
     {
         return Html::class;
     }
@@ -40,6 +56,10 @@ class HtmlMapper extends StringValueObjectMapper
      */
     protected function defineStringColumnType(ColumnTypeDefiner $stringColumn)
     {
-        $stringColumn->asText();
+        if ($this->longText) {
+            $stringColumn->asLongText();
+        } else {
+            $stringColumn->asText();
+        }
     }
 }
