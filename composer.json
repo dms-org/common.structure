@@ -1,6 +1,7 @@
 {
     "name": "dms/common.structure",
     "description": "Implementation of common data structures for use in domain models",
+    "license": "MIT",
     "authors": [
         {
             "name": "Elliot Levin",
