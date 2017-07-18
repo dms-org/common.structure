@@ -45,11 +45,10 @@ class ImageUploadTypeTest extends FileUploadTypeTest
 
     protected function mockUploadedFile($name, $fileSize = 10, $isValidImage = true, $height = 10, $width = 10)
     {
-        $mock = $this->getMock(
-                UploadedImage::class,
-                ['getSize', 'isValidImage', 'getHeight', 'getWidth'],
-                ['somepath/' . $name, UPLOAD_ERR_OK]
-        );
+        $mock = $this->getMockBuilder(UploadedImage::class)
+            ->setMethods(['getSize', 'isValidImage', 'getHeight', 'getWidth'])
+            ->setConstructorArgs(['somepath/' . $name, UPLOAD_ERR_OK])
+            ->getMock();
 
         $mock->method('getSize')->willReturn($fileSize);
         $mock->method('getHeight')->willReturn($height);
@@ -62,13 +61,13 @@ class ImageUploadTypeTest extends FileUploadTypeTest
     public function testInvalidImage()
     {
         $this->testValidation(
-                ['action' => UploadAction::STORE_NEW, 'file' => $file = $this->mockUploadedFile('new', 1024, false)],
-                [new Message(UploadedImageValidator::MESSAGE, ['field' => 'File', 'input' => $file])]
+            ['action' => UploadAction::STORE_NEW, 'file' => $file = $this->mockUploadedFile('new', 1024, false)],
+            [new Message(UploadedImageValidator::MESSAGE, ['field' => 'File', 'input' => $file])]
         );
 
         $this->testValidation(
-                ['action' => UploadAction::STORE_NEW, 'file' => $file = parent::mockUploadedFile('new', 1024)],
-                [new Message(TypeValidator::MESSAGE, ['field' => 'File', 'input' => $file, 'type' => IUploadedImage::class . '|null'])]
+            ['action' => UploadAction::STORE_NEW, 'file' => $file = parent::mockUploadedFile('new', 1024)],
+            [new Message(TypeValidator::MESSAGE, ['field' => 'File', 'input' => $file, 'type' => IUploadedImage::class . '|null'])]
         );
     }
 
@@ -77,13 +76,13 @@ class ImageUploadTypeTest extends FileUploadTypeTest
         $this->loadFieldType((new ImageUploadType())->with(ImageUploadType::ATTR_MAX_HEIGHT, 100));
 
         $this->testProcess(
-                ['action' => UploadAction::STORE_NEW, 'file' => $file = $this->mockUploadedFile('new', 1024, true, 100)],
-                $file
+            ['action' => UploadAction::STORE_NEW, 'file' => $file = $this->mockUploadedFile('new', 1024, true, 100)],
+            $file
         );
 
         $this->testValidation(
-                ['action' => UploadAction::STORE_NEW, 'file' => $file = $this->mockUploadedFile('new', 1024, true, 101)],
-                [new Message(ImageDimensionsValidator::MESSAGE_MAX_HEIGHT, ['field' => 'File', 'input' => $file, 'max_height' => 100])]
+            ['action' => UploadAction::STORE_NEW, 'file' => $file = $this->mockUploadedFile('new', 1024, true, 101)],
+            [new Message(ImageDimensionsValidator::MESSAGE_MAX_HEIGHT, ['field' => 'File', 'input' => $file, 'max_height' => 100])]
         );
     }
 }
