@@ -1,5 +1,5 @@
 {
-    "name": "dms/common.structure",
+    "name": "dms-org/common.structure",
     "description": "Implementation of common data structures for use in domain models",
     "license": "MIT",
     "authors": [
@@ -9,12 +9,6 @@
         }
     ],
     "minimum-stability": "stable",
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://api.package.studio/meta/composer"
-        }
-    ],
     "autoload": {
         "psr-4": {
             "Dms\\Common\\Structure\\": "./src/"
@@ -22,7 +16,7 @@
     },
     "require": {
         "php": ">=7.0.0",
-        "dms/core": "^0.1",
+        "dms-org/core": "^0.8",
         "phine/country": "^1.1"
     },
     "autoload-dev": {
@@ -32,6 +26,6 @@
         }
     },
     "require-dev": {
-        "dms/common.testing": "dev-master"
+        "dms-org/common.testing": "dev-master"
     }
 }
