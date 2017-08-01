@@ -1,14 +1,11 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace Dms\Common\Structure\Geo;
 
 use Dms\Core\Exception\InvalidArgumentException;
 use Dms\Core\Model\Object\Enum;
-use Dms\Core\Model\Object\InvalidEnumValueException;
 use Dms\Core\Model\Object\PropertyTypeDefiner;
-use Phine\Country\CountryInterface;
-use Phine\Country\Loader\Loader;
-use Phine\Country\Loader\LoaderInterface;
+use League\ISO3166\ISO3166;
 
 /**
  * The country enum.
@@ -57,10 +54,10 @@ class Country extends Enum
     const BG = 'BG';
     const BF = 'BF';
     const BI = 'BI';
+    const CV = 'CV';
     const KH = 'KH';
     const CM = 'CM';
     const CA = 'CA';
-    const CV = 'CV';
     const KY = 'KY';
     const CF = 'CF';
     const TD = 'TD';
@@ -227,11 +224,11 @@ class Country extends Enum
     const SO = 'SO';
     const ZA = 'ZA';
     const GS = 'GS';
+    const SS = 'SS';
     const ES = 'ES';
     const LK = 'LK';
     const SD = 'SD';
     const SR = 'SR';
-    const SS = 'SS';
     const SJ = 'SJ';
     const SZ = 'SZ';
     const SE = 'SE';
@@ -271,14 +268,14 @@ class Country extends Enum
     const ZW = 'ZW';
 
     /**
-     * @var LoaderInterface|null
+     * @var ISO3166|null
      */
     protected static $loader;
 
     /**
      * @var string[]|null
      */
-    protected static $shortNameMap;
+    protected static $nameMap;
 
     /**
      * @var string[]|null
@@ -286,20 +283,42 @@ class Country extends Enum
     protected static $alpha2CodeMap;
 
     /**
-     * @var CountryInterface[]
+     * @var array[]
      */
     protected static $countries = [];
 
     /**
-     * @return LoaderInterface
+     * @return ISO3166
      */
-    protected static function getLoader() : LoaderInterface
+    protected static function getLoader(): ISO3166
     {
         if (!self::$loader) {
-            self::$loader = new Loader();
+            self::$loader = new ISO3166();
         }
 
         return self::$loader;
+    }
+
+    /**
+     * Builds a country enum from the supplied country short name.
+     *
+     * @param string $countryName
+     *
+     * @return Country
+     * @throws InvalidArgumentException
+     */
+    public static function fromName(string $countryName): Country
+    {
+        self::getNameMap();
+
+        if (!isset(self::$alpha2CodeMap[$countryName])) {
+            throw InvalidArgumentException::format(
+                'Invalid country short name supplied to %s: country \'%s\' is not a valid option',
+                __METHOD__, $countryName
+            );
+        }
+
+        return new self(self::$alpha2CodeMap[$countryName]);
     }
 
     /**
@@ -309,19 +328,11 @@ class Country extends Enum
      *
      * @return Country
      * @throws InvalidArgumentException
+     * @deprecated use fromName()
      */
-    public static function fromShortName(string $countryShortName) : Country
+    public static function fromShortName(string $countryShortName): Country
     {
-        self::getShortNameMap();
-
-        if (!isset(self::$alpha2CodeMap[$countryShortName])) {
-            throw InvalidArgumentException::format(
-                'Invalid country short name supplied to %s: country \'%s\' is not a valid option',
-                __METHOD__, $countryShortName
-            );
-        }
-
-        return new self(self::$alpha2CodeMap[$countryShortName]);
+        return self::fromName($countryShortName);
     }
 
     /**
@@ -330,31 +341,31 @@ class Country extends Enum
      *
      * @return string[]
      */
-    public static function getShortNameMap() : array
+    public static function getNameMap(): array
     {
-        if (self::$shortNameMap === null) {
-            self::$shortNameMap = [];
-            $countries          = self::getLoader()->loadCountries();
+        if (self::$nameMap === null) {
+            self::$nameMap = [];
+            $countries     = self::getLoader()->all();
 
             foreach ($countries as $country) {
-                self::$shortNameMap[$country->getAlpha2Code()] = $country->getShortName();
+                self::$nameMap[$country['alpha2']] = $country['name'];
             }
 
-            self::$alpha2CodeMap = array_flip(self::$shortNameMap);
+            self::$alpha2CodeMap = array_flip(self::$nameMap);
         }
 
-        return self::$shortNameMap;
+        return self::$nameMap;
     }
 
     /**
-     * @return CountryInterface
+     * @return array
      */
-    protected function getCountry() : CountryInterface
+    protected function getCountryData(): array
     {
         $countryCode = $this->getValue();
 
         if (!isset(self::$countries[$countryCode])) {
-            self::$countries[$countryCode] = self::getLoader()->loadCountry($countryCode);
+            self::$countries[$countryCode] = self::getLoader()->alpha2($countryCode);
         }
 
         return self::$countries[$countryCode];
@@ -377,9 +388,9 @@ class Country extends Enum
      *
      * @return string The alpha-2 code.
      */
-    public function getAlpha2Code() : string
+    public function getAlpha2Code(): string
     {
-        return $this->getCountry()->getAlpha2Code();
+        return $this->getCountryData()['alpha2'];
     }
 
     /**
@@ -387,31 +398,19 @@ class Country extends Enum
      *
      * @return string The alpha-3 code.
      */
-    public function getAlpha3Code() : string
+    public function getAlpha3Code(): string
     {
-        return $this->getCountry()->getAlpha3Code();
+        return $this->getCountryData()['alpha3'];
     }
 
     /**
-     * Returns the ISO 3166-1 English long name or falls back to the short name
-     * if it is null.
+     * Returns the ISO 3166-1 English name.
      *
      * @return string
      */
-    public function getLongNameWithFallback() : string
+    public function getName(): string
     {
-        return $this->getCountry()->getLongName() ?? $this->getCountry()->getShortName();
-    }
-
-    /**
-     * Returns the ISO 3166-1 English long name.
-     *
-     * @return string|null If the long name is available, it is returned. If the
-     *                long name is not available, nothing (`null`) is returned.
-     */
-    public function getLongName()
-    {
-        return $this->getCountry()->getLongName();
+        return $this->getCountryData()['name'];
     }
 
     /**
@@ -419,18 +418,43 @@ class Country extends Enum
      *
      * @return integer The numeric code.
      */
-    public function getNumericCode() : int
+    public function getNumericCode(): int
     {
-        return (int)$this->getCountry()->getNumericCode();
+        return (int)$this->getCountryData()['numeric'];
+    }
+
+    /**
+     * Returns the ISO 3166-1 English long name or falls back to the short name
+     * if it is null.
+     *
+     * @return string
+     * @deprecated Use getName()
+     */
+    public function getLongNameWithFallback(): string
+    {
+        return $this->getLongName() ?? $this->getShortName();
+    }
+
+    /**
+     * Returns the ISO 3166-1 English long name.
+     *
+     * @return string|null If the long name is available, it is returned. If the
+     *                long name is not available, nothing (`null`) is returned.
+     * @deprecated Use getName()
+     */
+    public function getLongName()
+    {
+        return $this->getCountryData()['name'];
     }
 
     /**
      * Returns the ISO 3166-1 English short name.
      *
      * @return string The short name.
+     * @deprecated Use getName
      */
-    public function getShortName() : string
+    public function getShortName(): string
     {
-        return $this->getCountry()->getShortName();
+        return $this->getCountryData()['name'];
     }
 }

@@ -20,9 +20,7 @@ class CountryTest extends CmsTestCase
         $this->assertSame('AU', $enum->getAlpha2Code());
         $this->assertSame('AUS', $enum->getAlpha3Code());
         $this->assertSame(36, $enum->getNumericCode());
-        $this->assertSame(null, $enum->getLongName());
-        $this->assertSame('Australia', $enum->getShortName());
-        $this->assertSame('Australia', $enum->getLongNameWithFallback());
+        $this->assertSame('Australia', $enum->getName());
     }
 
     public function testInvalidCountry()
@@ -33,7 +31,7 @@ class CountryTest extends CmsTestCase
 
     public function testShortNameMap()
     {
-        $shortNameMap = Country::getShortNameMap();
+        $shortNameMap = Country::getNameMap();
 
         $this->assertSame(array_values(Country::getOptions()), array_keys($shortNameMap));
         $this->assertContainsOnly('string', $shortNameMap);

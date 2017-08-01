@@ -18,7 +18,7 @@ class GeoCountryChartTest extends CmsTestCase
     public function testNew()
     {
         $chart = new GeoCountryChart(
-            $country = ChartAxis::forField(Field::create('country', 'Country')->enum(Country::class, Country::getShortNameMap())->required()->build()),
+            $country = ChartAxis::forField(Field::create('country', 'Country')->enum(Country::class, Country::getNameMap())->required()->build()),
             $amount = ChartAxis::forField(Field::create('amount', 'Amount')->int()->build())
         );
 
