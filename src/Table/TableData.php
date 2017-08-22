@@ -54,16 +54,16 @@ class TableData extends ValueObjectCollection
      * @throws InvalidArgumentException
      */
     public function __construct(
-            string $cellType,
-            array $cells,
-            IIteratorScheme $scheme = null,
-            Collection $source = null
+        string $cellType,
+        array $cells,
+        IIteratorScheme $scheme = null,
+        Collection $source = null
     ) {
         /** @var TableDataCell $cellType */
         if (!is_subclass_of($cellType, TableDataCell::class, true)) {
             throw InvalidArgumentException::format(
-                    'Invalid cell class type supplied to %s: expecting subclass of %s, %s given',
-                    __METHOD__, TableDataCell::class, $cellType
+                'Invalid cell class type supplied to %s: expecting subclass of %s, %s given',
+                __METHOD__, TableDataCell::class, $cellType
             );
         }
 
@@ -74,6 +74,11 @@ class TableData extends ValueObjectCollection
         $this->rowKeyType    = $cellDefinition->getProperty(TableDataCell::ROW_KEY)->getType();
 
         $this->updateElements(new \ArrayIterator($cells));
+    }
+
+    public function createLazyCollection(callable $callback)
+    {
+        return new LazyTableData($this->getObjectType(), $callback);
     }
 
     protected function updateElements(\Traversable $elements)
@@ -159,18 +164,18 @@ class TableData extends ValueObjectCollection
             $cellValues = [];
             foreach ($columns as $columnKeyHash => $column) {
                 $cellValues[] = isset($cells[$columnKeyHash])
-                        ? $cells[$columnKeyHash]->cellValue
-                        : null;
+                    ? $cells[$columnKeyHash]->cellValue
+                    : null;
             }
 
             $rows[$key] = new TableDataRow(
-                    $columnIndexMap,
-                    $firstCell->getRowLabel(),
-                    $firstCell->rowKey,
-                    array_values($cellValues)
+                $columnIndexMap,
+                $firstCell->getRowLabel(),
+                $firstCell->rowKey,
+                array_values($cellValues)
             );
         }
-        
+
         $this->rows = $rows;
     }
 
@@ -198,8 +203,8 @@ class TableData extends ValueObjectCollection
     {
         if (!$this->rowKeyType->isOfType($rowKey)) {
             throw TypeMismatchException::format(
-                    'Invalid row key passed to %s: expecting type of %s, %s given',
-                    $method, $this->rowKeyType->asTypeString(), Debug::getType($rowKey)
+                'Invalid row key passed to %s: expecting type of %s, %s given',
+                $method, $this->rowKeyType->asTypeString(), Debug::getType($rowKey)
             );
         }
     }
@@ -208,8 +213,8 @@ class TableData extends ValueObjectCollection
     {
         if (!$this->columnKeyType->isOfType($columnKey)) {
             throw TypeMismatchException::format(
-                    'Invalid column key passed to %s: expecting type of %s, %s given',
-                    $method, $this->columnKeyType->asTypeString(), Debug::getType($columnKey)
+                'Invalid column key passed to %s: expecting type of %s, %s given',
+                $method, $this->columnKeyType->asTypeString(), Debug::getType($columnKey)
             );
         }
     }
@@ -250,8 +255,8 @@ class TableData extends ValueObjectCollection
 
         if (!isset($this->columns[$columnHash])) {
             throw InvalidArgumentException::format(
-                    'Invalid column key supplied to %s: expecting one of hashes (%s), value with \'%s\' hash given',
-                    __METHOD__, Debug::formatValues(array_keys($this->columns)), $columnHash
+                'Invalid column key supplied to %s: expecting one of hashes (%s), value with \'%s\' hash given',
+                __METHOD__, Debug::formatValues(array_keys($this->columns)), $columnHash
             );
         }
 
@@ -294,8 +299,8 @@ class TableData extends ValueObjectCollection
 
         if (!isset($this->rows[$rowHash])) {
             throw InvalidArgumentException::format(
-                    'Invalid row key supplied to %s: expecting one of hashes (%s), value with \'%s\' hash given',
-                    __METHOD__, Debug::formatValues(array_keys($this->rows)), $rowHash
+                'Invalid row key supplied to %s: expecting one of hashes (%s), value with \'%s\' hash given',
+                __METHOD__, Debug::formatValues(array_keys($this->rows)), $rowHash
             );
         }
 
