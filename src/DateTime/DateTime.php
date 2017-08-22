@@ -5,6 +5,9 @@ namespace Dms\Common\Structure\DateTime;
 /**
  * The date time value object.
  *
+ * This represents a date time in the default timezone.
+ * Useful for most apps that dont need to worry about timezone conversion.
+ *
  * @author Elliot Levin <elliotlevin@hotmail.com>
  */
 class DateTime extends DateTimeBase
@@ -20,8 +23,7 @@ class DateTime extends DateTimeBase
         parent::__construct(
                 \DateTimeImmutable::createFromFormat(
                         self::SERIALIZE_FORMAT,
-                        $dateTime->format(self::SERIALIZE_FORMAT),
-                        new \DateTimeZone('UTC')
+                        $dateTime->format(self::SERIALIZE_FORMAT)
                 )
         );
     }
@@ -36,8 +38,7 @@ class DateTime extends DateTimeBase
     public static function fromString(string $dateTimeString) : DateTime
     {
         return new self(new \DateTimeImmutable(
-                $dateTimeString,
-                new \DateTimeZone('UTC')
+                $dateTimeString
         ));
     }
 
