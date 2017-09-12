@@ -24,7 +24,7 @@ class TimezonedDateTimeRangeTest extends DateOrTimeRangeTest
 
     public function testStartAfterEnd()
     {
-        $this->setExpectedException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         new TimezonedDateTimeRange(
                 $start = TimezonedDateTime::fromString('2015-04-06', 'UTC'),

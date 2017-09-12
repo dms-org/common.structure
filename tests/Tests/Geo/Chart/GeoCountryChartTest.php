@@ -38,7 +38,7 @@ class GeoCountryChartTest extends CmsTestCase
 
     public function testInvalidCountryAxis()
     {
-        $this->setExpectedException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         new GeoCountryChart(
             $country = ChartAxis::forField(Field::create('address', 'Address')->string()->build()),

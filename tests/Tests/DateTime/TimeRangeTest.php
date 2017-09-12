@@ -25,7 +25,7 @@ class TimeRangeTest extends DateOrTimeRangeTest
 
     public function testStartAfterEnd()
     {
-        $this->setExpectedException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         new TimeRange(
                 $start = new TimeOfDay(06, 04, 06),

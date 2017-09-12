@@ -24,7 +24,7 @@ class DateTimeRangeTest extends DateOrTimeRangeTest
 
     public function testStartAfterEnd()
     {
-        $this->setExpectedException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         new DateTimeRange(
                 $start = DateTime::fromString('2015-04-06'),

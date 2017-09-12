@@ -45,7 +45,7 @@ class GeoCityChartTest extends CmsTestCase
 
     public function testInvalidCityAxis()
     {
-        $this->setExpectedException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         new GeoCountryChart(
             $country = ChartAxis::forField(Field::create('address', 'Address')->streetAddress()->build()),
@@ -55,7 +55,7 @@ class GeoCityChartTest extends CmsTestCase
 
     public function testInvalidCityLatLngAxis()
     {
-        $this->setExpectedException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         new GeoCountryChart(
             $city = ChartAxis::forField(Field::create('city', 'City')->string()->required()->build()),
