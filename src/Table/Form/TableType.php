@@ -139,7 +139,7 @@ class TableType extends InnerFormType
             if ($validation[ArrayOfType::ATTR_EXACT_ELEMENTS] ?? $validation[ArrayOfType::ATTR_MIN_ELEMENTS] ?? false) {
                 $validation[ArrayOfType::ATTR_FILL_KEYS_WITH_NULLS] = range(
                     0,
-                    count($validation[ArrayOfType::ATTR_EXACT_ELEMENTS] ?? $validation[ArrayOfType::ATTR_MIN_ELEMENTS])
+                    ($validation[ArrayOfType::ATTR_EXACT_ELEMENTS] ?? $validation[ArrayOfType::ATTR_MIN_ELEMENTS]) - 1
                 );
             }
         }

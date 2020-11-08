@@ -31,7 +31,7 @@ abstract class FieldTypeTest extends CmsTestCase
      */
     abstract protected function buildFieldType();
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->loadFieldType($this->buildFieldType());
     }

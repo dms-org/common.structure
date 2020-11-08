@@ -16,7 +16,7 @@ class RelativePathCalculatorTest extends CmsTestCase
      */
     protected $calculator;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->calculator = new RelativePathCalculator();
     }

@@ -32,7 +32,7 @@ class FileUploadTypeTest extends FieldTypeTest
         return new FileUploadType();
     }
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->field = $this->field->withInitialValue($this->mockUploadedFile('existing'));

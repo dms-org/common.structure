@@ -27,7 +27,7 @@ class BusinessHoursTimetableMapperTest extends DbIntegrationTest
      */
     private static $comparators = [];
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         self::$comparators[] = new IgnorePropertyComparator(Row::class, ['columnCellIndexMap']);
         self::$comparators[] = new IgnorePropertyComparator(TableData::class, ['columnCellIndexMap', 'instanceMap']);
@@ -37,7 +37,7 @@ class BusinessHoursTimetableMapperTest extends DbIntegrationTest
         }
     }
 
-    public static function tearDownAfterClass()
+    public static function tearDownAfterClass(): void
     {
         foreach (self::$comparators as $comparator) {
             Factory::getInstance()->unregister($comparator);

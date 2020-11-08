@@ -33,7 +33,7 @@ class CountryTest extends CmsTestCase
     {
         $shortNameMap = Country::getNameMap();
 
-        $this->assertSame(array_values(Country::getOptions()), array_keys($shortNameMap));
+        $this->assertEqualsCanonicalizing(array_values(Country::getOptions()), array_keys($shortNameMap));
         $this->assertContainsOnly('string', $shortNameMap);
     }
 
