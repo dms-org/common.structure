@@ -17,6 +17,7 @@
     "require": {
         "php": ">=7.0.0",
         "dms-org/core": "dev-upgrade",
+        "timetoogo/pinq": "dev-upgrade",
         "league/iso3166": "^2.0",
         "dms-org/common.testing": "dev-upgrade"
     },
