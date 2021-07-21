@@ -193,7 +193,7 @@ class Money extends ValueObject
 
         $wholePart = substr((string)$this->amount, 0, -$fractionDigits) ?: '0';
 
-        $fractionalPart = str_pad(substr((string)$this->amount, -$fractionDigits), $fractionDigits, '0', STR_PAD_RIGHT);
+        $fractionalPart = str_pad(substr((string)$this->amount, -$fractionDigits), $fractionDigits, '0', STR_PAD_LEFT);
 
         return $wholePart . '.' . $fractionalPart;
     }
