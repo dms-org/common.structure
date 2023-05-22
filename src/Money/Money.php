@@ -69,7 +69,7 @@ class Money extends ValueObject
                 round(
                     $currency->getSubUnit() *
                     round(
-                        $value,
+                        floatval($value),
                         $currency->getDefaultFractionDigits(),
                         PHP_ROUND_HALF_UP
                     ),
