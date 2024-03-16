@@ -16,7 +16,7 @@
     },
     "require": {
         "php": "^8.2",
-        "dms-org/core": "^0.9.0",
+        "dms-org/core": "dev-upgrade",
         "league/iso3166": "^4.0"
     },
     "autoload-dev": {
