@@ -15,9 +15,9 @@
         }
     },
     "require": {
-        "php": "^8.2",
+        "php": "^8.1",
         "dms-org/core": "dev-upgrade",
-        "league/iso3166": "^4.0"
+        "league/iso3166": "^2.0"
     },
     "autoload-dev": {
         "psr-4": {
